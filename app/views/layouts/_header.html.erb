@@ -1,0 +1,26 @@
+<div class="sign_in_container round">
+  <div class="sign_in_right">
+    <header>
+      <nav class="round">
+        <ul>
+          <% if signed_in? %>
+            <li><%= link_to "User Home", current_user %></li>
+            <li><%= link_to "Join League",  join_path%></li>
+            <li><%= link_to "Create League", new_league_path  %></li>
+            <li><%= link_to "Sign Out", signout_path, :method => :delete %></li>
+            <% if admin_user? %>
+              <li><%= link_to "Leagues", leagues_all_path %></li>
+            <% end %>
+          <% else %>
+            <li><%= link_to "Sign In", signin_path %></li>
+            <li><%= link_to "Sign Up", signup_path %></li>
+          <% end %>
+          <li><%= link_to "Rules", rules_path %></li>
+        </ul>
+      </nav>
+    </header>
+  </div>
+  <div class="sign_in_left">
+    <h1>Fantasy Sports Book</h1>
+  </div>
+</div>

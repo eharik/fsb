@@ -1,0 +1,26 @@
+<div class="container">
+  
+  <div class="user_profile">
+    <p><%= @user.name %></p>
+    <p><%= @user.email %></p>
+    <p><%= pluralize(@user.leagues.count, "Leagues") %></p>
+    <%= link_to "Edit Profile", :controller => "users", :action => "edit" %>
+  </div>
+  
+  <div class="user_leagues">
+    
+    <div class="league_header">
+      <h2>Leagues</h2>
+      <%= link_to "Join", :controller => "memberships", :action => "new" %>
+      <%= link_to "Create", :controller => "leagues", :action => "new" %>
+    </div>
+    
+    <% @user.leagues.each do |league| %>
+      <div class="league_summary">
+        <%= link_to league.name, :controller => "leagues", :action => "show", :id => league.id %>
+      </div>
+    <% end %>
+    
+  </div>
+  
+</div>

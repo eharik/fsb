@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C/DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+  <title><%= title %></title>
+  <!--[if lt IE 9]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <%= stylesheet_link_tag 'blueprint/screen', :media => 'screen' %>
+  <%= stylesheet_link_tag 'blueprint/print', :media => 'print' %>
+  <!--[if lt IE 8]><%= stylesheet_link_tag 'blueprint/ie' %><![endif]-->
+  <%= stylesheet_link_tag  'custom',           :media => 'screen' %>
+  <%= stylesheet_link_tag 'unobtrusive_flash', :media => 'screen' %>
+  <%= javascript_include_tag "unobtrusive_flash" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="site_banner">
+  <%= render 'layouts/header' %>
+  </div>
+  <div>
+    <%= yield %>
+  </div>
+</body>
+</html>

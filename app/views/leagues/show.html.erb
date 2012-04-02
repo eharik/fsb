@@ -1,0 +1,62 @@
+<div id="league_info_container" data-league_id=<%= params[:id] %> >
+  <div id="league_header">
+      <h1><%= @league.name %></h1>
+  </div>
+  
+  <div id="profile_container" class="round">
+    <div class="header">
+      <h2>Profile - <%= @user.name %></h2>
+    </div>
+    <%= render 'layouts/profile', :user => @user, :membership => @membership, :league => @league %>
+  </div>
+  
+  <div id="bets_container" class="round">
+    <div class="header">
+      <h2>Open Games</h2>
+    </div>
+    <div class="content">
+      <% @games.each do |game| %>
+        <%= render 'layouts/bets', :game => game %> 
+      <% end %>
+    </div>
+  </div>
+  
+  <div id="locks_container" class="round">
+    <div class="header">
+      <h2>Head 2 Head Locks</h2>
+    </div>
+    <%= render 'layouts/locks' %>
+  </div>
+  
+  <div id="bet_slip_container" class="round">
+    <div class="header">
+      <h2>Bet Slip</h2>
+    </div>
+    <div class="content">
+      <%= render 'layouts/bet_slip' %>
+    </div>
+    <div class="footer">
+      <p class="footer_left_container">
+        Total Risk: <span id="total_risk">0</span>
+      </p>
+      <p class="footer_right_container">
+        To Win: <span id="total_win">0</span>
+      </p>
+    </div>
+    <div class="footer footer2">
+      <%= submit_tag "Place Bets", :class => "footer_right_container" %>
+      <%= submit_tag "Clear Bets", :class => "footer_left_container"%>      
+    </div>
+  </div>
+
+  
+  <div id="league_standings_container" class="round">
+    <div class="header">
+      <h2>League Standings</h2>
+    </div>
+    <div class="content">
+      <%= render 'layouts/league_standings', :league => @league %>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,36 @@
+<div class="sign_in_container">
+
+  <div class="sign_in_right">
+    <h1> Fantasy Sports Book </h1>
+    <p> Welcome to Fantasy Sports Book!  Our goal is to
+    provide a new and entertaining alternative to your
+    standard fantasy sports leagues.  We incorporate the
+    best of sports betting and fantasy sports in an addicitve
+    and competative format.  Sign up and start your league
+    today!</p>
+    <% flash.each do |key, value| %>
+        <div class="flash <%= key %>"><%= value =%></div>
+    <% end %>
+  </div>
+  
+  <div class="sign_in_left">
+    
+    <h2 class="sign_in">Join League</h2>
+  
+    <%= form_for(@membership, :html => {:class => 'sign_in_form' } ) do |f| %>
+      <div class="field">
+        <%= f.label :league_name, "League Name" %><br />
+        <%= f.text_field :league_name%>
+      </div>
+      <div class="field">
+        <%= f.label :league_password, "League Password" %><br />
+        <%= f.password_field :league_password %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Join!" %>
+      </div>
+    <% end %>
+    
+  </div>
+  
+</div>

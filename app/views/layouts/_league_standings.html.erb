@@ -1,0 +1,7 @@
+<ol id="league_standings_list">
+  
+  <% league.memberships.each do |m| %>
+    <li> <pre><%= sprintf("%-18s", m.user.name) %> <%= sprintf("%15d", m.credits.week1) %> </pre> </li>
+  <% end %>
+
+</ol>

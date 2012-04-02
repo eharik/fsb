@@ -1,0 +1,54 @@
+<div class="bet" data-game=<%= game.id %>  >
+  
+  <div class="bet_lock">
+    Lock?
+  </div>
+  
+  <div class="bet_matchup">
+    <p class="away_team"><%= game.away_team %></p>
+    <p>@</p>
+    <p class="home_team"><%= game.home_team %></p>
+  </div>
+  
+  <div class="bet_spread">
+      <% bet_type_id = "bet_type#{game.game_id}"%>
+      <% if game.spread > 0 %>
+        <% label_top    = "give" %>
+        <% label_bottom = "take" %>
+      <% else %>
+        <% label_top    = "take" %>
+        <% label_bottom = "give" %>       
+      <% end %>
+    <div class="spread_label">
+        <p><%= (game.spread * -1) > 0 ? "+#{game.spread*-1}" : game.spread * -1 %></p>
+        <p><%= (game.spread) > 0 ? "+#{game.spread}" : game.spread %></p>
+    </div>
+    <div class="bet_checkbox">
+      <p>
+        <%= radio_button_tag bet_type_id.to_sym, label_top, false %>
+        <%= label_top %>
+      </p>
+      <p>
+        <%= radio_button_tag bet_type_id.to_sym, label_bottom, false %>
+        <%= label_bottom %>
+      </p>
+    </div>
+  </div>
+  
+  <div class="bet_spread">
+    <div class="spread_label">
+      <p><%= game.over_under %></p>
+    </div>
+    <div class="bet_checkbox">
+      <p>
+        <%= radio_button_tag bet_type_id.to_sym, "over", false %>
+        <%= "over" %>
+      </p>
+      <p>
+        <%= radio_button_tag bet_type_id.to_sym, "under", false %>
+        <%= "under" %>
+      </p>
+    </div>
+  </div>
+  
+</div>

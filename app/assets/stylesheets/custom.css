@@ -1,0 +1,445 @@
+/* Sign in page */
+
+h2.sign_in {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+}
+
+a.new_user {
+    color: #0000FF;
+    font-size: 1em;
+    margin: 5px;
+    padding-left: 130px;
+    width: 220px;
+    height: 25px;
+}
+
+form.sign_in_form {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding: 15px;
+    width: 220px;
+    height: 150px;
+    display: block;
+    border-color: #511;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #DEF
+
+}
+
+div {
+    margin: 5px;
+}
+
+div.actions {
+    padding-top: 5px;
+    padding-left: 140px;
+}
+
+div.sign_in_left {
+    margin: 0 600px 0 0;
+}
+
+div.sign_in_right {
+    float: right;
+    width: 600px;
+    padding-top: 20px;
+}
+
+div.sign_in_container {
+    max-width: 1280px;
+    min-width: 1280px;
+    width: auto;
+    mragin: 50px;
+    padding: 50px;
+}
+
+/* Navigation */
+
+nav {
+    float: right;
+}
+
+nav {
+    background-color: white;
+    padding: 0 0.7em;
+    white-space: nowrap;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 0.2em 0;
+}
+
+nav ul li a {
+    padding: 0 5px;
+    font-weight: bold;
+}
+
+nav ul li a:visited {
+    color: #09c;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Site Banner */
+div.site_banner {
+    height: 75px;
+    padding: 1px 15px;
+}
+
+div.site_banner div.sign_in_container {
+    padding: 0px;
+    background-color: #DEF
+}
+
+div.site_banner div.sign_in_right {
+    padding: 15px;
+    width: 500px;
+}
+
+div.site_banner div.sign_in_left {
+    padding: 15px;
+    font-family: fantasy;
+    font-style: italic;
+    font-variant: small-caps;
+}
+
+div.site_banner h1 {
+    vertical-align: middle;
+    margin: 0px;
+}
+
+.round {
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border-color: #000;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/* Bets */
+
+#bets_container {
+    max-width: 540px;
+    min-width: 540px;
+    min-height: 614px;
+    max-height: 614px;
+    position: absolute;  top: 155px;  left: 390px;
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #F4F0EC; /*isabelline*/
+}
+
+.header {
+    border-bottom: 1px solid #555;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+.header h2 {
+    max-height: 30px;
+    vertical-align: middle;
+}
+.content {
+    overflow-y: auto;
+    min-height: 555px;
+    max-height: 555px;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+#league_standings_container .content{
+    min-height: 244px;
+    max-height: 244px;
+    width: auto;
+}
+
+.bet {
+    background-color: #DEF;
+    padding: 10px;
+    white-space: nowrap;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 500px;
+    height: 75px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(0, 112, 255);
+    
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.bet p {
+    margin: .25em;
+}
+.bet .bet_lock {
+    float: left;
+    padding: 15px 15px 15px 5px;
+    
+    -webkit-transform: rotate(-90deg); 
+    -moz-transform: rotate(-90deg);
+}
+
+.bet .bet_matchup  {
+    float: left;
+    padding: 5px;
+    min-width: 80px;
+    max-width: 80px;
+}
+
+.bet .bet_spread {
+    float: left;
+    padding: 0px 0px 10px 20px;
+    width:  120px;
+}
+
+.bet .spread_label {
+    float: left;
+    padding: 6px 2px 2px 2px;
+    margin: 2px;
+}
+
+.spread p {
+    margin: .5em;
+    
+}
+
+.bet .bet_checkbox {
+    float: left;
+}
+
+.bet .bet_over_under {
+    float: left;
+    padding: 15px;
+    width: 125px;
+
+}
+
+.bet a:visited {
+    color: #09c;
+}
+
+.bet a:hover {
+    text-decoration: underline;
+}
+
+/* Profile Container*/
+
+#profile_container {
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    position: absolute;  top: 155px;  left: 25px;
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #F4F0EC; /*isabelline*/
+}
+
+.profile_sub_container {
+    min-width: 160px;
+    max-width: 160px;
+    min-height: 120px;
+    max-height: 120px;
+    float: left;
+    overflow: hidden;
+}
+
+.profile_sub_container.right_side{
+    font-size: 120%;
+}
+
+.profile_sub_container.bottom {
+    min-width: 338px;
+    max-width: 338px;
+    min-height: 100px;
+    max-height: 100px;
+}
+
+.profile_sub_container p {
+    margin: 12px 1px;
+}
+
+.profile_sub_container pre {
+    margin: .5em 0em;
+    font-family: sans-serif;
+}
+
+/* League Standings */
+#league_standings_container{
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    position: absolute;  top: 470px;  left: 25px;
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #F4F0EC; /*isabelline*/
+}
+
+#league_standings_list {
+    margin: 15px 10px;
+}
+
+#league_standings_list li {
+    margin: 4px 0px;
+    font-size: 120%;
+}
+
+
+#locks_container {
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    position: absolute;  top: 155px;  left: 945px;
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #F4F0EC; /*isabelline*/
+}
+
+#bet_slip_container {
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    position: absolute;  top: 470px;  left: 945px;
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #F4F0EC; /*isabelline*/
+}
+
+#league_info_container {
+    min-width: 1300px;
+    max-width: 1300px;
+    min-width: 1300px;
+    min-height: 1200px;
+    padding: 1px 5px;
+}
+
+#bet_slip_container .content {
+    max-height: 170px;
+    min-height: 170px;
+    overflow: auto;
+}
+
+#bet_slip_container .footer {
+    max-height: 30px;
+    min-height: 30px;
+    border-top: 1px solid #555;
+}
+
+.footer_left_container {
+    margin: 4px;
+    font-size: large;
+    float: left;
+}
+
+.footer_right_container {
+    margin: 4px;
+    font-size: large;
+    float: right;
+}
+
+.footer2 .footer_left_container {
+    float: right;
+}
+
+#total_risk {
+
+}
+
+#total_win {
+
+}
+
+.new_bet {
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 310px;
+    max-width: 310px;
+    color: #FFF;
+    background-color: rgb(0, 112, 255);
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
+
+.bet_top {
+    margin: 3px 25px 2px 25px;
+    min-height: 20px;
+}
+
+.bet_bottom {
+    margin: 5px 25px 0px 25px;
+    min-height: 20px;
+}
+
+.bet_divider {
+    min-height: 1px;
+    border-bottom: 1px solid #555;
+    margin: 0px;
+}
+
+.bet_top ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+.bet_top li{
+    list-style-type: none;
+    display: inline-block;
+}
+
+.list_left {
+    float: left;
+}
+
+.list_right {
+    float: right;
+}
+
+.list_right pre{
+    margin: 0;
+}
+
+.bet_bottom .left {
+    float: left;
+    margin: 0px;
+}
+
+.bet_bottom .right {
+    float: right;
+    margin: 0px;
+}
+
+#bet_risk {
+    margin: 0px 10px;
+    max-width: 100px;
+}
+
+#league_header h1 {
+    text-align: center;
+}
