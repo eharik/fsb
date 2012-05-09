@@ -6,8 +6,11 @@
 development:
 #  adapter: sqlite3
   adapter: postgresql
+  encoding: unicode
 #  database: db/development.sqlite3
-  database: db/development
+  database: fsb_development
+  username: postgres
+  password: password
   pool: 5
   timeout: 5000
 
@@ -17,15 +20,18 @@ development:
 test:
 #  adapter: sqlite3
   adapter: postgresql
-#  database: db/test.sqlite3
-  database: db/test
+  encoding: unicode
+#  database: db/development.sqlite3
+  database: fsb_test
+  username: postgres
+  password: password
   pool: 5
   timeout: 5000
 
 production:
-# adapter: sqlite3
-  adapter: postgresql
-#  database: db/production.sqlite3
-  database: db/production
+  adapter: sqlite3
+#  adapter: postgresql
+  database: db/production.sqlite3
+#  database: db/production
   pool: 5
   timeout: 5000

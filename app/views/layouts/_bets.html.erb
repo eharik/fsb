@@ -1,4 +1,4 @@
-<p><%= game.game_time.utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
+<p><%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
 <div class="bet" data-game=<%= game.id %>  >
   
   <div class="bet_lock">

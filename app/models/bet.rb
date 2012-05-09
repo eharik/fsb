@@ -48,8 +48,8 @@ class Bet < ActiveRecord::Base
   end
   
   def self.open_bets (league, user)
-    all_bets_for_user_in_league = Bet.where("league_id == ? AND
-                                             user_id   == ?",
+    all_bets_for_user_in_league = Bet.where("league_id = ? AND
+                                             user_id   = ?",
                                              league.id,
                                              user.id).all
     bets_for_return = []
@@ -63,8 +63,8 @@ class Bet < ActiveRecord::Base
   end
   
   def self.all_bets (league, user)
-    all_bets_for_user_in_league = Bet.where("league_id == ? AND
-                                             user_id   == ?",
+    all_bets_for_user_in_league = Bet.where("league_id = ? AND
+                                             user_id   = ?",
                                              league.id,
                                              user.id).all
     bets_for_return = []
@@ -78,13 +78,13 @@ class Bet < ActiveRecord::Base
   end
   
   def self.update_bet_for_game( g )
-    bets_to_update = Bet.where( "game_id == ? ", g.id ).all
+    bets_to_update = Bet.where( "game_id = ? ", g.id ).all
     
     bets_to_update.each do |b|
       unless (b.won == true || b.won == false)
         b.update_bet_status
-        m = Membership.where("league_id == ? AND
-                              user_id   == ?",
+        m = Membership.where("league_id = ? AND
+                              user_id   = ?",
                               b.league_id,
                               b.user_id).first
         m.update_credits_for_bet( b )
