@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   def new
-    @page_title = "Sign In"
+    if current_user
+      redirect_to current_user
+    else
+      @page_title = "Sign In"
+    end
   end
   
   def create

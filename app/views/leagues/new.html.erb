@@ -1,28 +1,67 @@
-<h1>Create New League</h1>
+<div class="sign_in_container">
 
-<%= form_for(@league) do |f| %>
-  <%= render 'shared/league_error_messages', :object => f.object %>
-  <div class="league_name">
-    <div class="field">
-      League Name:
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
-        League Password:
-        <%= f.password_field :password %>
-    </div>
-    <div class="field">
-        Confirm Password:
-        <%= f.password_field :password_confirmation %>
-    </div>
+  <div class="sign_in_right">
+    <h1> Fantasy Sports Book </h1>
+    <p> Welcome to Fantasy Sports Book!  Our goal is to
+    provide a new and entertaining alternative to your
+    standard fantasy sports leagues.  We incorporate the
+    best of sports betting and fantasy sports in an addicitve
+    and competative format.  Sign up and start your league
+    today!</p>
   </div>
-  <div class="league_members">
-    Send Invites
+  
+  <div class="sign_in_left">
+    
+    <h2 class="sign_in">Create New League</h2>
+  
+    <%= form_for @league, :html => { :multipart => true, :class => 'sign_in_form new_league'} do |f| %>
+      <%= render 'shared/league_error_messages', :object => f.object %>
+      <p>*See "Rules" page for details regarding the settings</p>
+      <div class="league_name"><br>
+        <div class="field">
+          League Name:
+          <%= f.text_field :name %>
+        </div>
+        <div class="field">
+            League Password:
+            <%= f.password_field :password %>
+        </div>
+        <div class="field">
+            Confirm Password:
+            <%= f.password_field :password_confirmation %>
+        </div>
+      </div>
+      <div class="league_members">
+        <br>
+        Send Invites
+      </div>
+      <div class="league_settings">
+        <br>
+        <%= f.fields_for :league_settings do |s| %>
+          <p>
+            Starting Credits (recommend 10,000):
+            <%= s.text_field  :start_credits, :value => @league.league_settings["start_credits"] %>
+          </p>
+          <p>
+            # of Buy Backs (recommend 2):
+            <%= s.text_field  :buy_backs,     :value => @league.league_settings["buy_backs"] %>
+          </p>
+          <p>
+            Head 2 Head Bet Amount (recommend 1,000):
+            <%= s.text_field  :h2h_bet,       :value => @league.league_settings["h2h_bet"] %>
+          </p>
+        <% end %>
+      </div>
+      <div class="field">
+      <br></br>
+          <%= f.label :photo, "Photo" %>
+          <%= f.file_field :photo, :size => 5 %>
+      </div>
+      <div class="actions">
+        <br>
+        <%= f.submit "Sign up" %>
+      </div>
+    <% end %>
   </div>
-  <div class="league_settings">
-    Settings
-  </div>
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+</div>
+

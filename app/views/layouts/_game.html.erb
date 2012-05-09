@@ -1,0 +1,19 @@
+<li class='games'>
+  <div class="hidden_div_link">
+    <%= submit_tag "", :id=>"update_bets_for_game", "data-game_id"=>"#{game.id}" %>
+  </div>
+  <div id='game_info' class='<%= game.game_status%> round' data-game_id=<%= game.id %> >
+    <div class='header'>
+      <pre><%= game.game_time_and_status %></pre>
+    </div>
+    <div>
+      <div class='top'>
+        <pre><%= game.away_team_with_score %></pre>
+      </div>
+      <div class='bet_divider'></div>
+      <div class='bottom'>
+        <pre><%= game.home_team_with_score %></pre>
+      </div>
+    </div>
+  </div>
+</li>

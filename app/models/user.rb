@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :leagues, :through => :bets
   has_many :memberships
   has_many :leagues, :through => :memberships
-  has_attached_file :photo, :styles => {:small => "160x225>"}
+  has_attached_file :photo, :styles => {:small => "160x225>", :thumb => "50x50>"}
   
   attr_accessor   :password
   attr_accessible :name, :email, :password, :password_confirmation, :photo
@@ -40,16 +40,31 @@ class User < ActiveRecord::Base
   def rank (league)
     ms = league.memberships
     num_members = ms.count
-    ms.sort! { |a,b| a.credits.week1 <=> b.credits.week1 }
+    ms.sort! { |a,b| a.credits.current.to_f <=> b.credits.current.to_f }
     ms.reverse!
     rank_index = ms.index{ |a| a.user_id == id } + 1
-    sprintf( "%10d/%d", rank_index, num_members)
+    sprintf( "%d/%d", rank_index, num_members)
+  end
+  
+  def open_bets_risk (league)
+    bets_to_sum = Bet.open_bets( league, self )
+    total_risk = 0
+    bets_to_sum.each do |b|
+      total_risk += b.risk
+    end
+    total_risk
+  end
+  
+  def credits (league)
+    Membership.where(:league_id => league.id, :user_id => id).first.credits.current
   end
   
   def record (league)
+    Membership.where(:league_id => league.id, :user_id => id).first.record
   end
   
   def buy_backs (league)
+    Membership.where(:league_id => league.id, :user_id => id).first.buy_backs
   end
   
   private

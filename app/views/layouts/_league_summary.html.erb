@@ -1,0 +1,17 @@
+<div class="league_summary round">
+  <div class="hidden_div_link">
+    <%= link_to content_tag(:span, "  "), :controller => "leagues", :action => "show", :id => league.id %>
+  </div>
+  <div class="profile_sub_container round">
+    <%= image_tag league.photo.url(:small) %>
+  </div>
+  <div class="profile_sub_container padded">
+    <p> <%= league.name %></p>
+    <p> Rank: <%=  current_user.rank(league) %></p>
+  </div>
+  <div class="profile_sub_container padded">
+    <p> <%= pluralize(current_user.credits(league), "Credit") %> </p>
+    <p> <%= pluralize(Bet.open_bets( league, current_user ).count, "Open Bet") %>
+      (Risk <%= current_user.open_bets_risk(league) %> Credits) </p>
+  </div>
+</div>

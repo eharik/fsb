@@ -2,10 +2,10 @@
   <%= image_tag user.photo.url(:small) %>
 </div>
 <div class="profile_sub_container right_side">
-  <pre>League Rank :   <%= user.rank(league) %></pre>
-  <pre>H2H Record :    <%= user.record(league) %></pre>
-  <pre>Credits : <%= sprintf("%21d", membership.credits.week1) %></pre>
-  <pre>Buy Backs Left: <%= user.buy_backs(league) %></pre>
+  <pre id="league_rank">League Rank :   <%= sprintf( "%-s", user.rank(league) ) %></pre>
+  <pre>H2H Record :     <%= user.record(league) %></pre>
+  <pre id="league_credits">Credits : <%= sprintf("%17d", membership.credits.current) %></pre>
+  <pre>Buy Backs Left:  <%= user.buy_backs(league) %></pre>
 </div>
 <div class="profile_sub_container bottom round">
   Paypal button for releasing credits will go here

@@ -1,0 +1,50 @@
+<% if bet.bet_type == "give" %>
+  <% if game.spread < 0 %>
+    <% team = game.home_team %>
+    <% number = game.spread*-1%>
+  <% end %>
+  <% if game.spread > 0 %>
+    <% team = game.away_team %>
+    <% number = game.spread %>
+  <% end %>
+<% end %>
+<% if bet.bet_type == "take" %>
+  <% if game.spread > 0 %>
+    <% team = game.home_team %>
+    <% number = game.spread %>
+  <% end %>
+  <% if game.spread < 0 %>
+    <% team = game.away_team %>
+    <% number = game.spread*-1 %>
+  <% end %>
+<% end %>
+<% if bet.bet_type == "over" %>
+    <% team = "#{game.away_team} @ #{game.home_team}" %>
+    <% number = game.over_under %>
+<% end %>
+<% if bet.bet_type == "under" %>
+    <% team = "#{game.away_team} @ #{game.home_team}" %>
+    <% number = game.over_under %>
+<% end %>
+
+<p><%= game.game_time.utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
+<div class="bet open_bet">
+  <div class="bet_top">
+    <ul>
+      <li class="list_left"><%= team %></li>
+      <li class="list_right"><%= number %></li>
+      <li class="list_right"><pre>  :  </pre></li>     
+      <li class="list_right"><%= bet.bet_type.capitalize %></li>
+    </ul>
+  </div>
+  <div class="bet_divider"></div>
+  <div class="bet_bottom">
+    <div class="left">
+      <p> Risk: <%= bet.risk %> </p>
+    </div>
+    <div class="right">
+      <p> To Win: <%= bet.win %> </p>
+    </div>
+  </div>
+
+</div>

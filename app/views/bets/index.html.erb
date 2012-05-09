@@ -1,0 +1,127 @@
+<script type="text/javascript" charset="utf-8">
+    $(function() {
+        new Highcharts.Chart({
+            chart: {
+                renderTo: "graph_container",
+                 backgroundColor: {
+                    linearGradient: [0, 0, 0, 400],
+                    stops: [
+                       [0, 'rgb(205, 205, 205)'],
+                       [1, 'rgb(255, 255, 255)']
+                    ]
+                 }
+            },
+            title: {
+                text: "League Credit Trends"
+            },
+            xAxis: {
+                type: "datetime"
+            },
+            yAxis: {
+                title: {
+                    text: "Credits"
+                }
+            },
+            legend: {
+               layout: 'vertical',
+               align: 'right',
+               verticalAlign: 'top'
+            },
+            series: [
+            <% @league.memberships.each do |m| %>
+                {
+                    name: "<%= m.user.name %>",
+                    data: <%= m.get_plot_data %>,
+                    lineWidth: <%= (m.user == @user ? 6 : 1) %>
+                },
+            <% end %>
+            ]
+        });
+    });
+</script>
+
+<div id="league_info_container" class="round" data-league_id=<%= @league.id %> data-user_id=<%= current_user.id %> >
+  
+    <div id="league_header">
+      <% @user.leagues.each do |l| %>
+        <div class="left">
+          <div class="hidden_div_link">
+              <%= link_to content_tag(:span, "  "), :controller => "leagues", :action => "show", :id => l.id %>
+          </div>
+          <%= image_tag l.photo.url(:thumb), :class => "round" %>
+        </div>
+      <% end %>
+      <h1><%= @league.name %></h1>
+      <nav class="round">
+        <ul>
+          <% if manager?(@league.id, @user.id) %>
+            <li><%= link_to content_tag(:span, "Edit League"), edit_league_path(@league) %></li>
+          <% end %>
+          <li><%= link_to "League Home", league_path(@league) %></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="container round" id="index">
+        <div class="header" data-league_id=<%= "#{@league.id}" %> >
+            <h2>
+                Sort by:
+                <div class="right" data-sort_by="users">
+                    <%= submit_tag "Users", :id => "sort_by_users", :class => "left" %>
+                    <%= submit_tag "Games", :id => "sort_by_games", :class => "right" %>
+                </div>
+            </h2>
+        </div>
+        <div id='league_users_container'>
+            <%= render 'layouts/league_users', :league => @league, :user => @user %>
+        </div>
+    </div>
+    
+    <div class="container round" id="list">
+        <div class="header">
+            <h2>
+                Bets 
+                <div class="right" data-order_by='date' data-order_direction='down' id='order_by'>
+                    <%= submit_tag "Amount", :id => "sort_by_amount", :class => "left" %>
+                    <%= submit_tag "Date",   :id => "sort_by_date",   :class => "right" %>
+                </div>
+            </h2>
+        </div>
+        <div class="content">
+            <% if @user == current_user %>
+                <% @open_bets.each do |bet| %>
+                    <%= render 'layouts/placed_bet', :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner? %> 
+                <% end %>
+            <% end %>
+            <% @all_bets.each do |bet| %>
+              <%= render 'layouts/placed_bet', :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner? %> 
+            <% end %>
+        </div>
+    </div>
+    
+    <div class="container round" id="stats">
+        <div class="header">
+            <h2>Stats</h2>
+        </div>
+        <div class="content">
+            <div class="left">
+                <p id="average_return">Average Return: <%= @membership.average_return %></p>
+                <p id="biggest_win">Biggest Win: <%= @membership.biggest_win %></p>
+                <p id="biggest_loss">Biggest Loss: <%= @membership.biggest_loss %></p>
+            </div>
+            <div class="right">
+                <p id="number_of_bets"># of Bets Placed: <%= @membership.number_of_bets %></p>
+                <p id="win_percentage">% of Bets Won: <%= @membership.win_percentage %></p>
+                <p id="league_average">League Average: <%= @membership.league_average %></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container round" id="graph">
+         <div id="graph_container">
+            
+         </div>
+    </div>
+    
+</div>
+    

@@ -27,13 +27,13 @@
     <% number = @game.over_under %>
 <% end %>
   
-  
+<p><%= @game.game_time.utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
 <div class="bet new_bet" data-game=<%= @game.id %> data-league_id=<%= @league_id %> data-bet_type=<%= @bet.bet_type %> >
   <div class="bet_top">
     <ul>
       <li class="list_left"><%= team %></li>
       <li class="list_right"><%= number %></li>
-      <li class="list_right"><pre>  :  </pre></li>     
+      <li class="list_right"><pre>:</pre></li>     
       <li class="list_right"><%= @bet.bet_type.capitalize %></li>
     </ul>
   </div>

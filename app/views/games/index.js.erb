@@ -1,0 +1,97 @@
+var previous_sort = $('#index').children(".header").children("h2").children(".right").attr('data-sort_by');
+if ( previous_sort == 'users' )
+{
+    $('#index').children(".header").children("h2").children(".right").attr('data-sort_by', 'games' );
+    
+    $('#league_standings_list').empty();
+    
+    $('#list').children('.content').empty();
+    
+    $('#league_standings_list')
+    .append('<% @all_games.each do |g| %>\
+                    <%= escape_javascript(render "layouts/game", :game => g )%>\
+            <% end %> ' );
+            
+    jQuery("input[id='update_bets_for_game']").each(function(index, button){
+        jQuery(button).click(function(){
+            league_id = $("#index").children(".header").data("league_id");
+            g_id = $(this).parent().siblings().attr('data-game_id');
+            get_string = "/leagues/" + league_id + "/games";
+            $.get(get_string, {game_id: g_id, sort_param: "date", direction: 'down'} );
+        });
+    });
+    
+    $('#list').children('.content')
+    .append('<% @all_bets.each do |bet| %>\
+                <%= escape_javascript(render "layouts/placed_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
+             <% end %> ' );
+}
+else
+{
+    $('#league_standings_list').attr('data-game_id', <%= escape_javascript( "#{@selected_game.id}" ) %> )
+    $('#league_standings_list').children().each( function() {
+        $(this).attr('data-selected_user', 'no');
+        if ( $(this).children('#game_info').attr('data-game_id') == <%= escape_javascript( "#{@selected_game.id}" ) %> )
+        {
+            $(this).attr('data-selected_user', 'yes');
+        }
+    });
+    
+    $('#list').children('.content').empty();
+    
+    <% if params[:sort_param] == 'amount' %>
+        <% @all_bets.sort! { |a, b| a.risk <=> b.risk  } %>
+        <% if (params[:direction] == 'down') %>
+            <% @all_bets.reverse! %>
+        <% end %>
+        if ( $('#order_by').attr('data-order_by') == 'amount' )
+            {
+            if ( $('#order_by').attr('data-order_direction') == 'down' )
+                {
+                $('#order_by').attr('data-order_direction', 'up');
+                }
+            else
+                {
+                $('#order_by').attr('data-order_direction', 'down');
+                }
+            }
+        $('#order_by').attr('data-order_by', 'amount');
+    <% else %>
+        <% @all_bets.sort! { |a, b| a.id <=> b.id } %>
+        <% if (params[:direction] == 'down') %>
+            <% @all_bets.reverse! %>
+        <% end %>
+        if ( $('#order_by').attr('data-order_by') == 'date' )
+            {
+            if ( $('#order_by').attr('data-order_direction') == 'down' )
+                {
+                $('#order_by').attr('data-order_direction', 'up');
+                }
+            else
+                {
+                $('#order_by').attr('data-order_direction', 'down');
+                }
+            }
+        $('#order_by').attr('data-order_by', 'date');
+    <% end %>
+    
+    $('#list').children('.content')
+    .append('<% @all_bets.each do |bet| %>\
+                <%= escape_javascript(render "layouts/placed_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
+             <% end %> ' );
+         
+}
+
+$('#list .bet').qtip({
+    content: {
+        text: 'Blah Blah Blah'
+    },
+    show: 'mouseover',
+    hide: 'mouseout',
+    position: {
+      corner: {
+         target: 'topRight',
+         tooltip: 'bottomLeft'
+      }
+   }
+});

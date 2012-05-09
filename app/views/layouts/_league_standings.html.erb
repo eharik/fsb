@@ -1,7 +1,11 @@
 <ol id="league_standings_list">
-  
-  <% league.memberships.each do |m| %>
-    <li> <pre><%= sprintf("%-18s", m.user.name) %> <%= sprintf("%15d", m.credits.week1) %> </pre> </li>
+  <% ordered_memberships = league.memberships.sort { |a,b| a.credits.current.to_f <=> b.credits.current.to_f } %>
+  <% ordered_memberships.reverse! %>
+  <% ordered_memberships.each do |m| %>
+    <li class="round">
+      <%= image_tag m.user.photo.url(:thumb) %>
+      <pre><%= sprintf("%-15s %8d", m.user.name,  m.credits.current) %> </pre>
+    </li>
   <% end %>
 
 </ol>

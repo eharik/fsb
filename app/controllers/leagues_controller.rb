@@ -22,7 +22,7 @@ class LeaguesController < ApplicationController
     @games = Game.open_games
     if @league.save
       join_as_mgr @league, @user
-      render :show
+      redirect_to @league
     else
       @page_title = "Sign up"
       render :new
@@ -39,13 +39,31 @@ class LeaguesController < ApplicationController
     
   end
   
-  def edit  
+  def edit
+    @league = League.find(params[:id])
+    @page_title = "Edit League"
   end
   
   def update
+    @league = League.find(params[:id])
+    if @league.update_attributes(params[:league])
+      flash[:success] = "League updated."
+      redirect_to @league
+    else
+      @title = "Edit league"
+      render 'edit'
+    end
   end
   
   def destroy
+  end
+  
+  def list_users
+    @league = League.find(params[:league])
+    
+    respond_to do |format|
+      format.js
+    end
   end
   
   private
@@ -59,7 +77,7 @@ class LeaguesController < ApplicationController
     end
     
     def league_manager
-      deny_access unless league_manager?(params[:id])
+      deny_access unless manager?(params[:id], current_user.id)
     end
     
   def admin_user

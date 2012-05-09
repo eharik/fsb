@@ -2,7 +2,9 @@ module SessionsHelper
   
   def join_as_mgr(league, user)
     @membership = Membership.new(:league_id => league.id, :user_id => user.id)
-    @membership.credits.week1 = 10000
+    starting_credits = league.league_settings["start_credits"].to_f
+    @membership.credits.current = starting_credits
+    @membership.credits.send("#{Time.now.to_s}=", starting_credits)
     @membership.save
     league.update_attributes(:manager => user.id)
   end
@@ -26,6 +28,11 @@ module SessionsHelper
   
   def admin_user?
     current_user.admin
+  end
+  
+  def manager?(league_id, user_id)
+    league = League.find(league_id)
+    league.manager == user_id
   end
   
   def in_league?

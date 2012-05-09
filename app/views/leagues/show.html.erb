@@ -1,18 +1,34 @@
-<div id="league_info_container" data-league_id=<%= params[:id] %> >
+<div id="league_info_container" class="round" data-league_id=<%= params[:id] %> >
   <div id="league_header">
-      <h1><%= @league.name %></h1>
+    <% @user.leagues.each do |l| %>
+      <div class="left">
+        <div class="hidden_div_link">
+            <%= link_to content_tag(:span, "  "), :controller => "leagues", :action => "show", :id => l.id %>
+        </div>
+        <%= image_tag l.photo.url(:thumb), :class => "round" %>
+      </div>
+    <% end %>
+    <h1><%= @league.name %></h1>
+    <nav class="round">
+      <ul>
+        <% if manager?(@league.id, @user.id) %>
+          <li><%= link_to content_tag(:span, "Edit League"), edit_league_path(@league) %></li>
+        <% end %>
+        <li><%= link_to "Bets", league_bets_path(@league) %></li>
+      </ul>
+    </nav>
   </div>
   
-  <div id="profile_container" class="round">
+  <div class="profile_container round">
     <div class="header">
       <h2>Profile - <%= @user.name %></h2>
     </div>
     <%= render 'layouts/profile', :user => @user, :membership => @membership, :league => @league %>
   </div>
   
-  <div id="bets_container" class="round">
+  <div class="bets_container round">
     <div class="header">
-      <h2>Open Games</h2>
+      <h2>Games</h2>
     </div>
     <div class="content">
       <% @games.each do |game| %>

@@ -1,13 +1,15 @@
 require 'digest'
+require 'ostruct'
 class League < ActiveRecord::Base
   has_many :bets, :dependent => :destroy
   has_many :users, :through => :bets
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
+  has_attached_file :photo, :styles => {:small => "160x225>", :thumb => "50x50"}
   
-  serialize :league_settings
+  serialize :league_settings, Hash
   attr_accessor   :password
-  attr_accessible :name, :password, :password_confirmation, :manager
+  attr_accessible :name, :password, :password_confirmation, :manager, :photo, :league_settings
   
   validates :name,     :presence     => true,
                        :uniqueness   => { :case_sensitive => false }
@@ -31,8 +33,24 @@ class League < ActiveRecord::Base
     (league && league.salt == cookie_salt) ? league : nil
   end
   
-  def rank
+  def self.scheduler_test
+    puts "**********scheduler_running --> #{Time.now} **************"
   end
+  
+ # def self.update_bets
+ #   puts "**********updating_bets**************"
+ #   League.all.each do |l|
+ #     l.memberships.each do |m|
+ #       user = User.find(m.user_id)
+ #       all_bets = Bet.all_bets(l, user)
+ #       all_bets.each do |b|
+ #         unless (b.won == true || b.won == false)
+ #           m.update_credits_for_bet( b )
+ #         end
+ #       end
+ #     end
+ #   end
+ # end
   
   private
   

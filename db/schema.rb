@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120331192343) do
+ActiveRecord::Schema.define(:version => 20120419013101) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at"
@@ -29,19 +29,21 @@ ActiveRecord::Schema.define(:version => 20120331192343) do
     t.float    "win"
     t.boolean  "lock"
     t.string   "bet_type"
+    t.boolean  "won"
   end
 
   create_table "games", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "home_team"
     t.string   "away_team"
-    t.float    "spread"
-    t.float    "over_under"
-    t.datetime "game_time"
-    t.float    "home_score"
-    t.float    "away_score"
+    t.decimal  "spread"
+    t.decimal  "over_under"
+    t.string   "game_time"
+    t.decimal  "home_score"
+    t.decimal  "away_score"
     t.string   "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "game_status"
   end
 
   create_table "leagues", :force => true do |t|
@@ -52,6 +54,10 @@ ActiveRecord::Schema.define(:version => 20120331192343) do
     t.integer  "manager"
     t.text     "league_settings"
     t.string   "salt"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "memberships", :force => true do |t|
@@ -60,6 +66,8 @@ ActiveRecord::Schema.define(:version => 20120331192343) do
     t.integer  "user_id"
     t.integer  "league_id"
     t.text     "credits"
+    t.string   "record"
+    t.integer  "buy_backs"
   end
 
   create_table "users", :force => true do |t|

@@ -1,2 +1,3 @@
-$("#bet_slip_container").children(".content").empty();
-
+$("#league_rank").replaceWith('<pre id="league_rank">League Rank :   <%= escape_javascript( @user.rank(@league) ) %></pre>');
+$("#league_credits").replaceWith('<pre id="league_credits">Credits : <%= escape_javascript(sprintf("%21d", @current_user_membership.credits.current)) %></pre>');
+$("#league_standings_list").replaceWith("<%= escape_javascript( render 'layouts/league_standings', :league => @league )%> ")

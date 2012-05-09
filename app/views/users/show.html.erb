@@ -1,26 +1,32 @@
-<div class="container">
-  
-  <div class="user_profile">
-    <p><%= @user.name %></p>
-    <p><%= @user.email %></p>
-    <p><%= pluralize(@user.leagues.count, "Leagues") %></p>
-    <%= link_to "Edit Profile", :controller => "users", :action => "edit" %>
+<div class="user_home_container">
+  <div class="profile_container round">
+    <div class="header">
+      <h2>Profile </h2>
+    </div>
+    <div class="profile_sub_container round">
+      <%= image_tag @user.photo.url(:small) %>
+    </div>
+    <div class="profile_sub_container right_side">
+      <pre><%= @user.name %></pre>
+      <pre><%= @user.email %></pre>
+      <pre><%= pluralize(@user.memberships.count, "League") %> </pre>
+      <%= link_to "Edit Profile", :controller => "users", :action => "edit" %>
+    </div>
   </div>
   
-  <div class="user_leagues">
-    
-    <div class="league_header">
-      <h2>Leagues</h2>
-      <%= link_to "Join", :controller => "memberships", :action => "new" %>
-      <%= link_to "Create", :controller => "leagues", :action => "new" %>
+  <div class="profile_container user_leagues round">
+    <div class="header">
+      <h2>
+        Leagues
+        <span class="right">
+          <%= link_to "Join", :controller => "memberships", :action => "new" %>
+          <%= link_to "Create", :controller => "leagues", :action => "new" %>
+        </span>
+      </h2>    
     </div>
     
     <% @user.leagues.each do |league| %>
-      <div class="league_summary">
-        <%= link_to league.name, :controller => "leagues", :action => "show", :id => league.id %>
-      </div>
+      <%= render "layouts/league_summary", :league => league %>
     <% end %>
-    
   </div>
-  
 </div>

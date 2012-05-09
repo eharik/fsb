@@ -31,6 +31,11 @@ form.sign_in_form {
 
 }
 
+form.sign_in_form.sign_up {
+    height: 235px;
+    width: 335px;
+}
+
 div {
     margin: 5px;
 }
@@ -56,6 +61,10 @@ div.sign_in_container {
     width: auto;
     mragin: 50px;
     padding: 50px;
+}
+
+.site_banner div.sign_in_container {
+    border-width: 2px;
 }
 
 /* Navigation */
@@ -133,22 +142,32 @@ div.site_banner h1 {
 
 /* Bets */
 
-#bets_container {
+.bets_container {
     max-width: 540px;
     min-width: 540px;
     min-height: 614px;
     max-height: 614px;
-    position: absolute;  top: 155px;  left: 390px;
+    position: absolute;  top: 140px;  left: 390px;
     border-color: #000;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     background-color: #F4F0EC; /*isabelline*/
+}
+
+.bets_container p {
+    margin: 10px 0px 0px 15px;
 }
 
 .header {
     border-bottom: 1px solid #555;
     min-height: 40px;
     max-height: 40px;
+}
+
+#game_info .header {
+    min-height: 25px;
+    max-height: 25px;
+    border-bottom: 2px solid #555;
 }
 
 .header h2 {
@@ -161,12 +180,6 @@ div.site_banner h1 {
     max-height: 555px;
     margin-right: 0px;
     margin-left: 0px;
-}
-
-#league_standings_container .content{
-    min-height: 244px;
-    max-height: 244px;
-    width: auto;
 }
 
 .bet {
@@ -201,8 +214,8 @@ div.site_banner h1 {
 .bet .bet_matchup  {
     float: left;
     padding: 5px;
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 100px;
+    max-width: 100px;
 }
 
 .bet .bet_spread {
@@ -243,14 +256,14 @@ div.site_banner h1 {
 
 /* Profile Container*/
 
-#profile_container {
+.profile_container {
     max-width: 350px;
     min-width: 350px;
     min-height: 300px;
     max-height: 300px;
-    position: absolute;  top: 155px;  left: 25px;
+    position: absolute;  top: 140px;  left: 25px;
     border-color: #000;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     background-color: #F4F0EC; /*isabelline*/
 }
@@ -290,11 +303,17 @@ div.site_banner h1 {
     min-width: 350px;
     min-height: 300px;
     max-height: 300px;
-    position: absolute;  top: 470px;  left: 25px;
+    position: absolute;  top: 455px;  left: 25px;
     border-color: #000;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     background-color: #F4F0EC; /*isabelline*/
+}
+
+#league_standings_container .content{
+    min-height: 244px;
+    max-height: 244px;
+    width: auto;
 }
 
 #league_standings_list {
@@ -304,17 +323,43 @@ div.site_banner h1 {
 #league_standings_list li {
     margin: 4px 0px;
     font-size: 120%;
+    height: 50px;
+    padding: 2px 0px;
 }
 
+#league_standings_list li.games {
+    height: 100px;
+    
+}
+
+#league_standings_list li pre {
+    margin: 15px 10px 0px 70px;
+    font: monospace;
+}
+
+#league_standings_list li.games pre {
+    margin: 0px 0px 0px 0px;
+}
+
+#league_standings_list li img {
+    max-width: 58px;
+    min-height: 48px;
+    overflow: hidden;
+    float: left;
+    margin-left: 3px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
 
 #locks_container {
     max-width: 350px;
     min-width: 350px;
     min-height: 300px;
     max-height: 300px;
-    position: absolute;  top: 155px;  left: 945px;
+    position: absolute;  top: 140px;  left: 945px;
     border-color: #000;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     background-color: #F4F0EC; /*isabelline*/
 }
@@ -324,19 +369,26 @@ div.site_banner h1 {
     min-width: 350px;
     min-height: 300px;
     max-height: 300px;
-    position: absolute;  top: 470px;  left: 945px;
+    position: absolute;  top: 455px;  left: 945px;
     border-color: #000;
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     background-color: #F4F0EC; /*isabelline*/
 }
 
+#bet_slip_container p {
+    padding: 5px 0px 0px 5px;
+    margin: 1px;
+    border-top: 1px dashed #000;
+}
+
 #league_info_container {
-    min-width: 1300px;
-    max-width: 1300px;
-    min-width: 1300px;
-    min-height: 1200px;
-    padding: 1px 5px;
+    border: #000 solid 2px;
+    min-width: 1280px;
+    max-width: 1280px;
+    min-height: 680px;
+    margin: 0px 20px;
+    background-color: #DEF;
 }
 
 #bet_slip_container .content {
@@ -345,26 +397,65 @@ div.site_banner h1 {
     overflow: auto;
 }
 
+.bet_history_container {
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 300px;
+    max-height: 300px;
+    position: absolute;  top: 455px;  left: 945px;
+    border-color: #000;
+    border-width: 2px;
+    border-style: solid;
+    background-color: #F4F0EC; /*isabelline*/
+}
+
+.bet_time {
+    padding: 5px 0px 0px 5px;
+    margin: 1px;
+    border-top: 1px dashed #000;
+}
+
+.bet_history_container .content {
+    max-height: 245px;
+    min-height: 245px;
+    overflow: auto;
+}
+
+#list .content {
+    overflow: auto; 
+}
+
 #bet_slip_container .footer {
     max-height: 30px;
     min-height: 30px;
     border-top: 1px solid #555;
 }
 
-.footer_left_container {
+.footer .footer_left_container {
     margin: 4px;
     font-size: large;
     float: left;
+    border: none;
 }
 
-.footer_right_container {
+.footer .footer_right_container {
     margin: 4px;
     font-size: large;
     float: right;
+    border: none;
+}
+
+.footer p {
+    border: none !important;
 }
 
 .footer2 .footer_left_container {
     float: right;
+    border: 1px solid #000;
+}
+
+.footer2 .footer_right_container {
+    border: 1px solid #000;
 }
 
 #total_risk {
@@ -388,8 +479,9 @@ div.site_banner h1 {
 }
 
 .bet_top {
-    margin: 3px 25px 2px 25px;
+    margin: 3px 5px 2px 5px;
     min-height: 20px;
+    font-size: .9em;
 }
 
 .bet_bottom {
@@ -401,6 +493,10 @@ div.site_banner h1 {
     min-height: 1px;
     border-bottom: 1px solid #555;
     margin: 0px;
+}
+
+.games .bet_divider {
+    margin: 0px 30px;
 }
 
 .bet_top ul{
@@ -442,4 +538,296 @@ div.site_banner h1 {
 
 #league_header h1 {
     text-align: center;
+    margin-left: 40px;
+    float: left;
 }
+
+#league_header pre {
+    float: left;
+}
+
+#league_header a {
+    font-size: 2.5em;
+    text-decoration: underline;
+    margin: 4px 10px 0px 10px;
+    float: right;
+    font-size: 1.2em;
+}
+
+#league_header {
+    margin: 0px;
+    padding-top: 4px;
+    border-bottom: 1px solid #000;
+    min-height: 43px;
+}
+
+.bet.open_bet {
+    font-size: 1.5em;
+}
+
+.open_bet .bet_top {
+    min-height: 30px;
+}
+
+.bet_history_container .open_bet {
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 310px;
+    max-width: 310px;
+    color: #FFF;
+    background-color: rgb(0, 112, 255);
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    font-size: 1em;
+}
+
+.bet_history_container .bet_top {
+    max-height: 20px;
+    min-height: 20px;
+}
+
+.false {
+    background-color: rgb(255, 0, 0) !important;
+}
+
+.true {
+    background-color: rgb(0, 127, 0) !important;
+}
+
+.user_home_container .profile_container {
+    min-height: 190px;
+    max-height: 190px;
+    top: 95px; left: 195px;
+}
+
+.user_home_container .user_leagues {
+    position: absolute; top: 95px; left: 555px;
+    min-height: 190px;
+    max-height: 190px;
+    min-width: 600px;
+    max-width: 600px;
+    overflow: auto;
+}
+
+.user_home_container {
+    max-height: 220px;
+    min-height: 220px;
+}
+
+.league_summary {
+    max-height: 132px;
+    min-height: 132px;
+    width: auto
+}
+
+.padded {
+    margin-left: 15px;
+    margin-top: 20px;
+    font-size: 1.25em;
+    min-height: 100px;
+    max-height: 100px;
+}
+
+.hidden_div_link {
+    position: relative;
+    margin: 0px;
+}
+
+.hidden_div_link span {
+    width:100%;
+    min-height: 125px;
+    position:absolute;
+    z-index:2;
+    top:0px;
+    left:0px;
+}
+
+.hidden_div_link input {
+    width:100%;
+    min-height: 50px;
+    position:absolute;
+    z-index:2;
+    top:0px;
+    left:0px;
+    opacity: 0;
+}
+
+.games .hidden_div_link input {
+    min-height: 100px;
+}
+
+ #league_header span {
+    float: left;
+    text-decoration: underline;
+ }
+
+ 
+ form.sign_in_form.new_league {
+    width: 500px;
+    height: 500px;
+ }
+ 
+ form.sign_in_form input {
+    float: right;
+    margin: 0px;
+ }
+ 
+ form.sign_in_form div{
+    margin: 20px 0px;
+ }
+ 
+ /* League Standings */
+ 
+ /* Bet Page */
+ div .container {
+    background-color: #F4F0EC; /*isabelline*/
+ }
+ 
+ #index {
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 614px;
+    max-height: 614px;
+    position: absolute;  top: 140px;  left: 25px;
+    border-width: 1px;
+    margin: 5px;
+ }
+ 
+ #list {
+    margin: 5px;
+    max-width: 350px;
+    min-width: 350px;
+    min-height: 614px;
+    max-height: 614px;
+    position: absolute;  top: 140px;  left: 390px;
+    border-width: 1px;    
+ }
+ 
+ #list .open_bet {
+    min-height: 50px;
+    max-height: 50px;
+    min-width: 310px;
+    max-width: 310px;
+    color: #FFF;
+    background-color: rgb(0, 112, 255);
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    font-size: 1em;
+}
+
+#list .bet_top {
+    max-height: 20px;
+    min-height: 20px;
+}
+ 
+ #stats {
+    margin: 5px;
+    max-width: 540px;
+    min-width: 540px;
+    min-height: 200px;
+    max-height: 200px;
+    position: absolute;  top: 140px;  left: 755px;
+    border-width: 1px;    
+ }
+ 
+ #graph {
+    margin: 5px;
+    max-width: 540px;
+    min-width: 540px;
+    min-height: 399px;
+    max-height: 399px;
+    position: absolute;  top: 355px;  left: 755px;
+    border-width: 1px;      
+ }
+ 
+ #graph_container {
+    width: 520px;
+    height: 389px;
+ }
+ 
+ #index ul {
+    list-style-type: none;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+ }
+ 
+ [data-selected_user="yes"] {
+    border-width: 3px;
+    border-color: #00008B;
+ }
+ 
+[data-selected_user="yes"] #game_info {
+    border-width: 3px;
+    border-color: #00008B;
+ }
+ 
+ #list .Progress {
+    
+    background-color: #FFDF00 !important;  /*Golden Yellow*/
+    color: #111;
+    border-width: 4px !important;
+    
+ }
+ 
+ #list .true.Progress {
+    border-color: rgb(0, 127, 0);
+ }
+ 
+ #list .false.Progress {
+    border-color: rgb( 255, 0, 0 );
+ }
+ 
+ #stats .content {
+    font-size: large;
+    margin: 10px;
+    margin-left: 0px;
+    min-height: 135px;
+    max-height: 135px;
+    overflow: hidden;
+ }
+ 
+ #stats .content p {
+    margin: 20px;
+    margin-top: 0px;
+ }
+ 
+ #league_header img {
+    margin: 0px 0px 0px 10px;
+    float: left;
+ }
+ 
+ #league_header nav {
+    margin: 0px;
+    margin-right: 10px;
+    padding: 0px;
+ }
+ 
+ #league_header div.left {
+    margin: 0px;
+ }
+ 
+ #league_header .hidden_div_link span {
+    min-height: 43px;
+ }
+ 
+ #league_header .hidden_div_link a {
+    margin: 0px;
+ }
+ 
+ #index .Progress {
+    background-color: #08F;
+    color: #FFF;
+ }
+ 
+ #index .Final {
+    background-color: #999;
+ }
+ 
+ #league_users_container {
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 560px;
+ }
