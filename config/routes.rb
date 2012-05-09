@@ -1,12 +1,6 @@
 Fsb::Application.routes.draw do
  
-  resources :leagues do
-    resources :bets, :only => [:index]
-    resources :users, :only => [:index]
-    resources :games, :only => [:index]
-  end
-  
-  resources :users, :only => [:new, :edit, :show]
+  resources :users #, :only => [:new, :edit, :show]
   resources :sessions, :only => [:new, :create, :destroy]
   resources :memberships
   resources :bets, :only => [:new, :create]
@@ -22,6 +16,12 @@ Fsb::Application.routes.draw do
   match '/leagues/list_users',  :to => 'league#list_users'
   match '/bets/submitted',      :to => 'bets#submitted'
 
+  resources :leagues do
+    resources :bets, :only => [:index]
+    resources :users, :only => [:index]
+    resources :games, :only => [:index]
+  end 
+  
   root :to => 'sessions#new'
   
 end
