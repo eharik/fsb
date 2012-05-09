@@ -7,8 +7,8 @@ class AddColumnsToBets < ActiveRecord::Migration
     add_column :bets, :game_id,   :integer
     add_column :bets, :parlay_id, :integer
     
-    add_column :bets, :risk,      :double
-    add_column :bets, :win,       :double
+    add_column :bets, :risk,      :decimal
+    add_column :bets, :win,       :decimal
 
   end
   
