@@ -20,7 +20,8 @@ gem 'jquery-rails'
 group :development do
   gem 'rspec-rails', '2.8.1'
   gem 'annotate', '2.4.0'
-  gem 'sqlite3'
+# gem 'sqlite3'
+  gem 'pg'
 end
 
 group :test do
