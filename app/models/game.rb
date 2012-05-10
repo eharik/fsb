@@ -72,8 +72,10 @@ class Game < ActiveRecord::Base
         temp_hour = (Integer(temp_hour) + 12).to_s
       end
       
-      times << DateTime.new(DateTime.now.year, DateTime.now.month,
-                            DateTime.now.day, Integer(temp_hour),
+      times << DateTime.new(DateTime.now.in_time_zone("Eastern Time (US & Canada)").year,
+                            DateTime.now.in_time_zone("Eastern Time (US & Canada)").month,
+                            DateTime.now.in_time_zone("Eastern Time (US & Canada)").day,
+                            Integer(temp_hour),
                             Integer(temp_min), 0, get_offset )
     end 
     return times
