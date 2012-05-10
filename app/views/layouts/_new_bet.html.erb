@@ -27,7 +27,7 @@
     <% number = @game.over_under %>
 <% end %>
   
-<p><%= @game.game_time.utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
+<p><%= DateTime.strptime(@game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
 <div class="bet new_bet" data-game=<%= @game.id %> data-league_id=<%= @league_id %> data-bet_type=<%= @bet.bet_type %> >
   <div class="bet_top">
     <ul>
