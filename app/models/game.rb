@@ -132,21 +132,21 @@ class Game < ActiveRecord::Base
   
   def game_time_and_status
     gt = DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p")
-    unless game_time.future?
+    unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
       return sprintf("%-22s %12s", gt, game_status)
     end
     return sprintf("%-22s %12s", gt, '------')
   end
 
   def home_team_with_score
-    unless game_time.future?
+    unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
       return sprintf("%-32s %3.0d", home_team, home_score)
     end
     return sprintf("%-32s TBD", home_team )
   end
   
   def away_team_with_score
-    unless game_time.future?
+    unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
       return sprintf("%-32s %3.0d", away_team, away_score)
     end
     return sprintf("%-32s TBD", away_team )
