@@ -131,7 +131,7 @@ class Game < ActiveRecord::Base
   end
   
   def game_time_and_status
-    gt = game_time.utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p")
+    gt = DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p")
     unless game_time.future?
       return sprintf("%-22s %12s", gt, game_status)
     end
