@@ -33,6 +33,10 @@ GEM
     annotate (2.4.0)
     ansi (1.4.2)
     arel (2.2.3)
+    aws-s3 (0.6.2)
+      builder
+      mime-types
+      xml-simple
     builder (3.0.0)
     chronic (0.6.7)
     cocaine (0.2.1)
@@ -161,12 +165,14 @@ GEM
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
+    xml-simple (1.1.1)
 
 PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
   annotate (= 2.4.0)
+  aws-s3
   coffee-rails (~> 3.1.1)
   factory_girl_rails (= 1.0)
   gravatar_image_tag (= 0.1.0)

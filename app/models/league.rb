@@ -5,7 +5,14 @@ class League < ActiveRecord::Base
   has_many :users, :through => :bets
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
-  has_attached_file :photo, :styles => {:small => "160x225>", :thumb => "50x50"}
+  has_attached_file :photo,
+                    :styles => {:small => "160x225>", :thumb => "50x50"},
+                    :storage => :s3,
+                    :bucket => ENV['fsb'],
+                    :s3_credentials => {
+                      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+                      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+                    }
   
   serialize :league_settings, Hash
   attr_accessor   :password
