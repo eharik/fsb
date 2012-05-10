@@ -55,7 +55,7 @@ class Bet < ActiveRecord::Base
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
       bet_game = Game.find(b.game_id)
-      if DateTime.strptime(bet_game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)") > DateTime.now..utc.in_time_zone("Eastern Time (US & Canada)")
+      if DateTime.strptime(bet_game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)") > DateTime.now.utc.in_time_zone("Eastern Time (US & Canada)")
         bets_for_return << b
       end
     end
