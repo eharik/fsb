@@ -1,11 +1,14 @@
 <div class="sign_in_container">
-  <h1>Reset Password</h1>
-  
-  <%= form_tag password_resets_path, :method => :post do %>
-    <div class="field">
-      <%= label_tag :email %>
-      <%= text_field_tag :email, params[:email] %>
-    </div>
-    <div class="actions"><%= submit_tag "Reset Password" %></div>
-  <% end %>
+  <div class="sign_in_right">
+    <h1>Reset Password</h1>
+  </div>
+  <div class="sign_in_left">
+    <%= form_tag password_resets_path, :method => :post, :class => "sign_in_form" do %>
+      <div class="field">
+        <%= label_tag :email %>
+        <%= text_field_tag :email, params[:email] %>
+      </div>
+      <div class="actions"><%= submit_tag "Reset Password" %></div>
+    <% end %>
+  </div>
 </div>

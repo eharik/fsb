@@ -8,7 +8,7 @@
     
     <h2 class="sign_in">Edit Profile</h2>
   
-    <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+    <%= form_for @user, :url => password_reset_path(params[:id]), :class => 'sign_in_form sign_up' do |f| %>
       <%= render 'shared/error_messages', :object => f.object %>
       <div class="field">
           <%= f.label :password %>
