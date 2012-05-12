@@ -1,0 +1,25 @@
+<div class="sign_in_container">
+
+  <div class="sign_in_right">
+    <h2>Reset your password!</h2>
+  </div>
+  
+  <div class="sign_in_left">
+    
+    <h2 class="sign_in">Edit Profile</h2>
+  
+    <%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+      <%= render 'shared/error_messages', :object => f.object %>
+      <div class="field">
+          <%= f.label :password %>
+          <%= f.password_field :password, :size => "33" %>
+      </div>
+      <div class="field">
+          <%= f.label :password_confirmation, "Confirmation" %>
+          <%= f.password_field :password_confirmation, :size => "33" %>
+      </div>
+      <div class="actions">
+        <%= f.submit "Update Password" %>
+    <% end %>
+  </div>
+</div>
