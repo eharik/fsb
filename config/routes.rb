@@ -4,6 +4,7 @@ Fsb::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :memberships
   resources :bets, :only => [:new, :create]
+  resources :password_resets
   
   match '/signup',              :to => 'users#new'
   match '/signin',              :to => 'sessions#new'

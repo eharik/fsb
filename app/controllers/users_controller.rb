@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.updating_password = false
     if @user.save
       sign_in @user
       flash[:success] = "Welcome to Fantasy Sports Book!"

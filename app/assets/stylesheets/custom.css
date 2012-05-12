@@ -10,7 +10,6 @@ a.new_user {
     color: #0000FF;
     font-size: 1em;
     margin: 5px;
-    padding-left: 130px;
     width: 220px;
     height: 25px;
 }
@@ -674,7 +673,8 @@ div.site_banner h1 {
  }
  
  form.sign_in_form div{
-    margin: 20px 0px;
+    margin: 10px 0px;
+    padding: 10px 0px;
  }
  
  /* League Standings */
@@ -830,4 +830,15 @@ div.site_banner h1 {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 560px;
+ }
+ 
+ #sign_in_actions p {
+    float: left;
+    margin-right: 45px;
+    margin-top: 15px;
+ }
+ 
+ #sign_in_actions input {
+    float: left;
+    margin-top: 15px;
  }

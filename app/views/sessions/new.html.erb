@@ -23,13 +23,13 @@
         <%= f.label :password %><br />
         <%= f.password_field :password %>
       </div>
-      <div class="actions">
+      <div id="sign_in_actions">
+        <p><%= link_to "forgotton password?", new_password_reset_path %></p>
         <%= f.submit "Sign in" %>
       </div>
-    <% end %>
-    
-    <%= link_to "New user? Sign up!", signup_path, :class => 'new_user' %>
-    
+    <% end %>    
   </div>
+  <%= link_to "New user? Sign up!", signup_path, :class => 'new_user' %>
+
   
 </div>

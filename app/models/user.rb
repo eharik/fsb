@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
                       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
                     }
   
-  attr_accessor   :password
+  attr_accessor   :password, :updating_password
   attr_accessible :name, :email, :password, :password_confirmation, :photo
     
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -23,7 +23,8 @@ class User < ActiveRecord::Base
   validates :email,    :presence     => true,
                        :format       => { :with => email_regex },
                        :uniqueness   => { :case_sensitive => false }
-  validates :password, :presence     => true,
+  validates :password, :unless       => :password_update?,
+                       :presence     => true,
                        :confirmation => true,
                        :length       => { :within => 6..40 }
                        
@@ -31,6 +32,24 @@ class User < ActiveRecord::Base
   
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
+  end
+  
+  def send_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    self.updating_password = true
+    save!
+    UserMailer.password_reset(self).deliver
+  end
+  
+  def password_update?
+    updating_password
+  end
+  
+  def generate_token(column)
+    begin
+      self[column] = SecureRandom.urlsafe_base64
+    end while User.exists?(column => self[column])
   end
   
   def self.authenticate(email, submitted_password)
