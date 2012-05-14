@@ -146,7 +146,6 @@ class Game < ActiveRecord::Base
                               Integer(temp_hour),
                               Integer(temp_min), 0, get_offset )
       end
-      puts times
       return times
     end
     

@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     else
       @selected_game = Game.last
     end
-    
+    puts @selected_game
     if DateTime.strptime(@selected_game.game_time, "%Y-%m-%d %H:%M:%S").past?
       @all_bets =  Bet.where(:game_id => @selected_game.id)
     else
