@@ -108,10 +108,14 @@ class Membership < ActiveRecord::Base
     total_lost = 0
     bets.each do |b|
       if b.won
-        total_won += b.win
+        if b.win # verify win isn't nil
+          total_won += b.win
+        end
       end
       if !b.won
-        total_lost += b.risk
+        if b.risk # verify risk isnt' nil
+          total_lost += b.risk
+        end
       end
     end
     
