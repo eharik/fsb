@@ -34,10 +34,8 @@ class Game < ActiveRecord::Base
     @home_teams = get_home_teams_bovada(doc)
     @away_teams = get_away_teams_bovada(doc)
     @over_unders = get_over_unders_bovada(doc)
-    @spreads = get_spreads_bovada(doc)
-    url2 = "http://espn.go.com/mlb/lines"
-    doc2 = Nokogiri::HTML(open(url2))   
-    @game_times = get_game_times(doc2)
+    @spreads = get_spreads_bovada(doc)   
+    @game_times = get_game_times_bovada(doc)
     
     @game_ids = []
     for i in 0..(@home_teams.length-1)
@@ -64,6 +62,7 @@ class Game < ActiveRecord::Base
   end
   
   def game_time_and_status
+    puts game_time
     gt = DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p")
     unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
       return sprintf("%-22s %12s", gt, game_status)
@@ -124,10 +123,40 @@ class Game < ActiveRecord::Base
       end
       return spread
     end
-    
+   
     def self.get_game_times_bovada(doc)
+      times = []
+      temp_date = [] # start empty, assume first row will provide date
+      temp_month = []
+      temp_day = []
       
-    end
+      doc.css('#event-schedule > div').each do |time|
+        
+        if time.text.gsub(/\s+/, "") =~ /^[ADFJMNOS][A-Z]+[1-9][0-9]?/ # date
+          temp_date = time.text.gsub(/\s+/, "")[/^[ADFJMNOS][A-Z]+[1-9][0-9]?/]
+          temp_month = DateTime.strptime(temp_date[/[A-Z]*/].downcase.capitalize, '%B' )
+          temp_day = DateTime.strptime(temp_date[/[0-9]+/], '%d')
+        
+        elsif time.text.gsub(/\s+/, "") =~ /^[0-9]+:[0-9][0-9][ap]/
+          temp_hour = time.text.gsub(/\s+/, "")[/[0-9]+:/]
+          temp_hour = temp_hour[0..-2]
+          temp_min = time.text.gsub(/\s+/, "")[/:[0-9]+/]
+          temp_min = temp_min[1..-1]
+          
+          if Integer(temp_hour) < 12
+            temp_hour = (Integer(temp_hour) + 12).to_s
+          end
+          
+          times << DateTime.new(DateTime.now.in_time_zone("Eastern Time (US & Canada)").year,
+                                temp_month.month,
+                                temp_day.day,
+                                Integer(temp_hour),
+                                Integer(temp_min), 0, get_offset )
+        end # if checking for game time or date
+       
+       end # do, looping through css identifiers
+       return times
+    end # method
     
     def self.get_game_times(doc)
       times = []
@@ -265,7 +294,7 @@ class Game < ActiveRecord::Base
     def self.get_game_status(doc)
       status = []
       doc.css(".game-status p").each do |s|
-        temp_status = s.text[/[a-zA-z]+/] == "Final" ? "Final" : "In Progress"
+        temp_status = s.text[/[a-zA-Z]+/] == "Final" ? "Final" : "In Progress"
         status << temp_status
       end
       return status

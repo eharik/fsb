@@ -10,14 +10,10 @@ class GamesController < ApplicationController
      
     if params[:game_id]
       @selected_game = Game.find(params[:game_id])
-      puts '-------If -- Here ---------'
     else
-      puts '-------Else -- Here  -------'
-      puts Game.last.game_time
       @selected_game = Game.last
-      puts '---------------------------'
     end
-    puts @selected_game.game_time
+    
     if DateTime.strptime(@selected_game.game_time, "%Y-%m-%d %H:%M:%S").past?
       @all_bets =  Bet.where(:game_id => @selected_game.id)
     else
