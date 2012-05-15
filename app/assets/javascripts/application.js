@@ -41,7 +41,14 @@ jQuery(function(){
                 game_id = $(this).data("game");
                 bet_type = $(this).data("bet_type");
                 league_id = $("#league_info_container").data("league_id");
-                $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
+                if ( bet_risk > 0 )
+                {
+                    $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
+                }
+                else
+                {
+                    alert('You have to risk something to place a bet!');
+                }
             })
             $("#bet_slip_container").children(".content").empty();
         })
