@@ -44,13 +44,13 @@ jQuery(function(){
                 if ( bet_risk > 0 )
                 {
                     $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
+                    $("#bet_slip_container").children(".content").empty();
                 }
                 else
                 {
                     alert('You have to risk something to place a bet!');
                 }
             })
-            $("#bet_slip_container").children(".content").empty();
         })
     });
     
