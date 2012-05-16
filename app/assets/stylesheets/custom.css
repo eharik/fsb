@@ -665,7 +665,7 @@ div.site_banner h1 {
  
  form.sign_in_form.new_league {
     width: 500px;
-    height: 500px;
+   /* height: 500px; */
  }
  
  form.sign_in_form input {
@@ -840,4 +840,11 @@ div.site_banner h1 {
  
  #sign_in_actions input {
     float: left;
+}
+
+.credit_button {
+    min-height: 95px;
+    min-width: 159px;
+    float: left;
+    margin: 2px 5px;
 }

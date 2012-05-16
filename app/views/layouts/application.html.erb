@@ -19,10 +19,13 @@
 </head>
 <body>
   <div class="site_banner">
-  <%= render 'layouts/header' %>
+    <%= render 'layouts/header' %>
   </div>
   <div>
     <%= yield %>
+  </div>
+  <div>
+    <%= render 'layouts/footer' %>
   </div>
 </body>
 </html>

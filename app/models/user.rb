@@ -11,7 +11,9 @@ class User < ActiveRecord::Base
                     :s3_credentials => {
                       :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
                       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-                    }
+                    },
+                    #:path => 'class/:attachment/:token/:style.:extension',
+                    :default_url => '/photos/silhouette_:style.gif'
   
   attr_accessor   :password, :updating_password
   attr_accessible :name, :email, :password, :password_confirmation, :photo

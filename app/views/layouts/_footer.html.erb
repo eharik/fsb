@@ -1,7 +1,11 @@
 <footer>
   <nav class="round">
     <ul>
-      <li></li>
+      <li><%= mail_to 'fsb.adm.eph@gmail.com',
+                      'Contact Us',
+                      :encode => :javascript,
+                      :subject => '#{current_user.name} - FSB' %>
+      </li>
     </ul>
   </nav>
 </footer>
