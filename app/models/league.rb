@@ -9,6 +9,7 @@ class League < ActiveRecord::Base
                     :styles => {:small => "160x225>", :thumb => "50x50"},
                     :storage => :s3,
                     :bucket => ENV['fsb'],
+                    :default_url => '/photos/league/missing_:style.png',
                     :s3_credentials => {
                       :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
                       :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
