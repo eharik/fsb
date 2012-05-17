@@ -5,7 +5,7 @@ gem 'gravatar_image_tag', '0.1.0'
 gem 'nokogiri'
 gem 'unobtrusive_flash'
 gem "paperclip", "~> 3.0"
-# gem 'aws-s3'
+gem 'aws-s3'
 gem 'aws-sdk'
 gem 'whenever', :require => false
 gem 'rufus-scheduler'
