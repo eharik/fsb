@@ -6,7 +6,7 @@ class League < ActiveRecord::Base
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
   has_attached_file :photo,
-                    :styles => {:small => "160x225>", :thumb => "50x50"},
+                    :styles => {:small => "160x120>", :thumb => "50x40"},
                     :storage => :s3,
                     :bucket => ENV['fsb'],
                     :default_url => '/:attachment/:class/missing_:style.png',
