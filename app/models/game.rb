@@ -272,10 +272,12 @@ class Game < ActiveRecord::Base
       for i in 0..(home_teams.length-1)
         games << Game.where("home_team = ? AND
                              away_team = ? AND
-                             game_time >  ?", 
+                             game_time >  ? AND
+                             game_time < ?", 
                              home_teams[i],
                              away_teams[i],
-                             yesterday ).last
+                             yesterday,
+                             Time.now).last
       end
       return games
     end
