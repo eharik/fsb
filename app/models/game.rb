@@ -45,8 +45,7 @@ class Game < ActiveRecord::Base
         @game_ids << "#{@away_teams[i]}:#{@home_teams[i]}:#{@game_times[i]}"
         
         if Game.find_by_game_id(@game_ids[game_id_count])
-          Game.find_by_game_id(@game_ids[game_id_count]).spread = @spreads[i]
-          Game.find_by_game_id(@game_ids[game_id_count]).over_under = @over_unders[i]
+          Game.find_by_game_id(@game_ids[game_id_count]).update_attributes(:spread => @spreads[i], :over_under => @over_unders[i])
         else
           Game.create( "game_id"    => @game_ids[game_id_count],
                        "home_team"  => @home_teams[i],
