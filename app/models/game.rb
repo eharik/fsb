@@ -45,9 +45,8 @@ class Game < ActiveRecord::Base
         @game_ids << "#{@away_teams[i]}:#{@home_teams[i]}:#{@game_times[i]}"
         
         if Game.find_by_game_id(@game_ids[game_id_count])
-          puts Game.find_by_game_id(@game_ids[i])
-          Game.find_by_game_id(@game_ids[i]).spread = @spreads[i]
-          Game.find_by_game_id(@game_ids[i]).over_under = @over_unders[i]
+          Game.find_by_game_id(@game_ids[game_id_count]).spread = @spreads[i]
+          Game.find_by_game_id(@game_ids[game_id_count]).over_under = @over_unders[i]
         else
           Game.create( "game_id"    => @game_ids[game_id_count],
                        "home_team"  => @home_teams[i],
@@ -216,21 +215,22 @@ class Game < ActiveRecord::Base
       return teams
     end
   
-    def self.get_over_unders(lines)
-      over_unders = []
-      lines.each do |line|
-        over_unders << line[/[0-9]+\.[0-9]+/]
-      end
-      return over_unders
-    end
+ #   def self.get_over_unders(lines)
+ #     over_unders = []
+ #     lines.each do |line|
+ #       over_unders << line[/[0-9]+\.[0-9]+/]
+ #     end
+ #     return over_unders
+ #   end
     
-    def self.get_spreads(lines)
-      spreads = []
-      lines.each do |line|
-        spreads << line[/[\-\+][0-9]+\.[0-9]+/]
-      end
-      return spreads
-    end
+ #   def self.get_spreads(lines)
+ #     spreads = []
+ #     lines.each do |line|
+ #       spreads << line[/[\-\+][0-9]+\.[0-9]+/]
+ #     end
+ #     return spreads
+ #   end
+ 
     def self.get_offset
       Rational(Time.now.utc.in_time_zone("Eastern Time (US & Canada)").utc_offset, 60*60*24)
     end
