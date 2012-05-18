@@ -287,15 +287,15 @@ class Game < ActiveRecord::Base
           game.update_attribute(:home_score, home_team_scores[i])
           game.update_attribute(:away_score, away_team_scores[i])
           game.update_attribute(:game_status, game_status[i])
+          game.save
           puts "#{game.home_team} -- #{game.home_score}"
           if game_status[i] == "Final"
             Bet.update_bet_for_game( game )
           end # if
-        end # for
-        puts "-------------------"
-      end # method
-      
-    end
+        end # unless
+      end # for
+      puts "-------------------"
+    end # method
     
     def self.get_game_status(doc)
       status = []
