@@ -71,7 +71,6 @@ class Game < ActiveRecord::Base
 
   def home_team_with_score
     unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
-      puts home_score
       return sprintf("%-28s %3.0f", home_team, home_score )
     end
     return sprintf("%-28s TBD", home_team )
@@ -273,6 +272,10 @@ class Game < ActiveRecord::Base
                              away_teams[i],
                              yesterday ).first
       end
+      games.each do |g|
+        puts "#{g.home_team} + #{g.away_team}"
+      end
+      puts "-------here------"
       return games
     end
     
