@@ -39,7 +39,7 @@ class Game < ActiveRecord::Base
     
     @game_ids = []
     for i in 0..(@home_teams.length-1)
-      if @spreads[i] > 0
+      if @over_unders[i] > 0
         @game_ids << "#{@away_teams[i]}:#{@home_teams[i]}:#{@game_times[i]}"
   
         if Game.find_by_game_id(@game_ids[i])
@@ -276,7 +276,6 @@ class Game < ActiveRecord::Base
     end
     
     def self.update_game_scores(games, home_team_scores, away_team_scores, game_status)
-      puts "------------------"
       for i in 0..(games.length - 1)
         unless games[i].nil?
           game = Game.find(games[i].id)
@@ -284,13 +283,12 @@ class Game < ActiveRecord::Base
           game.update_attribute(:away_score, away_team_scores[i])
           game.update_attribute(:game_status, game_status[i])
           game.save!
-          puts "#{game.home_team} -- #{game.home_score}--#{game.id}"
+
           if game_status[i] == "Final"
             Bet.update_bet_for_game( game )
           end # if
         end # unless
       end # for
-      puts "-------------------"
     end # method
     
     def self.get_game_status(doc)
