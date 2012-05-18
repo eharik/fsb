@@ -117,7 +117,7 @@ class Game < ActiveRecord::Base
     def self.get_spreads_bovada(doc)
       spread = []
       doc.css(".home .runline div").each do |line|
-        whole_part = line.text[/[-]?[0-9]+/].to_f
+        whole_part = line.text[/\-*[0-9]+/].to_f
         fraction_part = line.text[/\u00BD/] ? 0.5 : 0.0
         if whole_part < 0
           temp = whole_part - fraction_part
