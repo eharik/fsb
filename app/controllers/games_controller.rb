@@ -20,7 +20,8 @@ class GamesController < ApplicationController
       @all_bets = []
     end
     
-    @all_games = Game.all.sort! { |a, b| a.ga,e_time <=> b.game_time }.reverse
+    @all_games = Game.all.sort! { |a, b| a.ga,e_time <=> b.game_time }
+    @all_games.reverse!
     
     respond_to do |format|
       format.js
