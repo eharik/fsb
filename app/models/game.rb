@@ -280,17 +280,20 @@ class Game < ActiveRecord::Base
     end
     
     def self.update_game_scores(games, home_team_scores, away_team_scores, game_status)
+      puts "------------------"
       for i in 0..(games.length - 1)
         unless games[i].nil?
           game = Game.find(games[i].id)
           game.update_attribute(:home_score, home_team_scores[i])
           game.update_attribute(:away_score, away_team_scores[i])
           game.update_attribute(:game_status, game_status[i])
+          puts "#{game.home_team} -- #{game.home_score}"
           if game_status[i] == "Final"
             Bet.update_bet_for_game( game )
-          end
-        end
-      end
+          end # if
+        end # for
+        puts "-------------------"
+      end # method
       
     end
     
