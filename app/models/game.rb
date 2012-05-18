@@ -49,7 +49,7 @@ class Game < ActiveRecord::Base
           Game.find_by_game_id(@game_ids[i]).spread = @spreads[i]
           Game.find_by_game_id(@game_ids[i]).over_under = @over_unders[i]
         else
-          Game.create( "game_id"    => @game_ids[i],
+          Game.create( "game_id"    => @game_ids[game_id_count],
                        "home_team"  => @home_teams[i],
                        "away_team"  => @away_teams[i],
                        "spread"     => @spreads[i].to_f,
@@ -59,7 +59,7 @@ class Game < ActiveRecord::Base
                        "away_score" => 0
                       )
         end # end if on finding existing game
-      end # end if on spreads
+      end # end if on over unders
     end # end for loop through available games
   end
   
