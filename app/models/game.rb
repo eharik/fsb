@@ -71,16 +71,16 @@ class Game < ActiveRecord::Base
 
   def home_team_with_score
     unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
-      return sprintf("%-32s %3.0d", home_team, home_score)
+      return sprintf("%-25s %3.0d", home_team, home_score)
     end
-    return sprintf("%-32s TBD", home_team )
+    return sprintf("%-25s TBD", home_team )
   end
   
   def away_team_with_score
     unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
-      return sprintf("%-32s %3.0d", away_team, away_score)
+      return sprintf("%-25s %3.0d", away_team, away_score)
     end
-    return sprintf("%-32s TBD", away_team )
+    return sprintf("%-25s TBD", away_team )
   end
   
   private
