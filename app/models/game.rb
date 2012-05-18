@@ -268,7 +268,7 @@ class Game < ActiveRecord::Base
     
     def self.get_games(home_teams, away_teams)
       games = []
-      yesterday = Time.now.utc.in_time_zone("Eastern Time (US & Canada)").yesterday()
+      yesterday = Time.now.utc.in_time_zone("Eastern Time (US & Canada)").ago(8*60*60)
       for i in 0..(home_teams.length-1)
         games << Game.where("home_team = ? AND
                              away_team = ? AND
