@@ -38,11 +38,14 @@ class Game < ActiveRecord::Base
     @game_times = get_game_times_bovada(doc)
     
     @game_ids = []
+    game_id_count = -1
     for i in 0..(@home_teams.length-1)
       if @over_unders[i] > 0
+        game_id_count += 1
         @game_ids << "#{@away_teams[i]}:#{@home_teams[i]}:#{@game_times[i]}"
-  
-        if Game.find_by_game_id(@game_ids[i])
+        
+        if Game.find_by_game_id(@game_ids[game_id_count])
+          puts Game.find_by_game_id(@game_ids[i])
           Game.find_by_game_id(@game_ids[i]).spread = @spreads[i]
           Game.find_by_game_id(@game_ids[i]).over_under = @over_unders[i]
         else
@@ -55,8 +58,7 @@ class Game < ActiveRecord::Base
                        "home_score" => 0,
                        "away_score" => 0
                       )
-  
-        end
+        end # end if on finding existing game
       end # end if on spreads
     end # end for loop through available games
   end
