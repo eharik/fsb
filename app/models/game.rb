@@ -270,12 +270,8 @@ class Game < ActiveRecord::Base
                              game_time >  ?", 
                              home_teams[i],
                              away_teams[i],
-                             yesterday ).first
+                             yesterday ).last
       end
-      games.each do |g|
-        puts "#{g.home_team} + #{g.away_team}"
-      end
-      puts "-------here------"
       return games
     end
     
