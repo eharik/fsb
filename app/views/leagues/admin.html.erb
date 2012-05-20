@@ -21,14 +21,24 @@
     </nav>
   </div>
 
-  <div>
-    <ul>
-    <% @users.each do |u| %>
-      <li class='no_bullet'>
-        <%= render 'layouts/user_admin_view', :user => u, :membership => Membership.where(:league_id => @league.id, :user_id => u.id).first, :league => @league %>
-      </li>
-    <% end %>
-    </ul>
+  <div class='round' id='admin_container'>
+    
+    <div>
+      <h3><pre class='header'>   User                     Buy-In   Buy-Back   Remove</pre></h3>
+    </div>
+    
+    <div>
+      
+      <ul>
+      <% @users.each do |u| %>
+        <li class='no_bullet'>
+          <%= render 'layouts/user_admin_view', :user => u, :membership => Membership.where(:league_id => @league.id, :user_id => u.id).first, :league => @league %>
+        </li>
+      <% end %>
+      </ul>
+      
+    </div>
+    
   </div>
-
+    
 </div>

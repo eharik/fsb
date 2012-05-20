@@ -1,22 +1,22 @@
 <div>
   
   <div class='round left user_admin_container' id='user_stub'>
-    <%= image_tag user.photo.url(:thumb), :class => 'small_margin' %>
-    <%= user.name %>
+    <%= image_tag user.photo.url(:thumb), :class => 'left round small_margin' %>
+    <span><%= user.name %></span>
   </div>
   
   <div class='round left user_admin_container small_container'>
-    <%= user.buy_in(league) %> / 1
-    <%= check_box_tag 'buy_in'  %>
+    <p><%= user.buy_in(league) %> / 1</p>
+    <p><%= check_box_tag 'buy_in'  %></p>
   </div>
   
   <div class='round left user_admin_container small_container'>
-    <%= user.buy_backs(league) %> / <%= league.league_settings['buy_backs'] %>
-    <%= check_box_tag 'buy_back' %>
+    <p><%= user.buy_backs(league) %> / <%= league.league_settings['buy_backs'] %></p>
+    <p><%= check_box_tag 'buy_back' %></p>
   </div>
   
   <div class='round left user_admin_container small_container' id='remove_user'>
-    <%= check_box_tag 'deelete_membership' %>
+    <p><%= check_box_tag 'deelete_membership' %></p>
   </div>
   
 </div>
