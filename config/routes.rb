@@ -21,6 +21,9 @@ Fsb::Application.routes.draw do
     resources :bets, :only => [:index]
     resources :users, :only => [:index]
     resources :games, :only => [:index]
+    member do
+      get 'admin'
+    end
   end 
   
   root :to => 'sessions#new'
