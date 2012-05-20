@@ -877,8 +877,8 @@ div.site_banner h1 {
 #admin_container {
     min-width: 640px;
     max-width: 640px;
-    min-height: 800px;
-    max-height: 800px;
+    min-height: 680px;
+    max-height: 680px;
     background-color: #F4F0EC;
     margin-left: 300px;
 }
@@ -892,8 +892,8 @@ div.site_banner h1 {
     margin-right: 0px;
     margin-bottom: 5px;
     overflow-y: scroll;
-    max-height: 725px;
-    min-height: 725px;
+    max-height: 605px;
+    min-height: 605px;
 }
 
 #admin_container h3 {
