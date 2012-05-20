@@ -890,9 +890,10 @@ div.site_banner h1 {
 #admin_container ul {
     padding-left: 0px;
     margin-right: 0px;
+    margin-bottom: 5px;
     overflow-y: scroll;
-    max-height: 700px;
-    min-height: 700px;
+    max-height: 725px;
+    min-height: 725px;
 }
 
 #admin_container h3 {
