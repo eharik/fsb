@@ -18,14 +18,21 @@ class MembershipsController < ApplicationController
     else
       membership = Membership.new(:user_id => current_user.id, :league_id => league.id)
       starting_credits = league.league_settings["start_credits"].to_f
-      buy_backs = league.league_settings["buy_backs"].to_f
       membership.credits.current = starting_credits
       membership.credits.send("#{Time.now.to_s}=", starting_credits)
-      membership.buy_backs = buy_backs
+      membership.buy_backs = 0
+      membership.buy_in = 0
       membership.record = "0/0"
       membership.save
       redirect_to :controller => :leagues, :action => :show, :id => league.id
     end
+  end
+  
+  def destroy
+    
+    Membership.find(params[:id]).delete
+    render :nothing => true
+    
   end
   
   private

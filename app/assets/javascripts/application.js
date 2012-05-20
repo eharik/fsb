@@ -151,4 +151,86 @@ jQuery(function(){
         });
     });
     
+// League admin checkboxes
+    jQuery("input[id='buy_in']").each(function(index, button){
+        jQuery(button).click(function(){
+            league_id = $('#user_options').attr("data-league_id");
+            user_id = $('#user_options').attr("data-user_id");
+            membership_id = $('#user_options').attr("data-membership_id"); 
+            /*$.get("/bets/new", {game: game_id, bet: bet_type, league: league_id}, function(){
+                $("input[name='bet_risk']").blur(function(index, button2){
+                    win = $(this).val()*0.95;
+                    win_string = sprintf("%.2f", win );
+                    $(this).parents(".left").siblings(".right").children("#to_win").empty();
+                    $(this).parents(".left").siblings(".right").children("#to_win").append(win_string);
+                });
+            });*/
+        });
+        jQuery(button).confirm({
+            timeout:5000,
+            dialogShow:'fadeIn',
+            dialogSpeed:'slow',
+            msg: 'Deploy Credits?    ',
+            wrapper: '<pre></pre>',
+            buttons: {
+                wrapper:'<button></button>',
+                separator:'  '
+            }  
+        });
+    });
+    
+    jQuery("input[id='buy_back']").each(function(index, button){
+        jQuery(button).click(function(){
+            league_id = $('#user_options').attr("data-league_id");
+            user_id = $('#user_options').attr("data-user_id");
+            membership_id = $('#user_options').attr("data-membership_id"); /*
+            $.get("/bets/new", {game: game_id, bet: bet_type, league: league_id}, function(){
+                $("input[name='bet_risk']").blur(function(index, button2){
+                    win = $(this).val()*0.95;
+                    win_string = sprintf("%.2f", win );
+                    $(this).parents(".left").siblings(".right").children("#to_win").empty();
+                    $(this).parents(".left").siblings(".right").children("#to_win").append(win_string);
+                });
+            });*/
+        });
+        jQuery(button).confirm({
+            timeout:5000,
+            dialogShow:'fadeIn',
+            dialogSpeed:'slow',
+            msg: 'Deploy Credits?    ',
+            wrapper: '<pre></pre>',
+            buttons: {
+                wrapper:'<button></button>',
+                separator:'  '
+            }  
+        });
+    });
+    
+    jQuery("input[id='delete_membership']").each(function(index, button){
+        jQuery(button).click(function(){
+            league_id = $(this).parents('#user_options').attr("data-league_id");
+            user_id = $(this).parents('#user_options').attr("data-user_id");
+            membership_id = $(this).parents('#user_options').attr("data-membership_id");
+            path_string = '/memberships/' + membership_id;
+            selector_string = '#user_options[data-user_id=\"' + user_id + '\"]';
+            $.ajax({
+                url: path_string,
+                type: 'DELETE'                
+            });
+            $(selector_string).remove();
+        });
+        jQuery(button).confirm({
+            timeout:5000,
+            dialogShow:'fadeIn',
+            dialogSpeed:'slow',
+            msg: 'Do you really want to remove this user from the league?    ',
+            wrapper: '<pre></pre>',
+            buttons: {
+                wrapper:'<button></button>',
+                separator:'  '
+            }  
+        });
+    });
+    
+    
 });

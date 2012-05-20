@@ -1,4 +1,4 @@
-<div>
+<div id='user_options' data-user_id=<%= user.id %> data-league_id=<%= league.id %> data-membership_id=<%= membership.id %> >
   
   <div class='round left user_admin_container' id='user_stub'>
     <%= image_tag user.photo.url(:thumb), :class => 'left round small_margin' %>
@@ -24,7 +24,11 @@
   </div>
   
   <div class='round left user_admin_container small_container' id='remove_user'>
-    <p><%= check_box_tag 'delete_membership' %></p>
+    <% if league.manager == user.id %>
+    <p><%= check_box_tag 'delete_membership', 'false', false, :disabled => true %></p>
+    <% else %>
+    <p><%= check_box_tag 'delete_membership', 'false', false, :disabled => false %></p>  
+    <% end %>
   </div>
   
 </div>
