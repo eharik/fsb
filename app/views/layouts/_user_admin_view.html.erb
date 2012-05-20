@@ -7,16 +7,24 @@
   
   <div class='round left user_admin_container small_container'>
     <p><%= user.buy_in(league) %> / 1</p>
-    <p><%= check_box_tag 'buy_in'  %></p>
+    <% if membership.buy_in == 1 %>
+    <p><%= check_box_tag 'buy_in', 'true', true, :disabled => true  %></p>
+    <% else %>
+    <p><%= check_box_tag 'buy_in', 'false', false, :disabled => false  %></p> 
+    <% end %>
   </div>
   
   <div class='round left user_admin_container small_container'>
     <p><%= user.buy_backs(league) %> / <%= league.league_settings['buy_backs'] %></p>
-    <p><%= check_box_tag 'buy_back' %></p>
+    <% if membership.buy_backs == league.league_settings['buy_backs'] %>
+    <p><%= check_box_tag 'buy_back', 'true', true, :disabled => true %></p>
+    <% else %>
+    <p><%= check_box_tag 'buy_back', 'false', false, :disabled => false %></p>
+    <% end %>
   </div>
   
   <div class='round left user_admin_container small_container' id='remove_user'>
-    <p><%= check_box_tag 'deelete_membership' %></p>
+    <p><%= check_box_tag 'delete_membership' %></p>
   </div>
   
 </div>

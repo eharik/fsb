@@ -92,12 +92,10 @@ class User < ActiveRecord::Base
   
   def buy_backs (league)
     Membership.where(:league_id => league.id, :user_id => id).first.buy_backs
-    return 0
   end
   
   def buy_in (league)
     Membership.where(:league_id => league.id, :user_id => id).first.buy_in
-    return 0
   end
   
   private
