@@ -1,0 +1,28 @@
+var selector_string = '#user_options[data-user_id=\"' + <%= @u.id %> + '\"]';
+$(selector_string).replaceWith('<%= escape_javascript(render "layouts/user_admin_view", :user => @u, :membership => @m, :league => @l) %>');
+
+jQuery("input[id='buy_in']").each(function(index, button){
+    jQuery(button).click(function(){
+        league_id = $(this).parents('#user_options').attr("data-league_id");
+        user_id = $(this).parents('#user_options').attr("data-user_id");
+        membership_id = $(this).parents('#user_options').attr("data-membership_id");
+        path_string = '/memberships/' + membership_id + '/unlock_buy_in';
+        selector_string = 'user_id=' + user_id;
+        $.ajax({
+            url: path_string,
+            type: 'GET',
+            data: selector_string
+        });
+    });
+    jQuery(button).confirm({
+        timeout:5000,
+        dialogShow:'fadeIn',
+        dialogSpeed:'slow',
+        msg: 'Deploy Credits?    ',
+        wrapper: '<pre></pre>',
+        buttons: {
+            wrapper:'<button></button>',
+            separator:'  '
+        }  
+    });
+});
