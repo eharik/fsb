@@ -8,6 +8,15 @@
   <pre>Buy Backs Left:  <%= user.buy_backs(league) %></pre>
 </div>
 <div class="profile_sub_container bottom">
-  <%= submit_tag "Buy-In\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button' %>
-  <%= submit_tag "Buy-Back\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button' %>
+  <% if membership.activate_buy_in == true %>
+  <%= submit_tag "Buy-In\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button', :disabled => false %>
+  <% else %>
+  <%= submit_tag "Buy-In\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button', :disabled => true %>
+  <% end %>
+
+  <% if membership.activate_buy_back == true %>
+  <%= submit_tag "Buy-Back\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button', :disabled => false %>
+  <% else %>
+  <%= submit_tag "Buy-Back\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button', :disabled => true %>    
+  <% end %>
 </div>

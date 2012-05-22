@@ -154,17 +154,16 @@ jQuery(function(){
 // League admin checkboxes
     jQuery("input[id='buy_in']").each(function(index, button){
         jQuery(button).click(function(){
-            league_id = $('#user_options').attr("data-league_id");
-            user_id = $('#user_options').attr("data-user_id");
-            membership_id = $('#user_options').attr("data-membership_id"); 
-            /*$.get("/bets/new", {game: game_id, bet: bet_type, league: league_id}, function(){
-                $("input[name='bet_risk']").blur(function(index, button2){
-                    win = $(this).val()*0.95;
-                    win_string = sprintf("%.2f", win );
-                    $(this).parents(".left").siblings(".right").children("#to_win").empty();
-                    $(this).parents(".left").siblings(".right").children("#to_win").append(win_string);
-                });
-            });*/
+            league_id = $(this).parents('#user_options').attr("data-league_id");
+            user_id = $(this).parents('#user_options').attr("data-user_id");
+            membership_id = $(this).parents('#user_options').attr("data-membership_id");
+            path_string = '/memberships/' + membership_id + '/unlock_buy_in';
+            selector_string = 'user_id=' + user_id;
+            $.ajax({
+                url: path_string,
+                type: 'GET',
+                data: selector_string
+            });
         });
         jQuery(button).confirm({
             timeout:5000,
@@ -181,17 +180,16 @@ jQuery(function(){
     
     jQuery("input[id='buy_back']").each(function(index, button){
         jQuery(button).click(function(){
-            league_id = $('#user_options').attr("data-league_id");
-            user_id = $('#user_options').attr("data-user_id");
-            membership_id = $('#user_options').attr("data-membership_id"); /*
-            $.get("/bets/new", {game: game_id, bet: bet_type, league: league_id}, function(){
-                $("input[name='bet_risk']").blur(function(index, button2){
-                    win = $(this).val()*0.95;
-                    win_string = sprintf("%.2f", win );
-                    $(this).parents(".left").siblings(".right").children("#to_win").empty();
-                    $(this).parents(".left").siblings(".right").children("#to_win").append(win_string);
-                });
-            });*/
+            league_id = $(this).parents('#user_options').attr("data-league_id");
+            user_id = $(this).parents('#user_options').attr("data-user_id");
+            membership_id = $(this).parents('#user_options').attr("data-membership_id");
+            path_string = '/memberships/' + membership_id + '/unlock_buy_back';
+            selector_string = 'user_id=' + user_id;
+            $.ajax({
+                url: path_string,
+                type: 'GET',
+                data: selector_string
+            });
         });
         jQuery(button).confirm({
             timeout:5000,

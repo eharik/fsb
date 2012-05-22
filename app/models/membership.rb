@@ -14,6 +14,12 @@ class Membership < ActiveRecord::Base
     (credits.current.to_f - risk_amount.to_f) >= h2h_credits_required.to_f
   end
   
+  def unlock_buy_in
+  end
+  
+  def unlock_buy_back
+  end
+  
   def update_credits_for_risk ( risk_amount )
     new_credit_amount = credits.current.to_f - risk_amount.to_f
     credits.send("#{Time.now.to_s}=", new_credit_amount) 

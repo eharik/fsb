@@ -91,7 +91,8 @@ class User < ActiveRecord::Base
   end
   
   def buy_backs (league)
-    Membership.where(:league_id => league.id, :user_id => id).first.buy_backs
+    bb = Membership.where(:league_id => league.id, :user_id => id).first.buy_backs.to_f
+    return sprintf("%2.0f", bb)
   end
   
   def buy_in (league)

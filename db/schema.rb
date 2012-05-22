@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120520040202) do
+ActiveRecord::Schema.define(:version => 20120521025913) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at"
@@ -69,6 +69,8 @@ ActiveRecord::Schema.define(:version => 20120520040202) do
     t.string   "record"
     t.integer  "buy_backs"
     t.integer  "buy_in"
+    t.boolean  "activate_buy_in",   :default => false
+    t.boolean  "activate_buy_back", :default => false
   end
 
   create_table "users", :force => true do |t|
