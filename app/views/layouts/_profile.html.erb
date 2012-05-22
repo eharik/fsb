@@ -1,3 +1,4 @@
+<span id="user_profile">
 <div class="profile_sub_container round">
   <%= image_tag user.photo.url(:small) %>
 </div>
@@ -20,3 +21,4 @@
   <%= submit_tag "Buy-Back\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button', :disabled => true %>    
   <% end %>
 </div>
+</span>

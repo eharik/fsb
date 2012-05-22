@@ -140,4 +140,12 @@ class Membership < ActiveRecord::Base
     return plot_data
   end
   
+  def bump_credits(league)
+    current_credits = credits.current
+    bump_amount = league.league_settings['start_credits']
+    new_credit_amount = bump_amount.to_f + current_credits.to_f
+    credits.send("#{Time.now.to_s}=", new_credit_amount) 
+    credits.send("current=", new_credit_amount)
+    self.save
+  end
 end

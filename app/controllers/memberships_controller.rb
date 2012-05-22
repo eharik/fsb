@@ -63,6 +63,21 @@ class MembershipsController < ApplicationController
     end
   end
   
+  def deploy_credits
+    @m = Membership.find(params[:id])
+    @l = League.find(@m.league_id)
+    @u = User.find(@m.user_id)
+    @m.bump_credits(@l)
+    @m.activate_buy_back = false
+    @m.activate_buy_in = false
+    @m.save
+    
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+  
   private
   
     def authenticate

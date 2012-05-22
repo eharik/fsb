@@ -1,4 +1,4 @@
-<div id="league_info_container" class="round" data-league_id=<%= params[:id] %> >
+<div id="league_info_container" class="round" data-league_id=<%= params[:id] %> data-user_id=<%= current_user.id %> data-membership_id=<%= @membership.id %> >
   <div id="league_header">
     <% @user.leagues.each do |l| %>
       <div class="left">

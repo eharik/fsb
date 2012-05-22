@@ -230,5 +230,18 @@ jQuery(function(){
         });
     });
     
-    
+// Credit Release Buttons
+    jQuery("input[class='credit_button']").each(function(index, button){
+        jQuery(button).click(function(){
+            league_id = $(this).parents('#league_info_container').attr("data-league_id");
+            user_id = $(this).parents('#league_info_container').attr('data-user_id');
+            membership_id = $(this).parents('#league_info_container').attr("data-membership_id");
+            path_string = '/memberships/' + membership_id + '/deploy_credits';
+            $.ajax({
+                url: path_string,
+                type: 'GET'
+            });
+        });
+    });
+
 });
