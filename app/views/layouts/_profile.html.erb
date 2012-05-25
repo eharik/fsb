@@ -3,11 +3,11 @@
   <%= image_tag user.photo.url(:small) %>
 </div>
 <div class="profile_sub_container right_side">
-  <pre id="league_rank"   >League Rank  :   <%= sprintf( "%-s", user.rank(league) ) %></pre>
-  <pre                    >H2H Record    :     <%= user.record(league) %></pre>
-  <pre id="league_credits">Total Credits   : <%= sprintf("%7d", membership.credits.current) %></pre>
-  <pre id="league_credits">     At Risk       : <%= sprintf("%7d", current_user.open_bets_risk(league)) %></pre>
-  <pre id="league_credits">     Available    : <%= sprintf("%7d", membership.credits.current - current_user.open_bets_risk(league)) %></pre>
+  <pre id="league_rank"     >League Rank  :   <%= sprintf( "%-s", user.rank(league) ) %></pre>
+  <pre                      >H2H Record    :     <%= user.record(league) %></pre>
+  <pre id="league_credits"  >Total Credits   : <%= sprintf("%7d", membership.credits.current) %></pre>
+  <pre id="league_risk"     >     At Risk       : <%= sprintf("%7d", current_user.open_bets_risk(league)) %></pre>
+  <pre id="league_available">     Available    : <%= sprintf("%7d", membership.credits.current - current_user.open_bets_risk(league)) %></pre>
   <pre>Buy Backs Left:  <%= league.league_settings['buy_backs'].to_i - user.buy_backs(league).to_i %></pre>
 </div>
 <div class="profile_sub_container bottom">

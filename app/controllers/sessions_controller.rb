@@ -2,7 +2,8 @@ class SessionsController < ApplicationController
   def new
     if current_user
       if super_user?(current_user)
-        redirect_to super_user
+        redirect_to '/super_user'
+        puts '------- Super User ---------'
       else
         redirect_to current_user
       end
