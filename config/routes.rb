@@ -19,6 +19,7 @@ Fsb::Application.routes.draw do
   match '/memberships/:id/unlock_buy_in',   :to => 'memberships#unlock_buy_in'
   match '/memberships/:id/unlock_buy_back', :to => 'memberships#unlock_buy_back'
   match '/memberships/:id/deploy_credits',  :to => 'memberships#deploy_credits'
+  match '/super_user',                      :to => 'users#super_user'
 
   resources :leagues do
     resources :bets, :only => [:index]

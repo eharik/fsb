@@ -20,6 +20,7 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
+    @user.email = @user.email.downcase
     @user.updating_password = false
     if @user.save
       sign_in @user
@@ -35,7 +36,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @page_title = "Edit user"
   end
-  
   
   def update
     @user = User.find(params[:id])
@@ -58,6 +58,13 @@ class UsersController < ApplicationController
     
   end
   
+  def super_user
+    @l = League.all
+    @u = User.all
+    @m = Membership.all
+    @b = Bet.all
+    @g = Game.all
+  end
   
   private
   

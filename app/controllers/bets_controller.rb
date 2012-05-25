@@ -28,7 +28,7 @@ class BetsController < ApplicationController
 
     if @current_user_membership.sufficient_funds?( params[:risk] )
       @bet.save
-      @current_user_membership.update_credits_for_risk( params[:risk] )
+      #@current_user_membership.update_credits_for_risk( params[:risk] )
       @current_user_membership.save
       @flash_message = "Your bet has been submitted!"
       flash.now[:notice] = @flash_message

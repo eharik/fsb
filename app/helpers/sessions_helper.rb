@@ -14,6 +14,10 @@ module SessionsHelper
     self.current_user = user
   end
   
+  def super_user?(u)
+    u.email == 'fsb.adm.eph@gmail.com'
+  end
+   
   def current_user=(user)
     @current_user = user
   end

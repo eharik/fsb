@@ -7,17 +7,17 @@ class Membership < ActiveRecord::Base
   
   attr_accessor :league_name, :league_password
   
-  def sufficient_funds? ( risk_amount )
-    current_league = League.find(league_id)
-    h2h_credits_required = current_league.league_settings["h2h_bet"]
-
-    (credits.current.to_f - risk_amount.to_f) >= h2h_credits_required.to_f
-  end
-  
   def unlock_buy_in
   end
   
   def unlock_buy_back
+  end
+  
+  def sufficient_funds? ( risk_amount )
+    current_league = League.find(league_id)
+    h2h_credits_required = current_league.league_settings["h2h_bet"]
+
+    (credits.current.to_f - risk_amount.to_f - current_user.open_bets_risk(current_league)) >= h2h_credits_required.to_f
   end
   
   def update_credits_for_risk ( risk_amount )
@@ -27,10 +27,14 @@ class Membership < ActiveRecord::Base
   end
   
   def update_credits_for_bet ( b )
-    new_credit_amount = credits.current.to_f + b.risk + b.win
+    win_credit_amount =  credits.current.to_f + b.win
+    loss_credit_amount = credits.current.to_f - b.risk
     if b.winner?
-      credits.send("#{Time.now.to_s}=", new_credit_amount) 
-      credits.send("current=", new_credit_amount)
+      credits.send("#{Time.now.to_s}=", win_credit_amount) 
+      credits.send("current=", win_credit_amount)
+    else
+      credits.send("#{Time.now.to_s}=", loss_credit_amount) 
+      credits.send("current=", loss_credit_amount)      
     end
     self.save
   end
