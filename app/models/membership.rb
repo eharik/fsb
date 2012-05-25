@@ -16,8 +16,9 @@ class Membership < ActiveRecord::Base
   def sufficient_funds? ( risk_amount )
     current_league = League.find(league_id)
     h2h_credits_required = current_league.league_settings["h2h_bet"]
-
-    (credits.current.to_f - risk_amount.to_f - current_user.open_bets_risk(current_league)) >= h2h_credits_required.to_f
+    u = current_user
+    
+    (credits.current.to_f - risk_amount.to_f - u.open_bets_risk(current_league)) >= h2h_credits_required.to_f
   end
   
   def update_credits_for_risk ( risk_amount )
