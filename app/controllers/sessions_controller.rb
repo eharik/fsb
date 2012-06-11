@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if current_user
-      if super_user?(current_user)
+      if super_user?
         redirect_to '/super_user'
         puts '------- Super User ---------'
       else
@@ -19,14 +19,15 @@ class SessionsController < ApplicationController
       flash.now[:error] = "Invalid email/password combination"
       @page_title = "Sign In"
       render 'new'
-    elsif super_user?(user)
-      sign_in user
-      redirect_to '/super_user'
     else
       sign_in user
-      redirect_back_or user, "Welcome to FSB!"
-    end
-  end
+      if super_user?
+        redirect_to '/super_user'
+      else
+        redirect_back_or user, "Welcome to FSB!"
+      end # super user if
+    end # user exists if
+  end # create method
   
   def destroy
     sign_out

@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [:edit, :update, :update]
+  before_filter :authenticate, :only => [:edit, :update]
   before_filter :correct_user, :only => [:edit, :update, :show]
-  before_filter :admin_user,   :only => :destroy
+  before_filter :admin,        :only => [:destroy, :super_user, :su_credit_update]
   
   def index
     @page_title = "All users"
@@ -54,16 +54,29 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
-  def list_users
-    
-  end
-  
   def super_user
     @l = League.all
-    @u = User.all
-    @m = Membership.all
-    @b = Bet.all
-    @g = Game.all
+  end
+  
+  def su_settings
+    @l = League.find(params[:id])
+    
+    respond_to do |format|
+      format.js
+    end 
+  end
+  
+  def su_users
+    @l = League.find(params[:id])
+    @u = @l.users
+
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+  def su_credit_update
+    
   end
   
   private
@@ -77,7 +90,7 @@ class UsersController < ApplicationController
       redirect_to(root_path) unless current_user?(@user)
     end
     
-    def admin_user
-      redirect_to(root_path) unless current_user.admin?
+    def admin
+      redirect_to(root_path) unless super_user?
     end
 end

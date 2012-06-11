@@ -1,8 +1,8 @@
 require 'digest'
 class User < ActiveRecord::Base
-  has_many :bets
+  has_many :bets, :dependent => :destroy
   has_many :leagues, :through => :bets
-  has_many :memberships
+  has_many :memberships, :dependent => :destroy
   has_many :leagues, :through => :memberships
   has_attached_file :photo,
                     :styles => {:small => "160x225>", :thumb => "50x50>"},
@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   end
   
   def record (league)
-    Membership.where(:league_id => league.id, :user_id => id).first.record
+    Membership.where(:league_id => league.id, :user_id => id).first.record.to_s
   end
   
   def buy_backs (league)
@@ -96,7 +96,8 @@ class User < ActiveRecord::Base
   end
   
   def buy_in (league)
-    Membership.where(:league_id => league.id, :user_id => id).first.buy_in
+    bi = Membership.where(:league_id => league.id, :user_id => id).first.buy_in.to_f
+    return sprintf("%2.0f", bi)
   end
   
   private

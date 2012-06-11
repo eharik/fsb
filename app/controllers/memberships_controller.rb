@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_filter :authenticate
+
   
   def new
     @page_title = "Join a League"
@@ -76,6 +77,15 @@ class MembershipsController < ApplicationController
       format.js
     end
     
+  end
+  
+  def credit_update
+    u = User.find(params[:user_id])
+    l = League.find(params[:league_id])
+    m = Membership.where(:user_id => u.id, :league_id => l.id).first
+    m.su_credit_update(params[:credits].to_f)
+    
+    render :nothing => true
   end
   
   private

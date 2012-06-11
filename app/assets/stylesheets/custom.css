@@ -164,6 +164,12 @@ div.site_banner h1 {
     max-height: 40px;
 }
 
+.large {
+    font-size: 2.2em;
+    line-height: inherit;
+    margin-bottom: inherit;
+}
+
 #game_info .header {
     min-height: 25px;
     max-height: 25px;
@@ -275,10 +281,15 @@ div.site_banner h1 {
 .profile_sub_container {
     min-width: 160px;
     max-width: 160px;
-    min-height: 120px;
-    max-height: 120px;
+    min-height: 130px;
+    max-height: 130px;
     float: left;
     overflow: hidden;
+}
+
+.profile_sub_container.short {
+    min-height: 120px;
+    max-height: 120px;
 }
 
 .profile_sub_container.right_side{
@@ -391,6 +402,7 @@ div.site_banner h1 {
     min-width: 1280px;
     max-width: 1280px;
     min-height: 680px;
+    max-height: 680px;
     margin: 0px 20px;
     background-color: #DEF;
 }
@@ -881,8 +893,8 @@ div.site_banner h1 {
 #admin_container {
     min-width: 640px;
     max-width: 640px;
-    min-height: 680px;
-    max-height: 680px;
+    min-height: 620px;
+    max-height: 620px;
     background-color: #F4F0EC;
     margin-left: 300px;
 }
@@ -896,8 +908,8 @@ div.site_banner h1 {
     margin-right: 0px;
     margin-bottom: 5px;
     overflow-y: scroll;
-    max-height: 605px;
-    min-height: 605px;
+    max-height: 545px;
+    min-height: 545px;
 }
 
 #admin_container h3 {
@@ -946,4 +958,46 @@ div.site_banner h1 {
     left: 50%;
     margin-top: -100px;
     margin-left: -200px;
+}
+
+.super_user_container {
+    min-height: 668px;
+    max-height: 668px;
+    min-width: 628px;
+    max-width: 628px;
+}
+
+#settings_container {
+    height: 70px;
+}
+
+#settings_container p {
+    margin: .75em 1.5em;
+    font-size: large;
+}
+
+.super_user_container .padded {
+    min-height: 110px;
+    margin-top: 10px;
+}
+
+.super_user_container #users_container {
+    height: 490px;
+    overflow: scroll;
+}
+
+.super_user_container #users_container .padded{
+    min-width: 155px;
+    max-width: 155px;
+    margin-left: 0px;   
+}
+
+.super_user_container #users_container .padded.short{
+    min-width: 75px;
+    max-width: 75px;
+}
+
+.super_user_container #users_container p {
+    font-size: large;
+    margin: 1.05em .5em;
 }

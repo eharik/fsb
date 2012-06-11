@@ -1,8 +1,8 @@
 class LeaguesController < ApplicationController
-  before_filter :authenticate, :only => [:new, :create]
-  before_filter :league_member, :only => [:show]
+  before_filter :authenticate,   :only => [:new, :create]
+  before_filter :league_member,  :only => [:show]
   before_filter :league_manager, :only => [:edit, :destroy, :update, :admin]
-  before_filter :admin_user, :only => [:index, :destroy]
+  before_filter :admin_user,     :only => [:index]
   
   def rules
     
@@ -82,11 +82,11 @@ class LeaguesController < ApplicationController
     end
     
     def league_manager
-      deny_access unless manager?(params[:id], current_user.id)
+      deny_access unless ( manager?(params[:id], current_user.id) || super_user? ) 
     end
     
-  def admin_user
-    deny_access unless current_user.admin?
-  end
+    def admin_user
+      redirect_to(root_path) unless super_user?
+    end
   
 end

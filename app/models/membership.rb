@@ -153,4 +153,10 @@ class Membership < ActiveRecord::Base
     credits.send("current=", new_credit_amount)
     self.save
   end
+  
+  def su_credit_update(new_credit_amount)
+    credits.send("#{Time.now.to_s}=", new_credit_amount) 
+    credits.send("current=", new_credit_amount)
+    self.save
+  end
 end

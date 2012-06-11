@@ -1,1 +1,36 @@
-"Super Users"
+<div id="league_info_container" class="round" >
+  
+  <div class='super_user_container left round'>
+    <div class='header large'>
+      Leagues
+    </div>
+    <div>
+      <ul>
+      <% @l.each do |l| %>
+          <li class='no_bullet'>
+            <%= render 'layouts/league_su_view', :league => l %>
+          </li> 
+      <% end %>
+      </ul>
+    </div>
+    
+  </div>  
+
+  <div class='super_user_container right round'>
+    <div class='header large'>
+      Settings
+    </div>
+    <div id='settings_container'>
+      
+    </div>
+
+    <div class='header large'>
+      Users
+    </div>
+    <div id='users_container'>
+      
+    </div>
+    
+  </div>
+
+</div>

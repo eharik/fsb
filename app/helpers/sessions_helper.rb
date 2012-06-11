@@ -2,9 +2,8 @@ module SessionsHelper
   
   def join_as_mgr(league, user)
     @membership = Membership.new(:league_id => league.id, :user_id => user.id)
-    starting_credits = league.league_settings["start_credits"].to_f
-    @membership.credits.current = starting_credits
-    @membership.credits.send("#{Time.now.to_s}=", starting_credits)
+    @membership.credits.current = 0
+    @membership.credits.send("#{Time.now.to_s}=", 0)
     @membership.save
     league.update_attributes(:manager => user.id)
   end
@@ -12,10 +11,6 @@ module SessionsHelper
   def sign_in(user)
     cookies.permanent.signed[:remember_token] = [user.id, user.salt]
     self.current_user = user
-  end
-  
-  def super_user?(u)
-    u.email == 'fsb.adm.eph@gmail.com'
   end
    
   def current_user=(user)
@@ -30,8 +25,8 @@ module SessionsHelper
     !current_user.nil?
   end
   
-  def admin_user?
-    current_user.admin
+  def super_user?
+    current_user.email == 'fsb.adm.eph@gmail.com'
   end
   
   def manager?(league_id, user_id)
