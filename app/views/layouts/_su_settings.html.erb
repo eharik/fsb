@@ -1,0 +1,24 @@
+<div id='settings_container' class='round'>
+  <%= form_for l, :html => { :multipart => true } do |f| %>
+  <%= f.fields_for :league_settings do |s| %>
+  <div class='left'>
+    <p>
+      Starting Credits:
+      <%=l.league_settings["start_credits"] %>
+    </p>
+  </div>
+  <div class='left'>
+    <p>
+      H2H Bet:
+      <%=l.league_settings["h2h_bet"] %>
+    </p>    
+  </div>
+  <div class='left'>
+    <p>
+      Buy Backs:
+      <%=l.league_settings["buy_backs"] %>
+    </p>
+  </div>
+  <% end %>
+  <% end %>
+</div>

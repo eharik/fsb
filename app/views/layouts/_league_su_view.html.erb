@@ -1,0 +1,19 @@
+<div class="league_summary round su" data-league_id="<%= league.id %>" >
+    
+  <div class="profile_sub_container short round">
+    <%= image_tag league.photo.url(:small) %>
+  </div>
+  
+  <div class="profile_sub_container padded">
+    <p> <%= league.name %></p>
+    <p> <%= pluralize(league.users.count, 'User') %></p>
+    <p> Id: <%= league.id %></p>
+  </div>
+  
+  <div class="profile_sub_container padded">
+    <p> Created: <%= league.created_at.strftime('%g-%m-%d') %></p>
+    <p> Updated: <%= league.updated_at.strftime('%g-%m-%d') %></p>
+    <%= submit_tag  "View / Edit", :class => "expand_league", :id => "#{league.id}" %>
+  </div>
+
+</div>

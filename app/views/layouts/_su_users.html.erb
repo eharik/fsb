@@ -1,0 +1,21 @@
+<div class="league_summary round su" >
+    
+  <div class="profile_sub_container short round">
+    <%= image_tag u.photo.url(:small) %>
+  </div>
+  
+  <div class="profile_sub_container padded short">
+    <p> <%= u.name %></p>
+    <p> Id: <%= u.id %></p>
+  </div>
+  
+  <div class="profile_sub_container padded">
+    <p> Buy-In: <%= u.buy_in(l) %> / 1</p>
+    <p> Buy-Backs: <%= u.buy_backs(l) %> / <%= l.league_settings['buy_backs'] %></p>
+  </div>
+  
+  <div class="profile_sub_container padded" id="su_credits_container" data-user_id='<%= u.id %>'>
+    <p> Credits: <%= text_field  :user, :credits, :value => u.credits(l), :size => 6 %>  </p>  
+    <pre>       <%= submit_tag  "       Update       ", :id => "su_credit_update" %></pre>
+  </div>
+</div>
