@@ -1,0 +1,26 @@
+$('#users_container').replaceWith('\
+    <div id="users_container" data-league_id=<%= @l.id %> >\
+    <% @u.each do |us| %>\
+        <%= escape_javascript( render "layouts/su_users", :u => us, :l => @l) %>\
+    <% end %>\
+    </div>' );
+    
+/* Credit Update Buttons for Super User */
+
+jQuery(function(){
+
+    jQuery("input[id='su_credit_update']").each(function(index, button){
+        jQuery(button).click(function(){
+            l_id = $(this).closest('#users_container').attr('data-league_id');
+            u_id = $(this).closest('#su_credits_container').attr('data-user_id');
+            c = $(this).closest('#su_credits_container').find('#user_credits').val();
+            path_string = '/super_user/credit_update';
+            $.ajax({
+               url: path_string,
+               type: 'POST',
+               data: {user_id: u_id, league_id: l_id, credits: c}
+            });           
+        });
+    });
+    
+});
