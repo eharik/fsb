@@ -1,24 +1,22 @@
 <p><%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
 <div class="bet" data-game=<%= game.id %>  >
   
-  <div class="bet_lock">
-    Lock?
-  </div>
-  
   <div class="bet_matchup">
     <p class="away_team"><%= game.away_team %></p>
     <p>@</p>
     <p class="home_team"><%= game.home_team %></p>
   </div>
   
+  <div class='vertical_divider'></div>
+  
   <div class="bet_spread">
       <% bet_type_id = "bet_type#{game.game_id}"%>
       <% if game.spread > 0 %>
-        <% label_top    = "give" %>
+        <% label_top    = "lay" %>
         <% label_bottom = "take" %>
       <% else %>
         <% label_top    = "take" %>
-        <% label_bottom = "give" %>       
+        <% label_bottom = "lay" %>       
       <% end %>
     <div class="spread_label">
         <p><%= (game.spread * -1) > 0 ? "+#{game.spread*-1}" : game.spread * -1 %></p>
@@ -35,6 +33,8 @@
       </p>
     </div>
   </div>
+  
+  <div class='vertical_divider'></div>
   
   <div class="bet_spread">
     <div class="spread_label">

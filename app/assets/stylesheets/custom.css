@@ -219,30 +219,34 @@ div.site_banner h1 {
 
 .bet .bet_matchup  {
     float: left;
-    padding: 5px;
-    min-width: 100px;
-    max-width: 100px;
+    width: 180px;
+    padding: 5px 0px 0px 15px;
+    margin: 0px;
 }
 
 .bet .bet_spread {
     float: left;
-    padding: 0px 0px 10px 20px;
+    padding: 0px 0px 0px 0px;
     width:  120px;
+}
+
+.bet .bet_spread p {
+    padding: 5px 1px;
 }
 
 .bet .spread_label {
     float: left;
-    padding: 6px 2px 2px 2px;
     margin: 2px;
 }
 
-.spread p {
+/*.spread p {
     margin: .5em;
     
-}
+}*/
 
 .bet .bet_checkbox {
     float: left;
+    margin-top: 0px;
 }
 
 .bet .bet_over_under {
@@ -501,8 +505,39 @@ div.site_banner h1 {
 }
 
 .bet_bottom {
-    margin: 5px 25px 0px 25px;
+    margin: 5px 5px 0px 5px;
     min-height: 20px;
+    font-size: .9em;
+}
+
+.bet_bottom label {
+    font-weight: normal;
+}
+
+.new_bet .bet_bottom div {
+    width: 98px;
+    margin: 0px;
+}
+
+.no_pad {
+    padding: 0px;
+}
+
+.no_margin {
+    margin: 0px;
+}
+
+.bet_button {
+    width: 30px;
+    height: 20px;
+}
+
+.pad_left {
+    padding-left: 3px;
+}
+
+.pad_top {
+    padding-top: 2px;
 }
 
 .bet_divider {
@@ -1000,4 +1035,11 @@ div.site_banner h1 {
 .super_user_container #users_container p {
     font-size: large;
     margin: 1.05em .5em;
+}
+
+.vertical_divider {
+    float: left;
+    border-left: solid 1px #000;
+    height: 70px;
+    width: 1px;
 }
