@@ -18,9 +18,6 @@ class MembershipsController < ApplicationController
       redirect_to :controller => :memberships, :action => :new
     else
       membership = Membership.new(:user_id => current_user.id, :league_id => league.id)
-      #starting_credits = league.league_settings["start_credits"].to_f
-      #membership.credits.current = starting_credits
-      #membership.credits.send("#{Time.now.to_s}=", starting_credits)
       membership.credits.current = 0
       membership.credits.send("#{Time.now.to_s}=", 0)
       membership.buy_backs = 0
@@ -29,12 +26,16 @@ class MembershipsController < ApplicationController
       membership.activate_buy_in = false
       membership.activate_buy_back = false
       membership.save
+      league.schedule_games
       redirect_to :controller => :leagues, :action => :show, :id => league.id
     end
   end
   
   def destroy   
-    Membership.find(params[:id]).delete
+    m= Membership.find(params[:id])
+    l = League.find(m.league_id)
+    m.delete
+    l.schedule_games
     render :nothing => true  
   end
   

@@ -14,6 +14,7 @@ Fsb::Application.routes.draw do
   match '/rules',                           :to => 'leagues#rules'
   match '/leagues_all',                     :to => 'leagues#index'
   match '/leagues/add_bet',                 :to => 'bets#new'
+  match '/leagues/:id/matchups',            :to => 'leagues#matchups'
   match '/bets/submitted',                  :to => 'bets#submitted'
   match '/memberships/:id/unlock_buy_in',   :to => 'memberships#unlock_buy_in'
   match '/memberships/:id/unlock_buy_back', :to => 'memberships#unlock_buy_back'

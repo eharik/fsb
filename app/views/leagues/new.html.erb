@@ -30,6 +30,14 @@
             Confirm Password:
             <%= f.password_field :password_confirmation %>
         </div>
+        <div class='field'>
+          Start Date:            
+          <%= f.date_select :start_date %>
+        </div>
+        <div class='field'>
+          Number of Weeks:
+          <%= f.text_field :number_of_weeks %>
+        </div>
       </div>
       <div class="league_members">
         <br>

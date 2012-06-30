@@ -5,6 +5,7 @@ class League < ActiveRecord::Base
   has_many :users, :through => :bets
   has_many :memberships, :dependent => :destroy
   has_many :users, :through => :memberships
+  has_many :matchups, :dependent => :destroy
   has_attached_file :photo,
                     :styles => {:small => "160x120>", :thumb => "50x40"},
                     :storage => :s3,
@@ -16,8 +17,10 @@ class League < ActiveRecord::Base
                     }
   
   serialize :league_settings, Hash
+  serialize  :schedule, OpenStruct
   attr_accessor   :password
-  attr_accessible :name, :password, :password_confirmation, :manager, :photo, :league_settings
+  attr_accessible :name, :password, :password_confirmation,
+                  :manager, :photo, :league_settings, :start_date, :number_of_weeks
   
   validates :name,     :presence     => true,
                        :uniqueness   => { :case_sensitive => false }
@@ -41,24 +44,65 @@ class League < ActiveRecord::Base
     (league && league.salt == cookie_salt) ? league : nil
   end
   
-  def self.scheduler_test
-    puts "**********scheduler_running --> #{Time.now} **************"
+  def schedule_games
+    # team number '-1' represents a bye week and should be parsed as such
+    puts "-----------------------"
+    puts "--Scheduling Matchups--"
+    puts "-----------------------"
+    # if odd number of teams add 'bye week'
+    team_user_ids = []
+    self.users.each do |t|
+      team_user_ids << t.id
+    end
+    team_user_ids.sort
+    if team_user_ids.length.odd?
+      team_user_ids << -1
+    end
+    
+    # figure out what week of the league it is
+    days_since_start = (DateTime.now.utc - self.start_date.to_datetime.utc)
+    weeks_since_start = 1
+    if days_since_start > 0
+      weeks_since_start = days_since_start.ceil / 7 + 1 # first week is '1' not '0'
+    end
+
+    # get matchups
+    m = self.matchups
+    
+    # delete matchups for this week forward
+    unless m.nil?
+      m.each do |m_up|
+        if m_up.week >= weeks_since_start
+          m_up.delete
+        end
+      end
+    end
+
+    # reset schedule from that week on via round robin algorithm
+    for week in weeks_since_start..(self.number_of_weeks)
+      
+      # replace with new matchups
+      for m_up in 1..(team_user_ids.length/2)
+        puts "Week #{week}: #{team_user_ids[m_up-1]} vs #{team_user_ids[-m_up]}"
+        new_matchup = Matchup.new
+        new_matchup.league_id       = self.id
+        new_matchup.week            = week;
+        new_matchup.away_team_id    = team_user_ids[m_up-1]
+        new_matchup.home_team_id    = team_user_ids[-m_up]
+        new_matchup.away_team_score = 0
+        new_matchup.home_team_score = 0
+        new_matchup.save
+      end
+      
+      #rotate
+      temp_array = team_user_ids[1..-1]
+      for index in 0..(temp_array.length-1)
+        team_user_ids[index+1] = temp_array[index-1]
+      end
+      
+    end
+    
   end
-  
- # def self.update_bets
- #   puts "**********updating_bets**************"
- #   League.all.each do |l|
- #     l.memberships.each do |m|
- #       user = User.find(m.user_id)
- #       all_bets = Bet.all_bets(l, user)
- #       all_bets.each do |b|
- #         unless (b.won == true || b.won == false)
- #           m.update_credits_for_bet( b )
- #         end
- #       end
- #     end
- #   end
- # end
   
   private
   

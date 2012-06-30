@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120521025913) do
+ActiveRecord::Schema.define(:version => 20120630012640) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at"
@@ -58,6 +58,19 @@ ActiveRecord::Schema.define(:version => 20120521025913) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.datetime "start_date"
+    t.integer  "number_of_weeks"
+    t.text     "schedule"
+  end
+
+  create_table "matchups", :force => true do |t|
+    t.integer "league_id"
+    t.integer "week"
+    t.integer "away_team_id"
+    t.integer "home_team_id"
+    t.integer "away_team_score"
+    t.integer "home_team_score"
+    t.boolean "final",           :default => false
   end
 
   create_table "memberships", :force => true do |t|

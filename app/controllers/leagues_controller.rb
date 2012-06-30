@@ -1,6 +1,6 @@
 class LeaguesController < ApplicationController
   before_filter :authenticate,   :only => [:new, :create]
-  before_filter :league_member,  :only => [:show]
+  before_filter :league_member,  :only => [:show, :matchups]
   before_filter :league_manager, :only => [:edit, :destroy, :update, :admin]
   before_filter :admin_user,     :only => [:index]
   
@@ -69,6 +69,9 @@ class LeaguesController < ApplicationController
   def admin
     @league = League.find(params[:id])
     @users = @league.users
+  end
+  
+  def matchups
   end
   
   private
