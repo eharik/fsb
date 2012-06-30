@@ -411,6 +411,12 @@ div.site_banner h1 {
     background-color: #DEF;
 }
 
+.league_container {
+    width: 414px;
+    height: 620px;
+    background-color: #F0EAD6;
+}
+
 #bet_slip_container .content {
     max-height: 170px;
     min-height: 170px;
@@ -590,6 +596,7 @@ div.site_banner h1 {
 #league_header h1 {
     text-align: center;
     margin-left: 40px;
+    margin-bottom: .2em;
     float: left;
 }
 
@@ -1042,4 +1049,13 @@ div.site_banner h1 {
     border-left: solid 1px #000;
     height: 70px;
     width: 1px;
+}
+
+.centered {
+    text-align: center;
+}
+
+.underlined {
+    border-bottom: 1px solid #111;
+    padding: 5px 0px;
 }

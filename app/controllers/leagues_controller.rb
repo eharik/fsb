@@ -72,6 +72,9 @@ class LeaguesController < ApplicationController
   end
   
   def matchups
+    @l = League.find(params[:id])
+    @m = @l.matchups
+    
   end
   
   private

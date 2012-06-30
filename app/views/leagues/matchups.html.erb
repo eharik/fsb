@@ -1,0 +1,39 @@
+<div id="league_info_container" class="round" data-league_id=<%= params[:id] %> data-user_id=<%= current_user.id %> >
+  <div id="league_header">
+    <% current_user.leagues.each do |l| %>
+      <div class="left">
+        <div class="hidden_div_link">
+            <%= link_to content_tag(:span, "  "), :controller => "leagues", :action => "show", :id => l.id %>
+        </div>
+        <%= image_tag l.photo.url(:thumb), :class => "round" %>
+      </div>
+    <% end %>
+    <h1><%= @l.name %></h1>
+    <nav class="round">
+      <ul>
+        <% if manager?(@l.id, current_user.id) %>
+          <li><%= link_to content_tag(:span, "Admin"),       admin_league_path(@l) %></li>
+          <li><%= link_to content_tag(:span, "Edit League"), edit_league_path(@l) %></li>
+        <% end %>
+        
+        <li><%= link_to "Bets", league_bets_path(@l) %></li>
+        <li><%= link_to "League Home", league_path(@l) %></li>
+      </ul>
+    </nav>
+  </div>
+  
+  
+  <div class='league_container left round' data-week=<%=@l.what_week%> >
+    <h2 class='centered underlined'>
+      <%= @l.matchup_string( current_user, @l.what_week )  %>
+    </h2>
+  </div>
+  <div class='league_container left round' data-week=<%=@l.what_week%> >
+    <h2 class='centered underlined'>Select a Week</h2>
+    
+  </div>
+  <div class='league_container left round' data-week=<%=@l.what_week%> >
+    <h2 class='centered underlined'>League Matchups</h2>
+    
+  </div>
+</div>

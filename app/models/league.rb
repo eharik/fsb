@@ -60,11 +60,7 @@ class League < ActiveRecord::Base
     end
     
     # figure out what week of the league it is
-    days_since_start = (DateTime.now.utc - self.start_date.to_datetime.utc)
-    weeks_since_start = 1
-    if days_since_start > 0
-      weeks_since_start = days_since_start.ceil / 7 + 1 # first week is '1' not '0'
-    end
+    weeks_since_start = self.what_week
 
     # get matchups
     m = self.matchups
@@ -102,6 +98,66 @@ class League < ActiveRecord::Base
       
     end
     
+  end
+  
+  def what_week
+    days_since_start = (DateTime.now.utc - self.start_date.to_datetime.utc)
+    weeks_since_start = 1
+    if days_since_start > 0
+      weeks_since_start = days_since_start.ceil / 7 + 1 # first week is '1' not '0'
+    end
+    return weeks_since_start
+  end
+  
+  # returns a formatted string for matchup page for matchup header
+  # takes a week number and user and returns appropriate string
+  def matchup_string( user_id, week_number )
+    opponent_user = User.find( self.opponent( user_id, week_number ) )
+    opponent_score = self.score( opponent_user.id, week_number )
+    user = User.find( user_id )
+    user_score = self.score( user_id, week_number )
+    if self.home?( user_id, week_number )
+      return "#{opponent_user.name} (#{opponent_score}) vs #{user.name} (#{user_score})"
+    else
+      return "#{user.name} (#{user_score}) vs #{opponent_user.name} (#{opponent_score})"
+    end
+  end
+  
+  # returns true if given user on given week is the home team
+  def home?( user_id, week_number )
+    m = Matchup.where( :league_id    => self.id,
+                       :home_team_id => user_id,
+                       :week         => week_number).first
+    if m.nil?
+      return false
+    else
+      return true
+    end
+  end
+  
+  # returns the id of an opponent given one user id and a week, or -1 if on bye
+  def opponent( user_id, week_number )
+    m = Matchup.where( :league_id    => self.id,
+                       :home_team_id => user_id,
+                       :week         => week_number).first
+    unless m.nil?
+      opponent_id = m.away_team_id
+    end
+    
+    if m.nil?
+      m = Matchup.where( :league_id    => self.id,
+                         :away_team_id => user_id,
+                         :week         => week_number).first
+      opponent_id = m.home_team_id
+    end
+    
+    return opponent_id
+    
+  end
+  
+  #returns the number of correct lock picks for a user and week, only correct if game is final
+  def score( user_id, week_number )
+    return 0
   end
   
   private
