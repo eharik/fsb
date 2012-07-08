@@ -22,10 +22,11 @@ class League < ActiveRecord::Base
   attr_accessible :name, :password, :password_confirmation,
                   :manager, :photo, :league_settings, :start_date, :number_of_weeks
   
-  validates :name,     :presence     => true,
-                       :uniqueness   => { :case_sensitive => false }
-  validates :password, :presence     => true,
-                       :confirmation => true
+  validates :name,            :presence     => true,
+                              :uniqueness   => { :case_sensitive => false }
+  validates :password,        :presence     => true,
+                              :confirmation => true
+  validates :number_of_weeks, :numericality => { :greater_than => 0 }
   
   before_save :encrypt_password
   
@@ -44,11 +45,27 @@ class League < ActiveRecord::Base
     (league && league.salt == cookie_salt) ? league : nil
   end
   
+  def set_start_date
+    # assumes league manager entered start date so it exists already
+    # updates it to be the Tuesday before at 6AM EST.
+    temp_start = self.start_date
+    
+    #convert to EST
+    temp_start = temp_start.in_time_zone('America/New_York')
+    #set hour to 6AM
+    temp_start = temp_start.change(:hour => 6 )
+    #roll back a day until day is Tuesday
+    until temp_start.tuesday?
+      temp_start = temp_start.yesterday
+    end
+    
+    self.start_date = temp_start
+    
+  end
+  
   def schedule_games
     # team number '-1' represents a bye week and should be parsed as such
-    puts "-----------------------"
-    puts "--Scheduling Matchups--"
-    puts "-----------------------"
+
     # if odd number of teams add 'bye week'
     team_user_ids = []
     self.users.each do |t|
@@ -79,7 +96,7 @@ class League < ActiveRecord::Base
       
       # replace with new matchups
       for m_up in 1..(team_user_ids.length/2)
-        puts "Week #{week}: #{team_user_ids[m_up-1]} vs #{team_user_ids[-m_up]}"
+        #puts "Week #{week}: #{team_user_ids[m_up-1]} vs #{team_user_ids[-m_up]}"
         new_matchup = Matchup.new
         new_matchup.league_id       = self.id
         new_matchup.week            = week;
@@ -112,15 +129,20 @@ class League < ActiveRecord::Base
   # returns a formatted string for matchup page for matchup header
   # takes a week number and user and returns appropriate string
   def matchup_string( user_id, week_number )
-    opponent_user = User.find( self.opponent( user_id, week_number ) )
-    opponent_score = self.score( opponent_user.id, week_number )
-    user = User.find( user_id )
-    user_score = self.score( user_id, week_number )
-    if self.home?( user_id, week_number )
-      return "#{opponent_user.name} (#{opponent_score}) vs #{user.name} (#{user_score})"
+    
+    if self.opponent( user_id, week_number ) == -1
+      return "BYE WEEK"
     else
-      return "#{user.name} (#{user_score}) vs #{opponent_user.name} (#{opponent_score})"
-    end
+      opponent_user = User.find( self.opponent( user_id, week_number ) )
+      opponent_score = self.score( opponent_user.id, week_number )
+      user = User.find( user_id )
+      user_score = self.score( user_id, week_number )
+      if self.home?( user_id, week_number )
+        return "#{opponent_user.name} (#{opponent_score}) vs #{user.name} (#{user_score})"
+      else
+        return "#{user.name} (#{user_score}) vs #{opponent_user.name} (#{opponent_score})"
+      end  # if for checking home team
+    end # if for -1 for bye week
   end
   
   # returns true if given user on given week is the home team

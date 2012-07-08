@@ -25,7 +25,7 @@
   
   <div class='league_container left round' data-week=<%=@l.what_week%> >
     <h2 class='centered underlined'>
-      <%= @l.matchup_string( current_user, @l.what_week )  %>
+      <%= @l.matchup_string( current_user.id, @l.what_week )  %>
     </h2>
   </div>
   <div class='league_container left round' data-week=<%=@l.what_week%> >

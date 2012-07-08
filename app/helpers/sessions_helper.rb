@@ -4,7 +4,13 @@ module SessionsHelper
     @membership = Membership.new(:league_id => league.id, :user_id => user.id)
     @membership.credits.current = 0
     @membership.credits.send("#{Time.now.to_s}=", 0)
+    @membership.buy_backs = 0
+    @membership.buy_in = 0
+    @membership.record = "0/0"
+    @membership.activate_buy_in = false
+    @membership.activate_buy_back = false
     @membership.save
+    league.schedule_games
     league.update_attributes(:manager => user.id)
   end
   

@@ -18,6 +18,7 @@ class LeaguesController < ApplicationController
   
   def create
     @league = League.new(params[:league])
+    @league.start_date = @league.set_start_date
     @user = current_user
     @games = Game.open_games
     if @league.save
