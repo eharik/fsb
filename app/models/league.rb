@@ -117,12 +117,14 @@ class League < ActiveRecord::Base
     
   end
   
+  # returns the given week in a league
   def what_week
     days_since_start = (DateTime.now.utc - self.start_date.to_datetime.utc)
     weeks_since_start = 1
     if days_since_start > 0
-      weeks_since_start = days_since_start.ceil / 7 + 1 # first week is '1' not '0'
+      weeks_since_start = (days_since_start.to_f / 7.0).floor + 1 # first week is '1' not '0'
     end
+
     return weeks_since_start
   end
   

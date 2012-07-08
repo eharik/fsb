@@ -24,16 +24,24 @@
   
   
   <div class='league_container left round' data-week=<%=@l.what_week%> >
-    <h2 class='centered underlined'>
+    <h2 class='centered underlined no_bottom_margin'>
       <%= @l.matchup_string( current_user.id, @l.what_week )  %>
     </h2>
   </div>
   <div class='league_container left round' data-week=<%=@l.what_week%> >
-    <h2 class='centered underlined'>Select a Week</h2>
-    
+    <h2 class='centered underlined no_bottom_margin'>Select a Week</h2>
+    <div id='week_list_container'>
+      <% for w in 1..(@l.number_of_weeks) %>
+        <%= render 'layouts/week_button', :week_number => w %>
+      <% end %>
+    </div>
   </div>
   <div class='league_container left round' data-week=<%=@l.what_week%> >
-    <h2 class='centered underlined'>League Matchups</h2>
-    
+    <h2 class='centered underlined no_bottom_margin'>League Matchups</h2>
+    <div id='week_list_container'>
+    <% Matchup.this_week(@m, @l.what_week).each do |m| %>
+      <%= render 'layouts/weekly_matchup', :matchup => m %>
+    <% end %>
+    </div>
   </div>
 </div>
