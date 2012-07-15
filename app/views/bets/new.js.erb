@@ -13,12 +13,19 @@ jQuery("#lock").each(function(index, button){
         if ( selected ) {
             class_attr = "no_pad no_margin bet_button";
             $(this).attr("class", class_attr);
+            $(this).parent().siblings('#risk_container').children('#bet_risk').removeAttr('readonly');
+            $(this).parent().siblings('#risk_container').children('#bet_risk').val('');
+            $(this).parent().siblings('#win_container').children('#to_win').text('0');
         }
         else
         {
             class_attr = "no_pad no_margin bet_button selected"
             $(this).attr("class", class_attr);
+            $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
+            $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
+            $(this).parent().siblings('#win_container').children('#to_win').text('--');
         }
+        alert('pause');
         /*league_id = $(this).parents('#user_options').attr("data-league_id");
         user_id = $(this).parents('#user_options').attr("data-user_id");
         membership_id = $(this).parents('#user_options').attr("data-membership_id");

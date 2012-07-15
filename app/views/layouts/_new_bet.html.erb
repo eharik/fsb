@@ -39,11 +39,11 @@
   </div>
   <div class="bet_divider"></div>
   <div class="bet_bottom">
-    <div class="left pad_left">
+    <div class="left pad_left" id="risk_container">
       <%= label_tag :bet_risk, "Risk" %>
       <%= text_field_tag :bet_risk, nil, :size => 5 %>
     </div>
-    <div class="left pad_left pad_top">
+    <div class="left pad_left pad_top" id="win_container">
       <%= label_tag :to_win, "To Win:" %>
       <span id="to_win">0</span>
     </div>
