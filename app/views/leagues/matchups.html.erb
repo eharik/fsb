@@ -9,7 +9,7 @@
         <%= image_tag l.photo.url(:thumb), :class => "round" %>
       </div>
     <% end %>
-    <h1><%= @l.name %></h1>
+    <h1><%= "#{@l.name} - Week #{week_number}"%></h1>
     <nav class="round">
       <ul>
         <% if manager?(@l.id, current_user.id) %>
