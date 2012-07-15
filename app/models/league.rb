@@ -117,7 +117,7 @@ class League < ActiveRecord::Base
     
   end
   
-  # returns the given week in a league
+  # -------- returns the given week in a league
   def what_week
     days_since_start = (DateTime.now.utc - self.start_date.to_datetime.utc)
     weeks_since_start = 1
@@ -128,11 +128,11 @@ class League < ActiveRecord::Base
     return weeks_since_start
   end
   
-  # returns a formatted string for matchup page for matchup header
+  # ---------- returns a formatted string for matchup page for matchup header
   # takes a week number and user and returns appropriate string
   def matchup_string( user_id, week_number )
     
-    if self.opponent( user_id, week_number ) == -1
+    if (user_id == -1) || (self.opponent( user_id, week_number ) == -1)
       return "BYE WEEK"
     else
       opponent_user = User.find( self.opponent( user_id, week_number ) )
@@ -140,14 +140,14 @@ class League < ActiveRecord::Base
       user = User.find( user_id )
       user_score = self.score( user_id, week_number )
       if self.home?( user_id, week_number )
-        return "#{opponent_user.name} (#{opponent_score}) vs #{user.name} (#{user_score})"
+        return "#{opponent_user.name} (#{opponent_score})     vs     #{user.name} (#{user_score})"
       else
-        return "#{user.name} (#{user_score}) vs #{opponent_user.name} (#{opponent_score})"
+        return "#{user.name} (#{user_score})     vs     #{opponent_user.name} (#{opponent_score})"
       end  # if for checking home team
     end # if for -1 for bye week
   end
   
-  # returns true if given user on given week is the home team
+  # ---------- returns true if given user on given week is the home team
   def home?( user_id, week_number )
     m = Matchup.where( :league_id    => self.id,
                        :home_team_id => user_id,
@@ -159,7 +159,7 @@ class League < ActiveRecord::Base
     end
   end
   
-  # returns the id of an opponent given one user id and a week, or -1 if on bye
+  # ---------- returns the id of an opponent given one user id and a week, or -1 if on bye
   def opponent( user_id, week_number )
     m = Matchup.where( :league_id    => self.id,
                        :home_team_id => user_id,

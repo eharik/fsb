@@ -1,3 +1,13 @@
-<div>
-  <%= matchup.home_team_id %>
+<% matchup_string =  m_string %>
+<% if matchup.home_team_id == -1 %>
+  <% matchup_string = "#{User.find(matchup.away_team_id).name}       --      BYE" %>
+<% end %>
+<% if matchup.away_team_id == -1 %>
+  <% matchup_string = "#{User.find(matchup.home_team_id).name}       --      BYE" %>
+<% end %>
+  
+<div class='round matchup'>
+  <div class='centered top_margin'>
+    <pre><%= matchup_string %></pre>
+  </div>
 </div>

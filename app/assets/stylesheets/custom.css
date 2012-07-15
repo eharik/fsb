@@ -1069,10 +1069,33 @@ div.site_banner h1 {
 .week_button {
     width: 380px;
     height: 60px;
-    
     font-size: large;
 }
 
 .no_bottom_margin {
     margin-bottom: 0px;
+}
+
+.top_margin {
+    margin-top: .8em;
+}
+
+.matchup {
+    width: 390px;
+    height: 60px;
+    font-size: large;
+    background-color: #FFBF00;
+}
+
+.league_container pre {
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    margin: 0;
+}
+
+.week_button.selected {
+    background-color: buttonface;
+    border-style: inset;
+    color: buttontext;
+    padding: 0 5px 0 7px;
 }

@@ -18,7 +18,7 @@ class Bet < ActiveRecord::Base
       return total_score > game.over_under
     end
     
-    if bet_type == "give"
+    if bet_type == "lay"
       if game.spread < 0
         return (game.spread + game.home_score) > game.away_score
       end

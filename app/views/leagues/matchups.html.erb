@@ -1,3 +1,4 @@
+<% week_number = @l.what_week %>
 <div id="league_info_container" class="round" data-league_id=<%= params[:id] %> data-user_id=<%= current_user.id %> >
   <div id="league_header">
     <% current_user.leagues.each do |l| %>
@@ -23,25 +24,33 @@
   </div>
   
   
-  <div class='league_container left round' data-week=<%=@l.what_week%> >
+  <div class='league_container left round' data-week=<%= week_number %> >
     <h2 class='centered underlined no_bottom_margin'>
-      <%= @l.matchup_string( current_user.id, @l.what_week )  %>
+      <pre><%= @l.matchup_string( current_user.id, week_number )  %></pre>
     </h2>
+    <div id='user_matchup_container' data-week=<%= week_number %> >
+      <%= render 'layouts/user_matchup', :week_number => week_number, :user_id => current_user.id, :opponent_id => @l.opponent(current_user.id, week_number), :league_id => @l.id %>
+    </div>
   </div>
-  <div class='league_container left round' data-week=<%=@l.what_week%> >
+  <div class='league_container left round'>
     <h2 class='centered underlined no_bottom_margin'>Select a Week</h2>
     <div id='week_list_container'>
       <% for w in 1..(@l.number_of_weeks) %>
-        <%= render 'layouts/week_button', :week_number => w %>
+        <% if w == week_number %>
+          <% sel = "selected" %>
+        <% else %>
+          <% sel = "" %>
+        <% end %>
+        <%= render 'layouts/week_button', :week_number => w, :selected =>  sel %>
       <% end %>
     </div>
   </div>
-  <div class='league_container left round' data-week=<%=@l.what_week%> >
+  <div class='league_container left round'>
     <h2 class='centered underlined no_bottom_margin'>League Matchups</h2>
-    <div id='week_list_container'>
-    <% Matchup.this_week(@m, @l.what_week).each do |m| %>
-      <%= render 'layouts/weekly_matchup', :matchup => m %>
-    <% end %>
+    <div id='week_list_container' data-week=<%= week_number %> >
+      <% Matchup.this_week(@m, week_number).each do |m| %>
+        <%= render 'layouts/weekly_matchup', :matchup => m, :m_string => @l.matchup_string( m.home_team_id, week_number) %>
+      <% end %>
     </div>
   </div>
 </div>
