@@ -1093,7 +1093,7 @@ div.site_banner h1 {
     margin: 0;
 }
 
-.week_button.selected {
+.selected {
     background-color: buttonface;
     border-style: inset;
     color: buttontext;
