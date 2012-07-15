@@ -51,6 +51,10 @@ jQuery(function(){
                 }
                 if ( bet_risk > 0 || bet_risk == "LOCK" )
                 {
+                    if ( bet_risk == "LOCK" )
+                    {
+                        bet_risk = 0
+                    }
                     $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
                     $("#bet_slip_container").children(".content").empty();
                 }
