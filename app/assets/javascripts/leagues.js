@@ -45,7 +45,11 @@ jQuery(function(){
                 game_id = $(this).data("game");
                 bet_type = $(this).data("bet_type");
                 league_id = $("#league_info_container").data("league_id");
-                if ( bet_risk > 0 )
+                if ( bet_risk == "LOCK" )
+                {
+                    bet_type = bet_type + ".lock";
+                }
+                if ( bet_risk > 0 || bet_risk == "LOCK" )
                 {
                     $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
                     $("#bet_slip_container").children(".content").empty();

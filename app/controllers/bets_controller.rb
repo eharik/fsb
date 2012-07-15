@@ -26,15 +26,33 @@ class BetsController < ApplicationController
     @current_user_membership = Membership.where(:user_id   => current_user.id,
                                                :league_id => params[:league]).first
 
-    if @current_user_membership.sufficient_funds?( params[:risk] )
-      @bet.save
-      #@current_user_membership.update_credits_for_risk( params[:risk] )
-      @current_user_membership.save
-      @flash_message = "Your bet has been submitted!"
-      flash.now[:notice] = @flash_message
+    if (@bet.bet_type.include? 'lock' )
+      @bet.bet_type.slice! '.lock'
+      @bet.lock = true
+      if current_user.has_room_for_locks?( @league )
+        if current_user.unique_lock?( @bet )
+          @bet.save
+          @flash_message = "Lock submitted!"
+          flash.now[:notice] = @flash_message
+        else
+          @flash_message = "You cannot pick the same lock more than once"
+          flash.now[:error] = @flash_message
+        end
+      else
+        @flash_message = "Locks for the week have already been picked"
+        flash.now[:error] = @flash_message
+      end
     else
-      @flash_message = "Insufficient credits for bet"
-      flash.now[:error] = @flash_message
+      @bet.lock = false
+      if @current_user_membership.sufficient_funds?( params[:risk] )
+        @bet.save
+        @current_user_membership.save
+        @flash_message = "Your bet has been submitted!"
+        flash.now[:notice] = @flash_message
+      else
+        @flash_message = "Insufficient credits for bet"
+        flash.now[:error] = @flash_message
+      end
     end
   
      
