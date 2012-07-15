@@ -1,0 +1,5 @@
+<% unless opponent_id == -1 %>
+  <% m = Matchup.user_matchup( league_id, user_id, week_number ) %>
+  <% away_team_games = m.get_away_team_games %>
+  <% home_team_games = m.get_home_team_games %>
+<% end %>
