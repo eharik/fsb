@@ -99,7 +99,6 @@ class User < ActiveRecord::Base
     locks_allowed = 5
     week_number = league.what_week
     locks_this_week = get_number_of_locks( league, week_number )
-    puts locks_this_week
     if locks_this_week < locks_allowed
       return true
     else
