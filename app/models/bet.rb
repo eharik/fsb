@@ -50,10 +50,10 @@ class Bet < ActiveRecord::Base
   def self.open_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND
                                              user_id   = ? AND
-                                             lock      = ?",
+                                             lock      != ?",
                                              league.id,
                                              user.id,
-                                             false).all
+                                             true).all
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
       bet_game = Game.find(b.game_id)
@@ -67,10 +67,10 @@ class Bet < ActiveRecord::Base
   def self.all_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND
                                              user_id   = ? AND
-                                             lock      = ?",
+                                             lock      != ?",
                                              league.id,
                                              user.id,
-                                             false).all
+                                             true).all
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
       bet_game = Game.find(b.game_id)
