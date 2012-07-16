@@ -54,7 +54,8 @@ class BetsController < ApplicationController
         flash.now[:error] = @flash_message
       end
     end
-  
+    
+    @locks = current_user.this_weeks_locks( @league )
      
     respond_to do |format|
       format.js

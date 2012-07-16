@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   def has_room_for_locks?( league )
     locks_allowed = 5
     week_number = league.what_week
-    locks_this_week = get_number_of_locks( league, week_number )
+    locks_this_week = this_weeks_locks( league ).length
     if locks_this_week < locks_allowed
       return true
     else
@@ -118,6 +118,22 @@ class User < ActiveRecord::Base
   def buy_in (league)
     bi = Membership.where(:league_id => league.id, :user_id => id).first.buy_in.to_f
     return sprintf("%2.0f", bi)
+  end
+  
+  def this_weeks_locks( league )
+      week_number = league.what_week
+      week_start_date = league.start_date + (week_number-1).weeks
+
+      all_locks = Bet.where( :user_id => self.id, :league_id => league.id, :lock => true )
+      locks_this_week = [];
+      all_locks.each do |lock|
+        game = Game.find(lock.game_id)
+        game_time = Time.parse(game.game_time + " UTC")
+        if game_time > week_start_date
+          locks_this_week << lock
+        end # if
+      end # all _locks_loop
+      return locks_this_week
   end
   
   private

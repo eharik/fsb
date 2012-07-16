@@ -1099,3 +1099,12 @@ div.site_banner h1 {
     color: buttontext;
     padding: 0 5px 0 7px;
 }
+
+#lock_container {
+    height: 43px;
+    font-size: 14px;
+}
+
+#lock_container p {
+    margin: 0;
+}

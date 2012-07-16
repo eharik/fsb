@@ -97,4 +97,48 @@ class Bet < ActiveRecord::Base
     
   end
   
+  # ----- Returns the team names formatted for bet type ---- #
+  def team_names
+    game = Game.find(self.game_id)
+    type = self.bet_type
+    if over_under?
+      return "#{game.away_team} vs #{game.home_team}"
+    elsif type == "lay"
+      if game.spread <= 0
+        return game.home_team
+      else
+        return game.away_team
+      end
+    else
+      if game.spread <= 0
+        return game.away_team
+      else
+        return game.home_team
+      end
+    end
+  end
+  
+  # ----- Returns the line based on the bet type ----- #
+  def bet_line
+    game = Game.find(self.game_id)
+    type = self.bet_type
+    if over_under?
+      line = game.over_under
+    else
+      line = game.spread
+    end
+    return line.abs
+  end
+  
+  private
+  
+  def over_under?
+    if self.bet_type == "over" || self.bet_type == "under"
+      return true
+    else
+      return false
+    end
+  end
+  
 end
+
