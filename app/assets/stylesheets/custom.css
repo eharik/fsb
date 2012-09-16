@@ -653,6 +653,13 @@ div.site_banner h1 {
     background-color: rgb(0, 127, 0) !important;
 }
 
+.future {
+    background-color: rgb(128, 128, 126) !important;
+}
+
+.large_font {
+    font-size: large
+}
 .user_home_container .profile_container {
     min-height: 190px;
     max-height: 190px;
