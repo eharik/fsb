@@ -185,7 +185,7 @@ class League < ActiveRecord::Base
     # get matchup
     matchup = Matchup.where( :league_id => self.id,
                              :user_id => user_id,
-                             :week => week_number )
+                             :week => week_number ).first
     # if home team, return home team score
     if matchup.home_team?( user_id )
       return matchup.home_team_score
