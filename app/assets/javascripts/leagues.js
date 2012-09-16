@@ -191,7 +191,7 @@ jQuery(function(){
             timeout:5000,
             dialogShow:'fadeIn',
             dialogSpeed:'slow',
-            msg: 'Deploy Credits?    ',
+            msg: 'Deploy Credits?    TEST',
             wrapper: '<pre></pre>',
             buttons: {
                 wrapper:'<button></button>',
