@@ -8,12 +8,8 @@ class Bet < ActiveRecord::Base
 
   def winner?
     game = Game.find(game_id)
-    if game.home_score.nil?
-      game.home_score = 0 
-    end
-    if game.away_score.nil?
-      game.away_score = 0
-    end
+    game.home_score = 0 if game.home_score.nil?
+    game.away_score = 0 if game.away_score.nil?
     total_score = game.home_score + game.away_score
 
     if bet_type == "under"
