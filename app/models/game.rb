@@ -238,7 +238,7 @@ class Game < ActiveRecord::Base
     
     def self.get_home_teams2(doc)
       teams = []
-      doc.css(".home a").each do |t|
+      doc.css(".home .team-name a").each do |t|
         teams << full_team_name_NFL(t.children.text)
       end
       return teams
@@ -246,7 +246,7 @@ class Game < ActiveRecord::Base
     
     def self.get_away_teams2(doc)
       teams = []
-      doc.css(".visitor a").each do |t|
+      doc.css(".visitor .team-name a").each do |t|
         teams << full_team_name_NFL(t.children.text)
       end
       return teams
