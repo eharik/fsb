@@ -187,17 +187,17 @@ jQuery(function(){
                 data: selector_string
             });
         });
-        jQuery(button).confirm({
+       /* jQuery(button).confirm({
             timeout:5000,
             dialogShow:'fadeIn',
             dialogSpeed:'slow',
-            msg: 'Deploy Credits?    TEST',
+            msg: 'Deploy Credits?    ',
             wrapper: '<pre></pre>',
             buttons: {
                 wrapper:'<button></button>',
                 separator:'  '
             }  
-        });
+        });*/
     });
   // Buy Back
     jQuery("input[id='buy_back']").each(function(index, button){
