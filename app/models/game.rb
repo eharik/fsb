@@ -70,7 +70,7 @@ class Game < ActiveRecord::Base
   end
 
   def home_team_with_score
-    home_score = 0 if home_score.nil?
+    #home_score = 0 if home_score.nil?
     unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
       return sprintf("%-28s %3.0f", home_team, home_score )
     end
@@ -78,7 +78,7 @@ class Game < ActiveRecord::Base
   end
   
   def away_team_with_score
-    away_score = 0 if away_score.nil?
+    #away_score = 0 if away_score.nil?
     unless DateTime.strptime(game_time, "%Y-%m-%d %H:%M:%S").future?
       return sprintf("%-28s %3.0f", away_team, away_score)
     end
