@@ -179,9 +179,20 @@ class League < ActiveRecord::Base
     
   end
   
-  #returns the number of correct lock picks for a user and week, only correct if game is final
+  # ------ returns the number of correct lock picks for a user and week ------#
+  # ------ only correct if game is final -------------------------------------#
   def score( user_id, week_number )
-    return 0
+    # get matchup
+    matchup = Matchup.where( :league_id => self.id,
+                             :user_id => user_id,
+                             :week => week_number )
+    # if home team, return home team score
+    if matchup.home_team?( user_id )
+      return matchup.home_team_score
+    else
+    # if away team, return away team score
+      return matchup.away_team_score
+    end
   end
   
   private

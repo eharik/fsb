@@ -82,6 +82,8 @@ class Bet < ActiveRecord::Base
     return bets_for_return
   end
   
+  # ----- Updates Credits or Lock once Games Status Goes to Final -----#
+  # ----- Checks that games status (won/loss) isn't already set -------#
   def self.update_bet_for_game( g )
     bets_to_update = Bet.where( "game_id = ? ", g.id ).all
     

@@ -28,16 +28,34 @@ class Membership < ActiveRecord::Base
   end
   
   def update_credits_for_bet ( b )
-    win_credit_amount =  credits.current.to_f + b.win
-    loss_credit_amount = credits.current.to_f - b.risk
-    if b.winner?
-      credits.send("#{Time.now.to_s}=", win_credit_amount) 
-      credits.send("current=", win_credit_amount)
+    if b.lock
+      if b.winner?
+        # get matchup
+        league = League.find(self.league_id)
+        week = league.what_week
+        matchup = Matchup.user_matchup( self.league_id, self.user_id, week )
+        # if home team, increment home team score
+        if matchup.home_team?( b.user_id )
+          matchup.home_team_score += 1;
+        else # if away team, increment away team score
+          matchup.away_team_score += 1;
+        end
+        matchup.save
+      else
+        # do nothing
+      end
     else
-      credits.send("#{Time.now.to_s}=", loss_credit_amount) 
-      credits.send("current=", loss_credit_amount)      
+      win_credit_amount =  credits.current.to_f + b.win
+      loss_credit_amount = credits.current.to_f - b.risk
+      if b.winner?
+        credits.send("#{Time.now.to_s}=", win_credit_amount) 
+        credits.send("current=", win_credit_amount)
+      else
+        credits.send("#{Time.now.to_s}=", loss_credit_amount) 
+        credits.send("current=", loss_credit_amount)      
+      end
+      self.save
     end
-    self.save
   end
   
   def number_of_bets

@@ -34,4 +34,15 @@ class Matchup < ActiveRecord::Base
     return home_user.this_weeks_locks( League.find(league_id) )
   end
   
+  # ------ return true if the user_id passed represents the home team #
+  def home_team? ( user_id )
+    return self.home_team_id == user_id
+  end
+  
+    # ------ return true if the user_id passed represents the away team #
+  def away_team? ( user_id )
+    return self.away_team_id == user_id
+  end
+  
+  
 end

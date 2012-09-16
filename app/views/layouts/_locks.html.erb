@@ -1,8 +1,10 @@
-<% locks.each do |l| %>
-  <%= render 'layouts/lock', :lock => l %>
-<% end %>
-
-<% empty_locks = 5 - locks.count %>
-<% (1..empty_locks).each do |i| %>
-  <%= render 'layouts/empty_lock' %>
-<% end %>
+<div id="locks">
+  <% locks.each do |l| %>
+    <%= render 'layouts/lock', :lock => l %>
+  <% end %>
+  
+  <% empty_locks = 5 - locks.count %>
+  <% (1..empty_locks).each do |i| %>
+    <%= render 'layouts/empty_lock' %>
+  <% end %>
+</div>
