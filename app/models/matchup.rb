@@ -12,6 +12,12 @@ class Matchup < ActiveRecord::Base
     return weekly_matchups
   end #method def
   
+  # ----- Return matchups for a given league and week ----- #
+  def self.league_matchups( league_id, week_in_league )
+    return Matchup.where( :league_id => league_id,
+                          :week => week_in_league ).all
+  end
+  
   # ---------- return matchup for given league, user, and week
   def self.user_matchup( league_id, user_id, week )
     matchups_for_week = Matchup.where( :league_id => league_id, :week => week )
@@ -33,7 +39,6 @@ class Matchup < ActiveRecord::Base
     home_user = User.find(self.home_team_id)
     return home_user.this_weeks_locks( League.find(league_id) )
   end
-  
   # ------ return true if the user_id passed represents the home team #
   def home_team? ( user_id )
     return self.home_team_id == user_id

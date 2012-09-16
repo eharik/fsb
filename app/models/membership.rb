@@ -58,6 +58,31 @@ class Membership < ActiveRecord::Base
     end
   end
   
+  def self.udpate_credits_for_matchup ( m, bet_amount )
+    home_user_membership = Membership.where( :league_id => m.league_id,
+                                             :user_id => m.home_team_id )
+    away_user_membership = Membership.where( :league_id => m.league_id,
+                                             :user_id => m.away_team_id )
+    # unless a bye week
+    unless (m.away_team_id == -1 || m.home_team_if == -1)
+    # check which team has more points
+      if home_team_score > away_team_score
+        home_user_membership.add_win
+        away_user_membership.add_loss
+        home_user_membership.add_credits( bet_amount )
+      elsif away_team_score > home_team_score
+        away_user_membership.add_win
+        home_user_membership.add_loss
+        away_user_membership.add_credits( bet_amount )
+      else
+        away_user_membership.add_tie
+        home_user_membership.add_tie
+      end
+      home_user_membership.save
+      away_user_membership.save
+    end
+  end
+  
   def number_of_bets
     return Bet.open_bets( League.find(league_id), User.find(user_id) ).length + Bet.all_bets( League.find(league_id), User.find(user_id) ).length 
   end
@@ -177,4 +202,53 @@ class Membership < ActiveRecord::Base
     credits.send("current=", new_credit_amount)
     self.save
   end
+  
+  private
+  
+  def add_win
+    record_array = parse_record
+    record_array[0] += 1
+    record = un_parse_record( record_array )
+  end
+  
+  def add_loss
+    record_array = parse_record
+    record_array[1] += 1
+    record = un_parse_record( record_array )
+  end
+  
+  def add_tie
+    record_array = parse_record
+    record_array[2] += 1
+    record = un_parse_record( record_array )
+  end
+  
+  def add_credits( amount )
+    current_credits = credits.current
+    new_credit_amount = amount.to_f + current_credits.to_f
+    credits.send("#{Time.now.to_s}=", new_credit_amount) 
+    credits.send("current=", new_credit_amount)
+  end
+  
+  def parse_record
+    char_array = record.split("/")
+    if char_array.length == 2
+      char_array << "0"
+    end
+    int_array = []
+    char_array.each do |c|
+      int_array << c.to_i
+    end
+    return int_array
+  end
+  
+  def un_parse_record ( record_int_array )
+    record_string = ""
+    record_string += record_int_array[0].to_s
+    record_string += "/"
+    record_string += record_int_array[1].to_s
+    record_string += "/"
+    record_string += record_int_array[2].to_s
+  end
+
 end

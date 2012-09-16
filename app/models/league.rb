@@ -193,6 +193,26 @@ class League < ActiveRecord::Base
     end
   end
   
+  # ------ Updates the League Record at the end of the week ------ #
+  # ------ Allocates credits to winner, subtracts from loser ----- #
+  def self.update_matchups
+    # if it's tuesday... (heroku can't run weekly, so have to do daily)
+    if DateTime.now.tuesday?
+
+      League.all.each do |l|
+        # get matchups
+        last_week = l.what_week - 1
+        matchups = Matchup.league_matchups( l.id, last_week )
+
+        matchups.each do |m|
+          Membership.update_credits_for_matchup( m, l.settings["h2h_bet"] )
+        end
+
+      end # each league
+      
+    end # if
+  end
+  
   private
   
     def encrypt_password

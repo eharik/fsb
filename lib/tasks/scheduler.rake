@@ -10,3 +10,9 @@ task :games => :environment do
     Game.update_games
     puts "done!"
 end
+
+task :matchups => :environment do
+    puts "Updating League Matchups..."
+    League.update_matchups
+    puts "done!"
+end
