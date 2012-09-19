@@ -205,7 +205,7 @@ class League < ActiveRecord::Base
         matchups = Matchup.league_matchups( l.id, last_week )
 
         matchups.each do |m|
-          Membership.update_credits_for_matchup( m, l.settings["h2h_bet"] )
+          Membership.update_credits_for_matchup( m, l.league_settings["h2h_bet"] )
         end
 
       end # each league

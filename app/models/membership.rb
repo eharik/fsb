@@ -70,10 +70,12 @@ class Membership < ActiveRecord::Base
         home_user_membership.add_win
         away_user_membership.add_loss
         home_user_membership.add_credits( bet_amount )
+        away_user_membership.subtract_credits( bet_amount )
       elsif away_team_score > home_team_score
         away_user_membership.add_win
         home_user_membership.add_loss
         away_user_membership.add_credits( bet_amount )
+        home_user_membership.subtract_credits( bet_amount )
       else
         away_user_membership.add_tie
         home_user_membership.add_tie
@@ -226,6 +228,13 @@ class Membership < ActiveRecord::Base
   def add_credits( amount )
     current_credits = credits.current
     new_credit_amount = amount.to_f + current_credits.to_f
+    credits.send("#{Time.now.to_s}=", new_credit_amount) 
+    credits.send("current=", new_credit_amount)
+  end
+  
+  def subtract_credits( amount )
+    current_credits = credits.current
+    new_credit_amount = current_credits.to_f - amount.to_f
     credits.send("#{Time.now.to_s}=", new_credit_amount) 
     credits.send("current=", new_credit_amount)
   end
