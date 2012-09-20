@@ -187,7 +187,7 @@ jQuery(function(){
                 data: selector_string
             });
         });
-       /* jQuery(button).confirm({
+       jQuery(button).confirm({
             timeout:5000,
             dialogShow:'fadeIn',
             dialogSpeed:'slow',
@@ -197,7 +197,7 @@ jQuery(function(){
                 wrapper:'<button></button>',
                 separator:'  '
             }  
-        });*/
+        });
     });
   // Buy Back
     jQuery("input[id='buy_back']").each(function(index, button){
@@ -213,7 +213,7 @@ jQuery(function(){
                 data: selector_string
             });
         });
-        /*jQuery(button).confirm({
+        jQuery(button).confirm({
             timeout:5000,
             dialogShow:'fadeIn',
             dialogSpeed:'slow',
@@ -223,7 +223,7 @@ jQuery(function(){
                 wrapper:'<button></button>',
                 separator:'  '
             }  
-        });*/
+        });
     });
     
   // Remove Member from League (delete membership)    
@@ -240,7 +240,7 @@ jQuery(function(){
             });
             $(selector_string).remove();
         });
-        /*jQuery(button).confirm({
+        jQuery(button).confirm({
             timeout:5000,
             dialogShow:'fadeIn',
             dialogSpeed:'slow',
@@ -250,7 +250,7 @@ jQuery(function(){
                 wrapper:'<button></button>',
                 separator:'  '
             }  
-        });*/
+        });
     });
     
     
