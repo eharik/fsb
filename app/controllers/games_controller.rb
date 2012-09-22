@@ -15,7 +15,8 @@ class GamesController < ApplicationController
     end
     
     if DateTime.strptime(@selected_game.game_time, "%Y-%m-%d %H:%M:%S").past?
-      @all_bets =  Bet.where(:game_id => @selected_game.id)
+      @all_bets =  Bet.where(:game_id => @selected_game.id,
+                             :league_id => params[:league_id])
     else
       @all_bets = []
     end
