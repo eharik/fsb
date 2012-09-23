@@ -124,15 +124,30 @@ class User < ActiveRecord::Base
       week_number = league.what_week
       week_start_date = league.start_date + (week_number-1).weeks
 
-      all_locks = Bet.where( :user_id => self.id, :league_id => league.id, :lock => true )
+      all_locks = Bet.where( :user_id => self.id,
+                             :league_id => league.id,
+                             :lock => true )
       locks_this_week = [];
-      all_locks.each do |lock|
+      # if looking at your own locks then show all
+      if self.id == current_user.id
+        all_locks.each do |lock|
         game = Game.find(lock.game_id)
         game_time = Time.parse(game.game_time + " UTC")
-        if game_time > week_start_date
-          locks_this_week << lock
-        end # if
-      end # all _locks_loop
+          if game_time > week_start_date
+            locks_this_week << lock
+          end # if
+        end # all _locks_loop
+      # else, only show games in the past
+      else
+        all_locks.each do |lock|
+        game = Game.find(lock.game_id)
+        game_time = Time.parse(game.game_time + " UTC")
+          if game_time > week_start_date and game_time.past?
+            locks_this_week << lock
+          end # if
+        end # all _locks_loop           
+      end
+
       return locks_this_week
   end
   
