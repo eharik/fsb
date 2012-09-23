@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
                              :lock => true )
       locks_this_week = [];
       # if looking at your own locks then show all
-      if self.id == current_user.id
+      if self.id == self.id
         all_locks.each do |lock|
         game = Game.find(lock.game_id)
         game_time = Time.parse(game.game_time + " UTC")
