@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   def has_room_for_locks?( league )
     locks_allowed = 5
     week_number = league.what_week
-    locks_this_week = this_weeks_locks( league ).length
+    locks_this_week = this_weeks_locks( league, self.id ).length
     if locks_this_week < locks_allowed
       return true
     else
