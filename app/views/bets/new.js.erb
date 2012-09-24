@@ -2,7 +2,7 @@ $("#bet_slip_container").children(".content")
 .append("<%= escape_javascript(render(:partial => 'layouts/new_bet'))%>");
 
 // Make a new bet a 'lock'    
-jQuery("#lock").each(function(index, button){
+/*jQuery("#lock").each(function(index, button){
     jQuery(button).click(function(){
         class_attr = $(this).attr("class");
         selected = true;
@@ -44,7 +44,7 @@ jQuery("#lock").each(function(index, button){
         {
             $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
             $("#bet_slip_container").children(".content").empty();
-        }*/
+        }
 
     }); // click function
-}); // lock button
+}); // lock button */

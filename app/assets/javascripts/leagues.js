@@ -22,6 +22,33 @@ jQuery(function(){
                         $(this).parents('container').remove();
                     })
                 });
+                
+                // Lock Button
+                jQuery("#lock").each(function(index, button){
+                    jQuery(button).click(function(){
+                        class_attr = $(this).attr("class");
+                        selected = true;
+                        if ( class_attr.indexOf( "selected" ) == -1 )
+                        {
+                            selected = false;
+                        }
+                        if ( selected ) {
+                            class_attr = "no_pad no_margin bet_button";
+                            $(this).attr("class", class_attr);
+                            $(this).parent().siblings('#risk_container').children('#bet_risk').removeAttr('readonly');
+                            $(this).parent().siblings('#risk_container').children('#bet_risk').val('');
+                            $(this).parent().siblings('#win_container').children('#to_win').text('0');
+                        }
+                        else
+                        {
+                            class_attr = "no_pad no_margin bet_button selected"
+                            $(this).attr("class", class_attr);
+                            $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
+                            $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
+                            $(this).parent().siblings('#win_container').children('#to_win').text('--');
+                        }
+                    }); // click function
+                }); // lock button
             });
         });
     });
