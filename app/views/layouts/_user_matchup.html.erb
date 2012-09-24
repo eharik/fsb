@@ -1,7 +1,7 @@
 <% unless opponent_id == -1 %>
   <% m = Matchup.user_matchup( league_id, user_id, week_number ) %>
-  <% away_team_bets = m.get_away_team_bets( league_id ) %>
-  <% home_team_bets = m.get_home_team_bets( league_id ) %>
+  <% away_team_bets = m.get_away_team_bets( league_id, current_user.id ) %>
+  <% home_team_bets = m.get_home_team_bets( league_id, current_user.id ) %>
   <div class='left'><%= render 'layouts/locks', :locks => away_team_bets %></div>
   <div class='right'><%= render 'layouts/locks', :locks => home_team_bets %></div>
 <% end %>

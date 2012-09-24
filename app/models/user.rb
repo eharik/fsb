@@ -120,7 +120,7 @@ class User < ActiveRecord::Base
     return sprintf("%2.0f", bi)
   end
   
-  def this_weeks_locks( league )
+  def this_weeks_locks( league, current_user_id )
       week_number = league.what_week
       week_start_date = league.start_date + (week_number-1).weeks
 
@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
                              :lock => true )
       locks_this_week = [];
       # if looking at your own locks then show all
-      if self.id == self.id
+      if self.id == current_user_id
         all_locks.each do |lock|
         game = Game.find(lock.game_id)
         game_time = Time.parse(game.game_time + " UTC")
