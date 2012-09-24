@@ -34,7 +34,7 @@ class LeaguesController < ApplicationController
     @page_title = "League Home"
     @league = League.find(params[:id])
     @user = current_user
-    @locks = current_user.this_weeks_locks( @league )
+    @locks = current_user.this_weeks_locks( @league, @user.id )
     @games = Game.open_games.sort! { |a, b| a.game_time <=> b.game_time }
     @membership = Membership.where(:league_id => @league.id, :user_id => @user.id).first
  
