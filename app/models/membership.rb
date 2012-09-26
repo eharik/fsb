@@ -60,9 +60,9 @@ class Membership < ActiveRecord::Base
   
   def self.update_credits_for_matchup ( m, bet_amount )
     home_user_membership = Membership.where( :league_id => m.league_id,
-                                             :user_id => m.home_team_id )
+                                             :user_id => m.home_team_id ).first
     away_user_membership = Membership.where( :league_id => m.league_id,
-                                             :user_id => m.away_team_id )
+                                             :user_id => m.away_team_id ).first
     # unless a bye week
     unless (m.away_team_id == -1 || m.home_team_id == -1)
     # check which team has more points
@@ -204,7 +204,9 @@ class Membership < ActiveRecord::Base
     credits.send("current=", new_credit_amount)
     self.save
   end
- 
+  
+  private
+  
   def add_win
     record_array = parse_record
     record_array[0] += 1
