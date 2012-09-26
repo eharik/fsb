@@ -58,7 +58,7 @@ class Membership < ActiveRecord::Base
     end
   end
   
-  def self.udpate_credits_for_matchup ( m, bet_amount )
+  def self.update_credits_for_matchup ( m, bet_amount )
     home_user_membership = Membership.where( :league_id => m.league_id,
                                              :user_id => m.home_team_id )
     away_user_membership = Membership.where( :league_id => m.league_id,
