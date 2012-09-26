@@ -197,8 +197,7 @@ class League < ActiveRecord::Base
   # ------ Allocates credits to winner, subtracts from loser ----- #
   def self.update_matchups
     # if it's tuesday... (heroku can't run weekly, so have to do daily)
-    puts "----->>>  In Update Matchup Function <<<------"
-    if DateTime.now.wednesday?
+    if DateTime.now.tuesday?
       puts "**********updating_matchups --> #{Time.now} **************"
       League.all.each do |l|
         # get matchups
@@ -211,7 +210,6 @@ class League < ActiveRecord::Base
       end # each league
       
     end # if
-    puts "------<<< Leaving Update Matchup Function >>>------"
   end
   
   private
