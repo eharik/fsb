@@ -209,18 +209,21 @@ class Membership < ActiveRecord::Base
     record_array = parse_record
     record_array[0] += 1
     record = un_parse_record( record_array )
+    self.save
   end
   
   def add_loss
     record_array = parse_record
     record_array[1] += 1
     record = un_parse_record( record_array )
+    self.save
   end
   
   def add_tie
     record_array = parse_record
     record_array[2] += 1
     record = un_parse_record( record_array )
+    self.save
   end
   
   def add_credits( amount )
