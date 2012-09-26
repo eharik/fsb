@@ -64,7 +64,7 @@ class Membership < ActiveRecord::Base
     away_user_membership = Membership.where( :league_id => m.league_id,
                                              :user_id => m.away_team_id )
     # unless a bye week
-    unless (m.away_team_id == -1 || m.home_team_if == -1)
+    unless (m.away_team_id == -1 || m.home_team_id == -1)
     # check which team has more points
       if( m.home_team_score > m.away_team_score )
         home_user_membership.add_win
