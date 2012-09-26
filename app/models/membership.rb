@@ -208,21 +208,21 @@ class Membership < ActiveRecord::Base
   def add_win
     record_array = parse_record
     record_array[0] += 1
-    record = un_parse_record( record_array )
+    self.record = un_parse_record( record_array )
     self.save
   end
   
   def add_loss
     record_array = parse_record
     record_array[1] += 1
-    record = un_parse_record( record_array )
+    self.record = un_parse_record( record_array )
     self.save
   end
   
   def add_tie
     record_array = parse_record
     record_array[2] += 1
-    record = un_parse_record( record_array )
+    self.record = un_parse_record( record_array )
     self.save
   end
   
@@ -239,6 +239,8 @@ class Membership < ActiveRecord::Base
     credits.send("#{Time.now.to_s}=", new_credit_amount) 
     credits.send("current=", new_credit_amount)
   end
+  
+  private
   
   def parse_record
     char_array = record.split("/")
