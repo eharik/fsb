@@ -205,8 +205,6 @@ class Membership < ActiveRecord::Base
     self.save
   end
   
-  private
-  
   def add_win
     record_array = parse_record
     record_array[0] += 1
