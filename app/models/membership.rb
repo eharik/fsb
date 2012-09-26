@@ -66,12 +66,12 @@ class Membership < ActiveRecord::Base
     # unless a bye week
     unless (m.away_team_id == -1 || m.home_team_if == -1)
     # check which team has more points
-      if m.home_team_score > m.away_team_score
+      if( m.home_team_score > m.away_team_score )
         home_user_membership.add_win
         away_user_membership.add_loss
         home_user_membership.add_credits( bet_amount )
         away_user_membership.subtract_credits( bet_amount )
-      elsif m.away_team_score > m.home_team_score
+      elsif ( m.away_team_score > m.home_team_score )
         away_user_membership.add_win
         home_user_membership.add_loss
         away_user_membership.add_credits( bet_amount )
