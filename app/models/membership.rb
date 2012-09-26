@@ -204,9 +204,7 @@ class Membership < ActiveRecord::Base
     credits.send("current=", new_credit_amount)
     self.save
   end
-  
-  private
-  
+ 
   def add_win
     record_array = parse_record
     record_array[0] += 1
