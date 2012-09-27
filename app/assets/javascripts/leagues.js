@@ -9,7 +9,7 @@ jQuery(function(){
             $.get("/bets/new", {game: game_id, bet: bet_type, league: league_id}, function(){
                 
                 // Update win amount based on risk
-                $("input[name='bet_risk']").blur(function(index, button2){
+                $("input[name='bet_risk']").last().blur(function(index, button2){
                     win = $(this).val()*0.95;
                     win_string = sprintf("%.0f", win );
                     $(this).parents(".left").siblings(".left").children("#to_win").empty();
@@ -17,37 +17,33 @@ jQuery(function(){
                 });
                 
                 // Remove single bet
-                jQuery("button[type='submit'][id='remove_bet']").each(function(index, button){
-                    jQuery(button).click(function(){
-                        $(this).parents('container').remove();
-                    })
+                jQuery("button[type='submit'][id='remove_bet']").last().click(function(){
+                    $(this).parents('container').remove();
                 });
-                
+
                 // Lock Button
-                jQuery("#lock").each(function(index, button){
-                    jQuery(button).click(function(){
-                        class_attr = $(this).attr("class");
-                        selected = true;
-                        if ( class_attr.indexOf( "selected" ) == -1 )
-                        {
-                            selected = false;
-                        }
-                        if ( selected ) {
-                            class_attr = "no_pad no_margin bet_button";
-                            $(this).attr("class", class_attr);
-                            $(this).parent().siblings('#risk_container').children('#bet_risk').removeAttr('readonly');
-                            $(this).parent().siblings('#risk_container').children('#bet_risk').val('');
-                            $(this).parent().siblings('#win_container').children('#to_win').text('0');
-                        }
-                        else
-                        {
-                            class_attr = "no_pad no_margin bet_button selected"
-                            $(this).attr("class", class_attr);
-                            $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
-                            $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
-                            $(this).parent().siblings('#win_container').children('#to_win').text('--');
-                        }
-                    }); // click function
+                jQuery("button[type='submit'][id='lock']").last().click(function(){
+                    class_attr = $(this).attr("class");
+                    selected = true;
+                    if ( class_attr.indexOf( "selected" ) == -1 )
+                    {
+                        selected = false;
+                    }
+                    if ( selected ) {
+                        class_attr = "no_pad no_margin bet_button";
+                        $(this).attr("class", class_attr);
+                        $(this).parent().siblings('#risk_container').children('#bet_risk').removeAttr('readonly');
+                        $(this).parent().siblings('#risk_container').children('#bet_risk').val('');
+                        $(this).parent().siblings('#win_container').children('#to_win').text('0');
+                    }
+                    else
+                    {
+                        class_attr = "no_pad no_margin bet_button selected"
+                        $(this).attr("class", class_attr);
+                        $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
+                        $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
+                        $(this).parent().siblings('#win_container').children('#to_win').text('--');
+                    }
                 }); // lock button
             });
         });
