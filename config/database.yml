@@ -9,7 +9,7 @@ development:
   encoding: unicode
 #  database: db/development.sqlite3
   database: fsb_development
-  username: postgres
+  username: elliot
   password: password
   pool: 5
   timeout: 5000
@@ -23,7 +23,7 @@ test:
   encoding: unicode
 #  database: db/development.sqlite3
   database: fsb_test
-  username: postgres
+  username: elliot
   password: password
   pool: 5
   timeout: 5000

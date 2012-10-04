@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(:version => 20120630012640) do
     t.integer  "league_id"
     t.text     "credits"
     t.string   "record"
-    t.integer  "buy_backs"
-    t.integer  "buy_in"
+    t.integer  "buy_backs",         :default => 0
+    t.integer  "buy_in",            :default => 0
     t.boolean  "activate_buy_in",   :default => false
     t.boolean  "activate_buy_back", :default => false
   end
