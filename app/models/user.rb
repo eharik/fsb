@@ -4,15 +4,9 @@ class User < ActiveRecord::Base
   has_many :leagues, :through => :bets
   has_many :memberships, :dependent => :destroy
   has_many :leagues, :through => :memberships
-  has_attached_file :photo,
+  has_attached_file :photo, {
                     :styles => {:small => "160x225>", :thumb => "50x50>"},
-                    :storage => :s3,
-                    :bucket => ENV['fsb'],
-                    :default_url => '/:attachment/:class/missing_:style.png',
-                    :s3_credentials => {
-                      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
-                      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
-                    }
+                    }.merge(PAPERCLIP_STORAGE_OPTIONS)
   
   attr_accessor   :password, :updating_password
   attr_accessible :name, :email, :password, :password_confirmation, :photo

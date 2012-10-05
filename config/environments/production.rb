@@ -1,6 +1,12 @@
 Fsb::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
-
+	PAPERCLIP_STORAGE_OPTIONS = {:storage => :s3,
+                    					 :bucket => ENV['fsb'],
+                    					 :default_url => '/:attachment/:class/missing_:style.png',
+                    					 :s3_credentials => {
+                      				   :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+                      					 :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+															}
   # Code is not reloaded between requests
   config.cache_classes = true
 
