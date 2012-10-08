@@ -23,15 +23,8 @@
     </nav>
   </div>
   
-  
-  <div class='league_container left round' data-week=<%= week_number %> >
-    <h2 class='centered underlined no_bottom_margin'>
-      <pre><%= @l.matchup_string( current_user.id, week_number )  %></pre>
-    </h2>
-    <div id='user_matchup_container' data-week=<%= week_number %> >
-      <%= render 'layouts/user_matchup', :week_number => week_number, :user_id => current_user.id, :opponent_id => @l.opponent(current_user.id, week_number), :league_id => @l.id %>
-    </div>
-  </div>
+  <%= render 'layouts/h2h', :week_number => week_number, :user => current_user, :league => @l %>
+
   <div class='league_container left round'>
     <h2 class='centered underlined no_bottom_margin'>Select a Week</h2>
     <div id='week_list_container'>

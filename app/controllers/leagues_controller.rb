@@ -76,6 +76,10 @@ class LeaguesController < ApplicationController
     @l = League.find(params[:id])
     @m = @l.matchups
     
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
   
   private
