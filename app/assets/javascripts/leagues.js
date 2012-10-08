@@ -295,22 +295,24 @@ jQuery(function(){
 // **************** Matchup Screen ********************************//
 	jQuery("button[class~='week_button']").each(function(index, button){
 		jQuery(button).click(function(){
-			week_number = index
+			week_number = index+1
 			class_string = 'week_button selected'
 			$(this).attr('class', class_string)
-			//path_string = 'leagues/' + id + '/matchups/'
-                        //selector_string = 
-			$("button[class~='week_button']").each(function(index,button){
-				if (index != week_number)
+                        user_id = $('#league_info_container').attr("data-user_id");
+                        league_id = $('#league_info_container').attr("data-league_id");
+			path_string = '/leagues/' + league_id + '/matchups'
+                        selector_string = 'week_number=' + week_number + '&user_id=' + user_id
+			$("button[class~='week_button']").each(function(index2,button){
+				if (index2 != index)
 				{
 					$(this).attr('class', 'week_button')			
 				}			
 			});
-			//$.ajax({
-			//	url: path_string,
-			//	type: 'GET'
-                        //      data: selector_string
-			//})
+			$.ajax({
+				url: path_string,
+				type: 'GET',
+                                data: selector_string
+			})
 		});
 	});
     

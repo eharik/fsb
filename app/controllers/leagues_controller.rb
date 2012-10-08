@@ -75,10 +75,14 @@ class LeaguesController < ApplicationController
   def matchups
     @l = League.find(params[:id])
     @m = @l.matchups
-    
+
     respond_to do |format|
+      format.js {
+        @week_number = params[:week_number]
+        @user = User.find(params[:user_id])
+        @league = @l
+      }
       format.html
-      format.js
     end
   end
   
