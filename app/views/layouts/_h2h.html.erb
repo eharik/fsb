@@ -1,0 +1,8 @@
+<div class='league_container left round' data-week=<%= week_number %> >
+    <h2 class='centered underlined no_bottom_margin'>
+      <pre><%= league.matchup_string( user.id, week_number )  %></pre>
+    </h2>
+    <div id='user_matchup_container' data-week=<%= week_number %> >
+      <%= render 'layouts/user_matchup', :week_number => week_number, :user_id => user.id, :opponent_id => league.opponent(user.id, week_number), :league_id => league.id %>
+    </div>
+</div>
