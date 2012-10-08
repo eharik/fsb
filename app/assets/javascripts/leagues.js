@@ -298,15 +298,15 @@ jQuery(function(){
 			week_number = index
 			class_string = 'week_button selected'
 			$(this).attr('class', class_string)
-			path_string = 'leagues/' + id + '/matchups/'
-                        selector_string = 
+			//path_string = 'leagues/' + id + '/matchups/'
+                        //selector_string = 
 			$("button[class~='week_button']").each(function(index,button){
 				if (index != week_number)
 				{
 					$(this).attr('class', 'week_button')			
 				}			
 			});
-			$.ajax({
+			//$.ajax({
 			//	url: path_string,
 			//	type: 'GET'
                         //      data: selector_string
