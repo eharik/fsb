@@ -27,6 +27,7 @@ class MembershipsController < ApplicationController
       membership.activate_buy_back = false
       membership.save
       league.schedule_games
+      league.add_bye_weeks( membership )
       redirect_to :controller => :leagues, :action => :show, :id => league.id
     end
   end

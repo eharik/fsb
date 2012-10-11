@@ -1,1 +1,5 @@
-alert('here')
+
+$('#matchup_container').replaceWith("<%= escape_javascript( render 'layouts/h2h', :week_number => @week_number, :user => @user, :league => @league ) %>")
+
+$('#weekly_matchups').replaceWith("<%= escape_javascript( render 'layouts/weekly_matchups', :week_number => @week_number, :user => @user, :league => @league, :matchups => @matchups ) %>" )
+

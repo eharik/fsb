@@ -38,12 +38,7 @@
       <% end %>
     </div>
   </div>
-  <div class='league_container left round'>
-    <h2 class='centered underlined no_bottom_margin'>League Matchups</h2>
-    <div id='week_list_container' data-week=<%= week_number %> >
-      <% Matchup.this_week(@m, week_number).each do |m| %>
-        <%= render 'layouts/weekly_matchup', :matchup => m, :m_string => @l.matchup_string( m.home_team_id, week_number) %>
-      <% end %>
-    </div>
-  </div>
+
+  <%= render 'layouts/weekly_matchups', :week_number => week_number, :user => current_user, :league => @l, :matchups => @m %>
+
 </div>

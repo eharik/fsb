@@ -111,11 +111,22 @@ class League < ActiveRecord::Base
       temp_array = team_user_ids[1..-1]
       for index in 0..(temp_array.length-1)
         team_user_ids[index+1] = temp_array[index-1]
-      end
-      
-    end
-    
+      end    
+    end  
   end
+
+	# ----------- Adds bye weeks for a new member to the league -#
+	# -----------		for weeks in the past -----------------------#
+	def add_bye_weeks( m )
+		for week in 1..(self.what_week - 1)
+        new_matchup = Matchup.new
+        new_matchup.league_id       = self.id
+        new_matchup.week            = week;
+        new_matchup.away_team_id    = -1
+        new_matchup.home_team_id    = m.user_id
+        new_matchup.save
+		end
+	end
   
   # -------- returns the given week in a league
   def what_week

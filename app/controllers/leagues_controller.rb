@@ -78,9 +78,10 @@ class LeaguesController < ApplicationController
 
     respond_to do |format|
       format.js {
-        @week_number = params[:week_number]
+        @week_number = params[:week_number].to_i
         @user = User.find(params[:user_id])
         @league = @l
+    		@matchups = @m
       }
       format.html
     end
