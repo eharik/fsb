@@ -138,7 +138,7 @@ class User < ActiveRecord::Base
         all_locks.each do |lock|
         game = Game.find(lock.game_id)
         game_time = Time.parse(game.game_time + " UTC")
-          if game_time > week_start_date and game_time.past?
+          if game_time > week_start_date and game_time.past? and game_time < next_week
             locks_this_week << lock
           end # if
         end # all _locks_loop           
