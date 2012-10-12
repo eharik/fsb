@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
   def this_weeks_locks( league, current_user_id, week )
       week_number = week
       week_start_date = league.start_date + (week_number-1).weeks
-
+			puts week_start_date
       all_locks = Bet.where( :user_id => self.id,
                              :league_id => league.id,
                              :lock => true )
@@ -125,8 +125,8 @@ class User < ActiveRecord::Base
       # if looking at your own locks then show all
       if self.id == current_user_id
         all_locks.each do |lock|
-        game = Game.find(lock.game_id)
-        game_time = Time.parse(game.game_time + " UTC")
+					game = Game.find(lock.game_id)
+					game_time = Time.parse(game.game_time + " UTC")
           if game_time > week_start_date
             locks_this_week << lock
           end # if
@@ -142,6 +142,7 @@ class User < ActiveRecord::Base
         end # all _locks_loop           
       end
 
+			puts locks_this_week.length
       return locks_this_week
   end
   
