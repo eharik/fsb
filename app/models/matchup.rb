@@ -30,15 +30,15 @@ class Matchup < ActiveRecord::Base
   end
   
   # --------- return games for the given matchup for the away team
-  def get_away_team_bets( league_id, current_user_id )
+  def get_away_team_bets( league_id, current_user_id, week )
     away_user = User.find(self.away_team_id)
-    return away_user.this_weeks_locks( League.find(league_id), current_user_id )
+    return away_user.this_weeks_locks( League.find(league_id), current_user_id, week )
   end
   
   # --------- return games for the given matchup for the home team
-  def get_home_team_bets( league_id, current_user_id )
+  def get_home_team_bets( league_id, current_user_id, week )
     home_user = User.find(self.home_team_id)
-    return home_user.this_weeks_locks( League.find(league_id), current_user_id )
+    return home_user.this_weeks_locks( League.find(league_id), current_user_id, week )
   end
 
   # ------ return true if the user_id passed represents the home team #
