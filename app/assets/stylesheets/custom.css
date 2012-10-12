@@ -1101,10 +1101,10 @@ div.site_banner h1 {
 }
 
 .selected {
-    background-color: buttonface;
+    /*background-color: buttonface;*/
     border-style: inset;
-    color: buttontext;
-    padding: 0 5px 0 7px;
+    /*color: buttontext;*/
+    /*padding: 0 5px 0 7px;*/
 }
 
 #lock_container {
@@ -1115,4 +1115,20 @@ div.site_banner h1 {
 
 #lock_container p {
     margin: 0;
+}
+
+.button {
+	text-align: center;
+	cursor: default;
+	/*color: buttontext;*/
+	border: 2px outset buttonface;
+	/*background-color: buttonface;*/
+}
+
+.button:hover {
+	background-color: #FFD700;	
+}
+
+.button:active {
+    border-style: inset;
 }
