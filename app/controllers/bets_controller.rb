@@ -55,7 +55,7 @@ class BetsController < ApplicationController
       end
     end
     
-    @locks = current_user.this_weeks_locks( @league, @user.id )
+    @locks = current_user.this_weeks_locks( @league, @user.id, @league.what_week )
      
     respond_to do |format|
       format.js
