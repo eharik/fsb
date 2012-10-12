@@ -92,7 +92,7 @@ class User < ActiveRecord::Base
   def has_room_for_locks?( league )
     locks_allowed = 5
     week_number = league.what_week
-    locks_this_week = this_weeks_locks( league, self.id ).length
+    locks_this_week = this_weeks_locks( league, self.id, week_number ).length
     if locks_this_week < locks_allowed
       return true
     else
@@ -114,8 +114,8 @@ class User < ActiveRecord::Base
     return sprintf("%2.0f", bi)
   end
   
-  def this_weeks_locks( league, current_user_id )
-      week_number = league.what_week
+  def this_weeks_locks( league, current_user_id, week )
+      week_number = week
       week_start_date = league.start_date + (week_number-1).weeks
 
       all_locks = Bet.where( :user_id => self.id,
