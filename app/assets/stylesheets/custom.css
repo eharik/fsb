@@ -457,17 +457,10 @@ div.site_banner h1 {
     border-top: 1px solid #555;
 }
 
-.footer .footer_left_container {
+.footer .footer_container {
     margin: 4px;
     font-size: large;
     float: left;
-    border: none;
-}
-
-.footer .footer_right_container {
-    margin: 4px;
-    font-size: large;
-    float: right;
     border: none;
 }
 
@@ -475,13 +468,10 @@ div.site_banner h1 {
     border: none !important;
 }
 
-.footer2 .footer_left_container {
-    float: right;
-    border: 1px solid #000;
-}
-
-.footer2 .footer_right_container {
-    border: 1px solid #000;
+.footer2 input {
+	height: 30px;
+	width: 150px;
+	margin: 2px 10px;
 }
 
 #total_risk {
@@ -1117,9 +1107,7 @@ div.site_banner h1 {
 .button {
 	text-align: center;
 	cursor: default;
-	/*color: buttontext;*/
 	border: 2px outset buttonface;
-	/*background-color: buttonface;*/
 }
 
 .button:hover {

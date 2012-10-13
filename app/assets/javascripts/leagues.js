@@ -3,53 +3,71 @@ jQuery(function(){
 // ************** Add bet to bet slip ***************** // 
     jQuery("input[type='radio']").each(function(index, button){
         jQuery(button).click(function(){
-            game_id =  $(this).parents(".bet").data('game');
-            bet_type = $(this).attr('value');
-            league_id = $("#league_info_container").data("league_id");
-            $.get("/bets/new", {game: game_id, bet: bet_type, league: league_id}, function(){
+            var game_id =  $(this).parents(".bet").data('game');
+            var bet_type = $(this).attr('value');
+            var league_id = $("#league_info_container").data("league_id");
+            $.get("/bets/new", {game: game_id, bet: bet_type, league: league_id} )
+		})
+	})
                 
-                // Update win amount based on risk
-                $("input[name='bet_risk']").last().blur(function(index, button2){
-                    win = $(this).val()*0.95;
-                    win_string = sprintf("%.0f", win );
-                    $(this).parents(".left").siblings(".left").children("#to_win").empty();
-                    $(this).parents(".left").siblings(".left").children("#to_win").append(win_string);
-                });
-                
-                // Remove single bet
-                jQuery("button[type='submit'][id='remove_bet']").last().click(function(){
-                    $(this).parents('container').remove();
-                });
+    // Update win amount based on risk
+	$('body').delegate("input[name='bet_risk']", 'blur', function(){
+        var risk = parseFloat($(this).val())
+		var win = risk*0.95
+        var win_string = sprintf("%.0f", win );
+        $(this).parents(".left").siblings(".left").children("#to_win").empty();
+        $(this).parents(".left").siblings(".left").children("#to_win").append(win_string);
+		var total_risk = 0
+		var total_win = 0			
+		$("input[name='bet_risk']").each(function(){
+			var risk = parseFloat($(this).val())
+			if (isNaN(risk)){
+				risk = 0
+			}
+			total_risk += risk			
+		})
+		$("span[id='to_win']").each(function(){
+			var win = parseFloat($(this).text())
+			if (isNaN(win)){
+				win = 0
+			}
+			total_win += win						
+		})					
+		$('#total_risk').empty()
+		$('#total_risk').append(total_risk)
+		$('#total_win').empty()
+		$('#total_win').append(total_win)	
+    });    
 
-                // Lock Button
-                jQuery("button[type='submit'][id='lock']").last().click(function(){
-                    class_attr = $(this).attr("class");
-                    selected = true;
-                    if ( class_attr.indexOf( "selected" ) == -1 )
-                    {
-                        selected = false;
-                    }
-                    if ( selected ) {
-                        class_attr = "no_pad no_margin bet_button";
-                        $(this).attr("class", class_attr);
-                        $(this).parent().siblings('#risk_container').children('#bet_risk').removeAttr('readonly');
-                        $(this).parent().siblings('#risk_container').children('#bet_risk').val('');
-                        $(this).parent().siblings('#win_container').children('#to_win').text('0');
-                    }
-                    else
-                    {
-                        class_attr = "no_pad no_margin bet_button selected"
-                        $(this).attr("class", class_attr);
-                        $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
-                        $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
-                        $(this).parent().siblings('#win_container').children('#to_win').text('--');
-                    }
-                }); // lock button
-            });
-        });
+    // Remove single bet
+	jQuery('body').delegate("button[type='submit'][id='remove_bet']", 'click', function(){
+        $(this).parents('container').remove();
     });
-    
-    
+ 
+	// Lock Button
+    jQuery('body').delegate("button[type='submit'][id='lock']",'click', function(){
+        var class_attr = $(this).attr("class");
+        var selected = true;
+        if ( class_attr.indexOf( "selected" ) == -1 )
+        {
+            selected = false;
+        }
+        if ( selected ) {
+            class_attr = "no_pad no_margin bet_button";
+            $(this).attr("class", class_attr);
+            $(this).parent().siblings('#risk_container').children('#bet_risk').removeAttr('readonly');
+            $(this).parent().siblings('#risk_container').children('#bet_risk').val('');
+            $(this).parent().siblings('#win_container').children('#to_win').text('0');
+        }
+        else
+        {
+            class_attr = "no_pad no_margin bet_button selected"
+            $(this).attr("class", class_attr);
+            $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
+            $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
+            $(this).parent().siblings('#win_container').children('#to_win').text('--');
+        }
+    });
     
 // ************** Bet Slip Buttons *******************//
   // Clear All Bets   
