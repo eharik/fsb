@@ -13,7 +13,10 @@ jQuery(function(){
     // Update win amount based on risk
 	$('body').delegate("input[name='bet_risk']", 'blur', function(){
         var risk = parseFloat($(this).val())
-		var win = risk*0.95
+		var win = risk*0.95		
+		if (isNaN(win)) {
+			win = 0
+		}
         var win_string = sprintf("%.0f", win );
         $(this).parents(".left").siblings(".left").children("#to_win").empty();
         $(this).parents(".left").siblings(".left").children("#to_win").append(win_string);
@@ -42,6 +45,26 @@ jQuery(function(){
     // Remove single bet
 	jQuery('body').delegate("button[type='submit'][id='remove_bet']", 'click', function(){
         $(this).parents('container').remove();
+		var total_risk = 0
+		var total_win = 0			
+		$("input[name='bet_risk']").each(function(){
+			var risk = parseFloat($(this).val())
+			if (isNaN(risk)){
+				risk = 0
+			}
+			total_risk += risk			
+		})
+		$("span[id='to_win']").each(function(){
+			var win = parseFloat($(this).text())
+			if (isNaN(win)){
+				win = 0
+			}
+			total_win += win						
+		})					
+		$('#total_risk').empty()
+		$('#total_risk').append(total_risk)
+		$('#total_win').empty()
+		$('#total_win').append(total_win)
     });
  
 	// Lock Button
@@ -67,6 +90,26 @@ jQuery(function(){
             $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
             $(this).parent().siblings('#win_container').children('#to_win').text('--');
         }
+		var total_risk = 0
+		var total_win = 0			
+		$("input[name='bet_risk']").each(function(){
+			var risk = parseFloat($(this).val())
+			if (isNaN(risk)){
+				risk = 0
+			}
+			total_risk += risk			
+		})
+		$("span[id='to_win']").each(function(){
+			var win = parseFloat($(this).text())
+			if (isNaN(win)){
+				win = 0
+			}
+			total_win += win						
+		})					
+		$('#total_risk').empty()
+		$('#total_risk').append(total_risk)
+		$('#total_win').empty()
+		$('#total_win').append(total_win)
     });
     
 // ************** Bet Slip Buttons *******************//
