@@ -929,6 +929,7 @@ div.site_banner h1 {
     margin-left: 40px;
 }
 
+/* Admin Page */
 #admin_container {
     min-width: 640px;
     max-width: 640px;
@@ -948,7 +949,6 @@ div.site_banner h1 {
     margin-bottom: 5px;
     overflow-y: scroll;
     max-height: 545px;
-    min-height: 545px;
 }
 
 #admin_container h3 {
@@ -957,6 +957,7 @@ div.site_banner h1 {
 
 #admin_container pre {
     margin-bottom: 0px;
+	margin-top: 10px;
 }
 
 #admin_container p {
@@ -977,6 +978,20 @@ div.site_banner h1 {
 #remove_user input {
     margin-top: 25px;
 }
+
+#edit_delete_container {
+	border-top: 1px solid #555555;
+	margin-top: 20px;
+}
+
+#admin_container input.button {
+	height: 50px;
+	width: 200px;
+	margin: 20px 50px;
+	font-size: large;
+}
+
+/*---------------------------*/
 
 #user_options pre {
     background-color: #F55;
