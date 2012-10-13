@@ -987,8 +987,36 @@ div.site_banner h1 {
 #admin_container input.button {
 	height: 50px;
 	width: 200px;
-	margin: 20px 50px;
+	margin: 20px 100px 20px 10px;
 	font-size: large;
+}
+
+#edit_delete_container form div {
+	margin: 0px;
+}
+
+#admin_container a.button {
+	height: 47px;
+	width: 200px;
+	margin: 20px 10px 20px 100px;
+	font-size: large;
+	text-decoration: none;
+	color: buttontext;
+	background: buttonface;
+	line-height: 50px;
+}
+
+
+#edit_delete_container a:link {
+	background-color: buttonface;	
+}
+
+#edit_delete_container a:visited {
+	background-color: buttonface;	
+}
+
+#edit_delete_container a:hover {
+	background-color: #FFD700;	
 }
 
 /*---------------------------*/

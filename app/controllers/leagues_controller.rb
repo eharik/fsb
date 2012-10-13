@@ -57,6 +57,8 @@ class LeaguesController < ApplicationController
   end
   
   def destroy
+		League.destroy(params[:id])
+		redirect_to '/'
   end
   
   def list_users

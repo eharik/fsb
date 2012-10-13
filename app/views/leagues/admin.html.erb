@@ -16,8 +16,8 @@
       </ul>
     </div>
 		<div id='edit_delete_container'>
-			<%= submit_tag "Edit Settings", :class => 'button left round' %>
-			<%= submit_tag "Delete League", :class => 'button right round', :confirm => "Are you sure?" %>
+			<%= link_to "Edit Settings", edit_league_path(@league), html_options = {:class => 'button left round'} %>
+			<%= button_to "Delete League", league_path, :method => 'delete', :class => 'button right round', :confirm => "Are you sure?" %>
 		</div>
   </div>
     
