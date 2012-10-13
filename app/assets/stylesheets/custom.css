@@ -981,7 +981,9 @@ div.site_banner h1 {
 
 #edit_delete_container {
 	border-top: 1px solid #555555;
-	margin-top: 20px;
+	border-bottom: 1px solid #555555;
+	height: 100px;
+	margin: 20px 0px;
 }
 
 #admin_container input.button {

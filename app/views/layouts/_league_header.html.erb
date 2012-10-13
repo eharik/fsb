@@ -12,7 +12,6 @@
     <ul>
       <% if manager?(league.id, user.id) %>
         <li><%= link_to content_tag(:span, "Admin"),       admin_league_path(league) %></li>
-        <li><%= link_to content_tag(:span, "Edit League"), edit_league_path(league) %></li>
       <% end %>
       <li><%= link_to "League Home", league_path(league) %></li>
       <li><%= link_to "Bet History", league_bets_path(league) %></li>
