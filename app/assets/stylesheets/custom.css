@@ -948,7 +948,7 @@ div.site_banner h1 {
     margin-right: 0px;
     margin-bottom: 5px;
     overflow-y: scroll;
-    max-height: 545px;
+    height: 470px;
 }
 
 #admin_container h3 {
@@ -981,9 +981,7 @@ div.site_banner h1 {
 
 #edit_delete_container {
 	border-top: 1px solid #555555;
-	border-bottom: 1px solid #555555;
-	height: 100px;
-	margin: 20px 0px;
+	height: 80px;
 }
 
 #admin_container input.button {
