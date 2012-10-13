@@ -2,7 +2,7 @@
 	<h2 class='centered underlined no_bottom_margin'>League Matchups</h2>
 	<div id='week_list_container' data-week=<%= week_number %> >
 		<% Matchup.this_week(matchups, week_number).each do |m| %>
-		<%= render 'layouts/weekly_matchup', :matchup => m, :m_string => league.matchup_string( m.home_team_id, week_number) %>
+		<%= render 'layouts/weekly_matchup', :matchup => m, :m_string => league.matchup_string( m.home_team_id, week_number), :user_id => user.id %>
 		<% end %>
 	</div>
 </div>

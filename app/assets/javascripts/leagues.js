@@ -319,26 +319,29 @@ jQuery(function(){
 	jQuery('.matchup').each(function(index,button){
 		jQuery(button).click(function(){
 			week_number = $('#matchup_container').attr('data-week')
-			class_string = 'round matchup button selected'
-			$(this).attr('class', class_string)
+			/*class_string = 'round matchup button selected'
+			$(this).attr('class', class_string)*/
 			home_team_id = $(this).attr("data-home_team_id")
 			away_team_id = $(this).attr("data-away_team_id")
-			/* avoid -1 as user_id which messes up 'find' in rails */
                         user_id = (home_team_id > away_team_id) ? home_team_id : away_team_id
                         league_id = $('#league_info_container').attr("data-league_id");
 			path_string = '/leagues/' + league_id + '/matchups'
                         selector_string = 'week_number=' + week_number + '&user_id=' + user_id
+			$.ajax({
+				url: path_string,
+				type: 'GET',
+		                data: selector_string
+			})
+			/*$(this).attr('class', class_string)
+			alert(index)
 			$("button[class~='matchup']").each(function(index2,button){
+				alert(index2)
+				alert(index)
 				if (index2 != index)
 				{
 					$(this).attr('class', 'round matchup button')			
 				}			
-			});
-			$.ajax({
-				url: path_string,
-				type: 'GET',
-                                data: selector_string
-			})
+			})*/
 		})
 	})   
 });
