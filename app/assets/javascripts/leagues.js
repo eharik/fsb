@@ -319,8 +319,6 @@ jQuery(function(){
 	jQuery('.matchup').each(function(index,button){
 		jQuery(button).click(function(){
 			week_number = $('#matchup_container').attr('data-week')
-			/*class_string = 'round matchup button selected'
-			$(this).attr('class', class_string)*/
 			home_team_id = $(this).attr("data-home_team_id")
 			away_team_id = $(this).attr("data-away_team_id")
                         user_id = (home_team_id > away_team_id) ? home_team_id : away_team_id
@@ -332,16 +330,6 @@ jQuery(function(){
 				type: 'GET',
 		                data: selector_string
 			})
-			/*$(this).attr('class', class_string)
-			alert(index)
-			$("button[class~='matchup']").each(function(index2,button){
-				alert(index2)
-				alert(index)
-				if (index2 != index)
-				{
-					$(this).attr('class', 'round matchup button')			
-				}			
-			})*/
 		})
 	})   
 });
