@@ -118,8 +118,6 @@ class User < ActiveRecord::Base
       week_number = week
       week_start_date = league.start_date + (week_number-1).weeks
 			next_week = league.start_date + (week_number).weeks
-			puts week_start_date
-			puts next_week
       all_locks = Bet.where( :user_id => self.id,
                              :league_id => league.id,
                              :lock => true )
@@ -144,7 +142,6 @@ class User < ActiveRecord::Base
         end # all _locks_loop           
       end
 
-			puts locks_this_week.length
       return locks_this_week
   end
   
