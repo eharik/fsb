@@ -96,7 +96,6 @@ class League < ActiveRecord::Base
       
       # replace with new matchups
       for m_up in 1..(team_user_ids.length/2)
-        #puts "Week #{week}: #{team_user_ids[m_up-1]} vs #{team_user_ids[-m_up]}"
         new_matchup = Matchup.new
         new_matchup.league_id       = self.id
         new_matchup.week            = week;

@@ -1,33 +1,9 @@
-<% if bet.bet_type == "lay" %>
-  <% if game.spread < 0 %>
-    <% team = game.home_team %>
-    <% number = game.spread*-1%>
-  <% end %>
-  <% if game.spread > 0 %>
-    <% team = game.away_team %>
-    <% number = game.spread %>
-  <% end %>
-<% end %>
-<% if bet.bet_type == "take" %>
-  <% if game.spread > 0 %>
-    <% team = game.home_team %>
-    <% number = game.spread %>
-  <% end %>
-  <% if game.spread < 0 %>
-    <% team = game.away_team %>
-    <% number = game.spread*-1 %>
-  <% end %>
-<% end %>
-<% if bet.bet_type == "over" %>
-    <% team = "#{game.away_team} @ #{game.home_team}" %>
-    <% number = game.over_under %>
-<% end %>
-<% if bet.bet_type == "under" %>
-    <% team = "#{game.away_team} @ #{game.home_team}" %>
-    <% number = game.over_under %>
-<% end %>
+<% team = bet.team_name( game ) %>
+<% number = bet.number( game ) %>
 
-<p class="bet_time"><%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
+<p class="bet_time">
+	<%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
+</p> 
 <div class="bet open_bet <%= "#{winner}" %> <%= "#{game.game_status}" %> ">
   <div class="bet_top">
     <ul>

@@ -215,23 +215,7 @@ class Game < ActiveRecord::Base
       end
       return teams
     end
-  
- #   def self.get_over_unders(lines)
- #     over_unders = []
- #     lines.each do |line|
- #       over_unders << line[/[0-9]+\.[0-9]+/]
- #     end
- #     return over_unders
- #   end
-    
- #   def self.get_spreads(lines)
- #     spreads = []
- #     lines.each do |line|
- #       spreads << line[/[\-\+][0-9]+\.[0-9]+/]
- #     end
- #     return spreads
- #   end
- 
+   
     def self.get_offset
       Rational(Time.now.utc.in_time_zone("Eastern Time (US & Canada)").utc_offset, 60*60*24)
     end

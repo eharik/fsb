@@ -27,7 +27,7 @@ $('#list').children('.content').empty();
 <% if @user == current_user %>
     $('#list').children('.content')
     .append('<% @open_bets.each do |bet| %>\
-                <%= escape_javascript(render "layouts/placed_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
+                <%= escape_javascript(render "layouts/open_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
              <% end %> ' );
 <% end %>
 

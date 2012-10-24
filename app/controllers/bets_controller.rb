@@ -21,13 +21,19 @@ class BetsController < ApplicationController
     @bet.league_id = params[:league]
     @bet.game_id = params[:game]
     @bet.bet_type = params[:bet]
-    @bet.risk = params[:risk]
-    @bet.win = (params[:risk]).to_f * 0.95
+		if params[:risk]
+		  @bet.risk = params[:risk]
+		  @bet.win = (params[:risk]).to_f * 0.95
+		end
     @current_user_membership = Membership.where(:user_id   => current_user.id,
                                                :league_id => params[:league]).first
 
-    if (@bet.bet_type.include? 'lock' )
+    @bet.set_bet_value
+
+
+		if (@bet.bet_type.include? 'lock' )
       @bet.bet_type.slice! '.lock'
+			@bet.set_team( Game.find(params[:game]) )
       @bet.lock = true
       if current_user.has_room_for_locks?( @league )
         if current_user.unique_lock?( @bet )
@@ -43,6 +49,7 @@ class BetsController < ApplicationController
         flash.now[:error] = @flash_message
       end
     else
+			@bet.set_team( Game.find(params[:game]) )
       @bet.lock = false
       if @current_user_membership.sufficient_funds?( params[:risk] )
         @bet.save

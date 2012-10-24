@@ -643,6 +643,10 @@ div.site_banner h1 {
     background-color: rgb(0, 127, 0) !important;
 }
 
+.pending {
+    background-color: rgb(0, 112, 255) !important;
+}
+
 .future {
     background-color: rgb(128, 128, 126) !important;
 }

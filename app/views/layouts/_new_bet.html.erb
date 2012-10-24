@@ -1,58 +1,35 @@
-<% if @bet.bet_type == "lay" %>
-  <% if @game.spread < 0 %>
-    <% team = @game.home_team %>
-    <% number = @game.spread*-1%>
-  <% end %>
-  <% if @game.spread > 0 %>
-    <% team = @game.away_team %>
-    <% number = @game.spread %>
-  <% end %>
-<% end %>
-<% if @bet.bet_type == "take" %>
-  <% if @game.spread > 0 %>
-    <% team = @game.home_team %>
-    <% number = @game.spread %>
-  <% end %>
-  <% if @game.spread < 0 %>
-    <% team = @game.away_team %>
-    <% number = @game.spread*-1 %>
-  <% end %>
-<% end %>
-<% if @bet.bet_type == "over" %>
-    <% team = "#{@game.away_team} @ #{@game.home_team}" %>
-    <% number = @game.over_under %>
-<% end %>
-<% if @bet.bet_type == "under" %>
-    <% team = "#{@game.away_team} @ #{@game.home_team}" %>
-    <% number = @game.over_under %>
-<% end %>
-<container>
-<p><%= DateTime.strptime(@game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %></p> 
-<div class="bet new_bet" data-game=<%= @game.id %> data-league_id=<%= @league_id %> data-bet_type=<%= @bet.bet_type %> >
-  <div class="bet_top">
-    <ul>
-      <li class="list_left"><%= team %></li>
-      <li class="list_right"><%= number %></li>
-      <li class="list_right"><pre>:</pre></li>     
-      <li class="list_right"><%= @bet.bet_type.capitalize %></li>
-    </ul>
-  </div>
-  <div class="bet_divider"></div>
-  <div class="bet_bottom">
-    <div class="left pad_left" id="risk_container">
-      <%= label_tag :bet_risk, "Risk" %>
-      <%= text_field_tag :bet_risk, nil, :size => 5 %>
-    </div>
-    <div class="left pad_left pad_top" id="win_container">
-      <%= label_tag :to_win, "To Win:" %>
-      <span id="to_win">0</span>
-    </div>
-    <div class='left'>
-      <%= button_tag 'x', :id => 'remove_bet', :class => 'no_pad no_margin bet_button' %>
-      <%= button_tag 'P', :id => 'parlay', :class => 'no_pad no_margin bet_button' %>
-      <%= button_tag 'L', :id => 'lock', :class => 'no_pad no_margin bet_button' %>      
-    </div>
-  </div>
+<% team = @bet.team_name( @game ) %>
+<% number = @bet.number( @game ) %>
 
-</div>
+<container>
+	<p>
+		<%= DateTime.strptime(@game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
+	</p> 
+	<div class="bet new_bet" data-game=<%= @game.id %> data-league_id=<%= @league_id %> data-bet_type=<%= @bet.bet_type %> >
+		<div class="bet_top">
+		  <ul>
+		    <li class="list_left"><%= team %></li>
+		    <li class="list_right"><%= number %></li>
+		    <li class="list_right"><pre>:</pre></li>     
+		    <li class="list_right"><%= @bet.bet_type.capitalize %></li>
+		  </ul>
+		</div>
+		<div class="bet_divider"></div>
+		<div class="bet_bottom">
+		  <div class="left pad_left" id="risk_container">
+		    <%= label_tag :bet_risk, "Risk" %>
+		    <%= text_field_tag :bet_risk, nil, :size => 5 %>
+		  </div>
+		  <div class="left pad_left pad_top" id="win_container">
+		    <%= label_tag :to_win, "To Win:" %>
+		    <span id="to_win">0</span>
+		  </div>
+		  <div class='left'>
+		    <%= button_tag 'x', :id => 'remove_bet', :class => 'no_pad no_margin bet_button' %>
+		    <%= button_tag 'P', :id => 'parlay', :class => 'no_pad no_margin bet_button' %>
+		    <%= button_tag 'L', :id => 'lock', :class => 'no_pad no_margin bet_button' %>      
+		  </div>
+		</div>
+
+	</div>
 </container>

@@ -8,36 +8,45 @@ class Bet < ActiveRecord::Base
 
   def winner?
     game = Game.find(game_id)
-    #game.home_score = 0 if game.home_score.nil?
-    #game.away_score = 0 if game.away_score.nil?
     total_score = game.home_score + game.away_score
     
     if bet_type == "under"
-      return total_score < game.over_under
+      return total_score < bet_value
     end
     
     if bet_type == "over"
-      return total_score > game.over_under
+      return total_score > bet_value
     end
     
     if bet_type == "lay"
-      if game.spread < 0
-        return (game.spread + game.home_score) > game.away_score
+      if team == "home"
+        return (bet_value + game.away_score) < game.home_score
       end
-      if game.spread > 0
-        return (game.spread + game.home_score) < game.away_score
+      if team == "away"
+        return (bet_value + game.home_score) < game.away_score
       end
     end
     
     if bet_type == "take"
-      if game.spread < 0
-        return (game.spread + game.home_score) < game.away_score
-      end
-      if game.spread > 0
+      if team == "home"
         return (game.spread + game.home_score) > game.away_score
+      end
+      if team == "away"
+        return (game.spread + game.away_score) > game.home_score
       end
     end
   end
+
+
+	def get_css_color
+		game = Game.find(game_id)
+		game_time = DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)")
+		if game_time.past?
+			return self.winner?
+		else
+			return "pending"
+		end
+	end
   
   def update_bet_status
     if self.winner?
@@ -81,7 +90,7 @@ class Bet < ActiveRecord::Base
     end
     return bets_for_return
   end
-  
+ 
   # ----- Updates Credits or Lock once Games Status Goes to Final -----#
   # ----- Checks that games status (won/loss) isn't already set -------#
   def self.update_bet_for_game( g )
@@ -120,8 +129,37 @@ class Bet < ActiveRecord::Base
       end
     end
   end
+
+	#-------- Based on bet_type and current line set the bet value ----#
+	def set_bet_value
+		self.bet_value = self.bet_line
+  end
   
-  # ----- Returns the line based on the bet type ----- #
+	#------- Set the 'team' field for spread bets ----#
+	def set_team (game)
+
+		if bet_type == "lay"
+  		if game.spread < 0
+    		self.team = "home"
+  		end
+  		if game.spread > 0
+    		self.team = "away"
+  		end
+		end
+		if bet_type == "take"
+			if game.spread > 0
+				self.team = "home"
+			end
+			if game.spread < 0
+				self.team = "away"
+			end
+		end
+		if bet_type == "over" || bet_type == "under"
+				self.team = "-"
+		end
+	end
+
+	# ----- Returns the line based on the bet type ----- #
   def bet_line
     game = Game.find(self.game_id)
     type = self.bet_type
@@ -132,6 +170,51 @@ class Bet < ActiveRecord::Base
     end
     return line.abs
   end
+
+
+	def team_name (game)
+		if bet_type == "lay"
+  		if game.spread < 0
+    			return game.home_team
+  		end
+  		if game.spread > 0
+    		return game.away_team
+  		end
+		end
+		if bet_type == "take"
+			if game.spread > 0
+				return game.home_team
+			end
+			if game.spread < 0
+				return game.away_team
+			end
+		end
+		if bet_type == "over" || bet_type == "under"
+				return "#{game.away_team} @ #{game.home_team}"
+		end
+	end
+
+	def number (game)
+		if bet_type == "lay"
+			if game.spread < 0
+				return game.spread*-1
+			end
+			if game.spread > 0
+				return game.spread
+			end
+		end
+		if bet_type == "take"
+			if game.spread > 0
+				return game.spread
+			end
+			if game.spread < 0
+				return game.spread*-1
+			end
+		end
+		if bet_type == "over" || bet_type == "under"
+				return game.over_under
+		end
+	end  
   
   private
   
@@ -142,6 +225,6 @@ class Bet < ActiveRecord::Base
       return false
     end
   end
-  
+
 end
 

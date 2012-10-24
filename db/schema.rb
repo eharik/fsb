@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120630012640) do
+ActiveRecord::Schema.define(:version => 20121024015504) do
 
   create_table "admins", :force => true do |t|
     t.datetime "created_at"
@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(:version => 20120630012640) do
     t.boolean  "lock"
     t.string   "bet_type"
     t.boolean  "won"
+    t.float    "bet_value"
+    t.string   "team"
   end
 
   create_table "games", :force => true do |t|

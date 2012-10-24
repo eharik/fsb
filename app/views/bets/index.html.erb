@@ -72,7 +72,7 @@
         <div class="content">
             <% if @user == current_user %>
                 <% @open_bets.each do |bet| %>
-                    <%= render 'layouts/placed_bet', :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner? %> 
+                    <%= render 'layouts/open_bet', :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner? %> 
                 <% end %>
             <% end %>
             <% @all_bets.each do |bet| %>
