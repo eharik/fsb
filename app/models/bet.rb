@@ -161,7 +161,14 @@ class Bet < ActiveRecord::Base
 
 	# ----- Returns the line based on the bet type ----- #
   def bet_line
-    return bet_value
+    game = Game.find(self.game_id)
+    type = self.bet_type
+    if over_under?
+      line = game.over_under
+    else
+      line = game.spread
+    end
+    return line.abs
   end
 
 
