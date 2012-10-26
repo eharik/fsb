@@ -29,10 +29,10 @@ class Bet < ActiveRecord::Base
     
     if bet_type == "take"
       if team == "home"
-        return (game.spread + game.home_score) > game.away_score
+        return (bet_value + game.home_score) > game.away_score
       end
       if team == "away"
-        return (game.spread + game.away_score) > game.home_score
+        return (bet_value + game.away_score) > game.home_score
       end
     end
   end
