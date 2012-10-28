@@ -1,1 +1,5 @@
 $('#profile_right').replaceWith( "<%= escape_javascript( render 'layouts/profile_right', :user => @user, :membership => @current_user_membership, :league => @league ) %> ")
+
+
+$('#locks').empty()
+$('#locks').append( "<%= escape_javascript( render 'layouts/locks', :locks => @locks ) %>" )
