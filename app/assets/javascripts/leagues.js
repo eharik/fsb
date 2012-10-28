@@ -76,6 +76,7 @@ jQuery(function(){
 		
  		//	remove bet from list
 		$(this).parents('container').remove();
+		
 		if ( $('#parlay_container').length == 0)
 		{	
 			path_string = '/parlay_header'
@@ -84,14 +85,7 @@ jQuery(function(){
 		      type: 'GET'
 		  })
 		}
-		//	if first parlay
-		//	--> find by searching for parlay header id
-		// 		create parlay header
-		//		--> new content, will come from ajax call	
 
-		//	end
-		//	add bet to parlay
-		//	--> new content, will come from ajax call
 		path_string = '/add_parlay'
 		$.ajax({
       url: path_string,
