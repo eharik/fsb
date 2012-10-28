@@ -13,6 +13,8 @@ Fsb::Application.routes.draw do
   match '/new_league',                      :to => 'leagues#new'
   match '/rules',                           :to => 'leagues#rules'
   match '/leagues_all',                     :to => 'leagues#index'
+	match '/parlay_header',										:to => 'bets#parlay_header'
+	match '/add_parlay',											:to => 'bets#new_parlay'
   match '/leagues/add_bet',                 :to => 'bets#new'
   match '/leagues/:id/matchups',            :to => 'leagues#matchups'
   match '/bets/submitted',                  :to => 'bets#submitted'
