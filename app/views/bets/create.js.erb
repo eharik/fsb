@@ -1,6 +1,1 @@
-$("#league_rank").replaceWith('<pre id="league_rank">League Rank :   <%= escape_javascript( @user.rank(@league) ) %></pre>');
-$("#league_credits").replaceWith('<pre id="league_credits"    >Total Credits   : <%= escape_javascript(sprintf("%7d", @current_user_membership.credits.current)) %></pre>');
-$("#league_risk").replaceWith('<pre id="league_risk"          >     At Risk       : <%= escape_javascript( sprintf( "%7d", @user.open_bets_risk(@league) ) ) %></pre>');
-$("#league_available").replaceWith('<pre id="league_available">     Available    : <%= escape_javascript(sprintf("%7d", @current_user_membership.credits.current - @user.open_bets_risk( @league ) ) ) %></pre>');
-$("#league_standings_list").replaceWith("<%= escape_javascript( render 'layouts/league_standings', :league => @league )%> ");
-$("#locks").replaceWith("<%= escape_javascript( render 'layouts/locks', :locks => @locks )%>");
+$('#profile_right').replaceWith( "<%= escape_javascript( render 'layouts/profile_right', :user => @user, :membership => @current_user_membership, :league => @league ) %> ")
