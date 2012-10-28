@@ -147,56 +147,16 @@ jQuery(function(){
     
 // ************** Bet Slip Buttons *******************//
   // Clear All Bets   
-<<<<<<< HEAD
-    jQuery("input[type='submit'][value='Clear Bets']").each(function(index, button){
-        jQuery(button).click(function(){
-            $("#bet_slip_container").children(".content").empty();
-						$('#total_risk').empty()
-						$('#total_risk').append("0")
-						$('#total_win').empty()
-						$('#total_win').append("0")
-        })
-    });
-    
-  // Place all bets
-  jQuery("input[type='submit'][value='Place Bets']").each(function(index, button){
-      jQuery(button).click(function(){
-          //Check the bet slip for bets
-          $(".new_bet").each(function(){
-              bet_risk = $(this).children(".bet_bottom").children(".left").children("#bet_risk").val();         
-              game_id = $(this).data("game");
-              bet_type = $(this).data("bet_type");
-              league_id = $("#league_info_container").data("league_id");
-              if ( bet_risk == "LOCK" )
-              {
-                  bet_type = bet_type + ".lock";
-              }
-              if ( bet_risk > 0 || bet_risk == "LOCK" )
-              {
-                  if ( bet_risk == "LOCK" )
-                  {
-                      bet_risk = 0
-                  }
-                  $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
-                  $("#bet_slip_container").children(".content").empty();
-              }
-              else
-              {
-                  alert('You have to risk something to place a bet!');
-              }
-							$('#total_risk').empty()
-							$('#total_risk').append("0")
-							$('#total_win').empty()
-							$('#total_win').append("0")
-          })
-      })
-=======
   jQuery("input[type='submit'][value='Clear Bets']").each(function(index, button){
     jQuery(button).click(function(){
-       $("#bet_slip_container").children(".content").empty();
+      $("#bet_slip_container").children(".content").empty();
+			$('#total_risk').empty()
+			$('#total_risk').append("0")
+			$('#total_win').empty()
+			$('#total_win').append("0")
     })
   });
-    
+  
   // Place all bets
   jQuery("input[type='submit'][value='Place Bets']").each(function(index, button){
     jQuery(button).click(function(){
@@ -208,25 +168,28 @@ jQuery(function(){
         league_id = $("#league_info_container").data("league_id");
         if ( bet_risk == "LOCK" )
         {
-          bet_type = bet_type + ".lock";
+           bet_type = bet_type + ".lock";
         }
         if ( bet_risk > 0 || bet_risk == "LOCK" )
         {
-        	if ( bet_risk == "LOCK" )
+          if ( bet_risk == "LOCK" )
           {
-            bet_risk = 0
+              bet_risk = 0
           }
           $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
           $("#bet_slip_container").children(".content").empty();
         }
         else
         {
-           alert('You have to risk something to place a bet!');
+          alert('You have to risk something to place a bet!');
         }
+				$('#total_risk').empty()
+				$('#total_risk').append("0")
+				$('#total_win').empty()
+				$('#total_win').append("0")
       })
     })
->>>>>>> parlay
-  });
+  })
 
 // ************** Buttons for sorting the bet listing *******************// 
   // Sort by Users (default)
