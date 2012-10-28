@@ -2,15 +2,8 @@
 <div class="profile_sub_container round">
   <%= image_tag user.photo.url(:small) %>
 </div>
-<div class="profile_sub_container right_side">
-  <pre id="league_rank"     >League Rank  :        <%= sprintf( "%-s", user.rank(league) ) %></pre>
-  <pre                      >H2H Record    :        <%= user.record(league) %></pre>
-  <pre id="league_credits"  >Total Credits   : <%= sprintf("%9.0f", membership.credits.current.to_f) %></pre>
-	<pre id="league_h2h"			>     H2H Bet     : <%= sprintf("%9.0f", league.league_settings['h2h_bet']) %></pre>
-  <pre id="league_risk"     >     Open Bets : <%= sprintf("%9.0f", current_user.open_bets_risk(league).to_f) %></pre>
-  <pre id="league_available">     Available    : <%= sprintf("%9.0f", (membership.credits.current - league.league_settings['h2h_bet'].to_f - current_user.open_bets_risk(league)).to_f) %></pre>
-  <pre>Buy Backs Left:         <%= league.league_settings['buy_backs'].to_i - user.buy_backs(league).to_i %></pre>
-</div>
+<%= render 'layouts/profile_right', :user => @user, :membership => @membership, :league => @league %>
+
 <div class="profile_sub_container bottom">
   <% if membership.activate_buy_in == true %>
   <%= submit_tag "Buy-In\n(#{league.league_settings['start_credits']} Credits)", :class => 'credit_button', :disabled => false %>
