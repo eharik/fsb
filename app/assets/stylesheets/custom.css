@@ -1164,3 +1164,15 @@ div.site_banner h1 {
 .button:active {
     border-style: inset;
 }
+
+.parlay_header {
+	height: 30px;
+	background-color: orange;
+	border-top: 1px black solid;
+	border-bottom: 1px black solid;
+}
+
+.parlay_header div {
+	color: white;
+	font-size: 11pt;
+}
