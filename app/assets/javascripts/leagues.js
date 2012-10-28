@@ -70,7 +70,9 @@ jQuery(function(){
 	// Parlay button
 	jQuery('body').delegate("button[type='submit'][id='parlay']",'click', function(){
 		//	get info from bet
-		var bet_id
+		var game_id = $(this).parents('.bet').data('game')
+		var bet_type = $(this).parents('.bet').data('bet_type')
+		var league_id = $(this).parents('.bet').data('league_id')
     var path_string
 		var selector_string
 		
@@ -83,15 +85,21 @@ jQuery(function(){
 			$.ajax({
 		      url: path_string,
 		      type: 'GET'
-		  })
+		  }).done( function(){} )
 		}
 
 		path_string = '/add_parlay'
+    selector_string = 'game_id=' + game_id + '&league_id=' + league_id 
+			+ '&bet_type=' + bet_type
 		$.ajax({
       url: path_string,
       type: 'GET',
 			data: selector_string
     })
+		var number_of_parlay = $('.parlay_bet').length + 1
+		var display_string = number_of_parlay + ' Way Parlay'
+		$('#parlay_display').empty()
+		$('#parlay_display').append(display_string)	
 	})
 
 	// Lock Button

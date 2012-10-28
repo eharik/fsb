@@ -99,6 +99,11 @@ class BetsController < ApplicationController
 	end
 
 	def new_parlay
+    @bet = Bet.new()
+    @bet.game_id = params[:game_id]
+    @bet.bet_type = params[:bet_type]
+    @game = Game.find_by_id(params[:game_id])
+    @league_id = params[:league_id]
 
 		respond_to do |format|
       format.js

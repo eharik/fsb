@@ -1,5 +1,18 @@
-<div class='parlay_bet' data-bet_id='0'>
-	<div>
-		Bet Info
+<% team = @bet.team_name( @game ) %>
+<% number = @bet.number( @game ) %>
+
+<container>
+	<p>
+		<%= DateTime.strptime(@game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
+	</p> 
+	<div class="bet parlay_bet new_bet" data-game=<%= @game.id %> data-league_id=<%= @league_id %> data-bet_type=<%= @bet.bet_type %> >
+		<div class="bet_top">
+		  <ul>
+		    <li class="list_left"><%= team %></li>
+		    <li class="list_right"><%= number %></li>
+		    <li class="list_right"><pre>:</pre></li>     
+		    <li class="list_right"><%= @bet.bet_type.capitalize %></li>
+		  </ul>
+		</div>
 	</div>
-</div>
+</container>

@@ -314,6 +314,7 @@ div.site_banner h1 {
 .profile_sub_container pre {
     margin: .5em 0em;
     font-family: sans-serif;
+		font-size: 10pt;
 }
 
 /* League Standings */
@@ -483,8 +484,7 @@ div.site_banner h1 {
 }
 
 .new_bet {
-    min-height: 50px;
-    max-height: 50px;
+    height: 50px;
     min-width: 310px;
     max-width: 310px;
     color: #FFF;
@@ -492,6 +492,10 @@ div.site_banner h1 {
     -moz-border-radius: 20px;
     -webkit-border-radius: 20px;
     border-radius: 20px;
+}
+
+.parlay_bet {
+	height: 25px !important;
 }
 
 .bet_top {
@@ -580,7 +584,7 @@ div.site_banner h1 {
 
 #bet_risk {
     margin: 0px 10px;
-    max-width: 100px;
+    max-width: 66px;
 }
 
 #league_header h1 {
