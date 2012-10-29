@@ -164,31 +164,38 @@ jQuery(function(){
     jQuery(button).click(function(){
       //Check the bet slip for bets
       $(".new_bet").each(function(){
-        bet_risk = $(this).children(".bet_bottom").children(".left").children("#bet_risk").val();         
-        game_id = $(this).data("game");
-        bet_type = $(this).data("bet_type");
-        league_id = $("#league_info_container").data("league_id");
-        if ( bet_risk == "LOCK" )
+        // not a parlay
+        if ( $(this).attr('class').indexOf('parlay_bet') == -1 )
         {
-           bet_type = bet_type + ".lock";
+            bet_risk = $(this).children(".bet_bottom").children(".left").children("#bet_risk").val();         
+            game_id = $(this).data("game");
+            bet_type = $(this).data("bet_type");
+            league_id = $("#league_info_container").data("league_id");
+            if ( bet_risk == "LOCK" )
+            {
+               bet_type = bet_type + ".lock";
+            }
+            if ( bet_risk > 0 || bet_risk == "LOCK" )
+            {
+              if ( bet_risk == "LOCK" )
+              {
+                  bet_risk = 0
+              }
+              $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
+              $("#bet_slip_container").children(".content").empty();
+            }
+            else
+            {
+              alert('You have to risk something to place a bet!');
+            }
+                                    $('#total_risk').empty()
+                                    $('#total_risk').append("0")
+                                    $('#total_win').empty()
+                                    $('#total_win').append("0")
         }
-        if ( bet_risk > 0 || bet_risk == "LOCK" )
+        else //parlay
         {
-          if ( bet_risk == "LOCK" )
-          {
-              bet_risk = 0
-          }
-          $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
-          $("#bet_slip_container").children(".content").empty();
         }
-        else
-        {
-          alert('You have to risk something to place a bet!');
-        }
-				$('#total_risk').empty()
-				$('#total_risk').append("0")
-				$('#total_win').empty()
-				$('#total_win').append("0")
       })
     })
   })
