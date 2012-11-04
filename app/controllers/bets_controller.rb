@@ -110,5 +110,48 @@ class BetsController < ApplicationController
       format.html
     end
 	end
+
+	def create_parlay
+		@bet = Bet.new()
+		@bet.user_id = current_user.id
+		@bet.league_id = params[:league_id]
+		@bet.risk = params[:bet_risk]
+		@bet.win = params[:bet_win]
+    @bet.lock = false
+		@bet.save
+    @current_user_membership = Membership.where(:user_id   => current_user.id,
+                                               :league_id => params[:league_id]).first
+		if @current_user_membership.sufficient_funds?( params[:bet_risk] )
+      @bet.save
+      @current_user_membership.save
+      @flash_message = "Your bet has been submitted!"
+      flash.now[:notice] = @flash_message
+    else
+      @flash_message = "Insufficient credits for bet"
+      flash.now[:error] = @flash_message
+    end
+
+		respond_to do |format|
+			format.json {render :json => @bet.id}
+			format.html
+		end
+	end
+
+	def add_to_parlay
+		@bet = Bet.new()
+		@bet.user_id = current_user.id
+		@bet.parlay_id = params[:parlay_id]
+		@bet.league_id = params[:league_id]
+		@bet.game_id = params[:game_id]
+		@bet.bet_type = params[:bet_type]
+		@bet.set_team( Game.find(params[:game_id]) )
+    @bet.set_bet_value
+    @bet.lock = false
+		@bet.save
+		
+		respond_to do |format|
+			format.js {render :nothing => true}
+		end
+	end
     
 end

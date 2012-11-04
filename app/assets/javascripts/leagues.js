@@ -13,52 +13,25 @@ jQuery(function(){
     // Update win amount based on risk
 	$('body').delegate("input[name='bet_risk']", 'blur', function(){
     var risk = parseFloat($(this).val())
-		var win = risk*0.95		
-		if (isNaN(win)) {
-			win = 0
+		if ($(this).parents('#risk_container').length == 1){
+		// non parlay bet
+			win = getWin( risk )
+			var win_string = sprintf("%.0f", win );
+			$(this).parents(".left").siblings(".left").children("#to_win").empty();
+			$(this).parents(".left").siblings(".left").children("#to_win").append(win_string);	
 		}
-		var win_string = sprintf("%.0f", win );
-		$(this).parents(".left").siblings(".left").children("#to_win").empty();
-		$(this).parents(".left").siblings(".left").children("#to_win").append(win_string);
-		var total_risk = 0
-		var total_win = 0			
-		$("input[name='bet_risk']").each(function(){
-			var risk = parseFloat($(this).val())
-			if (isNaN(risk)){
-				risk = 0
-			}
-			total_risk += risk			
-		})
-		$("span[id='to_win']").each(function(){
-			var win = parseFloat($(this).text())
-			if (isNaN(win)){
-				win = 0
-			}
-			total_win += win						
-		})
-		updateBetSlipTally( total_risk, total_win )					
+		else 
+		{
+		// parlay bet
+			updateParlayTally();
+		}			
+		updateBetSlipTally()
    })   
 
     // Remove single bet
 	jQuery('body').delegate("button[type='submit'][id='remove_bet']", 'click', function(){
-    $(this).parents('container').remove();
-		var total_risk = 0
-		var total_win = 0			
-		$("input[name='bet_risk']").each(function(){
-			var risk = parseFloat($(this).val())
-			if (isNaN(risk)){
-				risk = 0
-			}
-			total_risk += risk			
-		})
-		$("span[id='to_win']").each(function(){
-			var win = parseFloat($(this).text())
-			if (isNaN(win)){
-				win = 0
-			}
-			total_win += win						
-		})					
-		updateBetSlipTally( total_risk, total_win )
+    $(this).parents('container').remove();		
+		updateBetSlipTally()
    })
 
 	// Parlay button
@@ -67,33 +40,37 @@ jQuery(function(){
 		var game_id = $(this).parents('.bet').data('game')
 		var bet_type = $(this).parents('.bet').data('bet_type')
 		var league_id = $(this).parents('.bet').data('league_id')
-    var path_string
-		var selector_string
 		
  		//	remove bet from list
 		$(this).parents('container').remove();
 		
 		if ( $('#parlay_container').length == 0)
 		{	
-			path_string = '/parlay_header'
 			$.ajax({
-		      url: path_string,
-		      type: 'GET'
-		  }).done( function(){} )
+		      url: '/parlay_header'
+		  }).done( function()
+				{
+					$.ajax({
+						url: '/add_parlay',
+						data: 'game_id=' + game_id + '&league_id=' + league_id 
+									+ '&bet_type=' + bet_type
+					}).done( function() 
+						{
+							updateForParlay()
+						})
+				})
 		}
-
-		path_string = '/add_parlay'
-    selector_string = 'game_id=' + game_id + '&league_id=' + league_id 
-			+ '&bet_type=' + bet_type
-		$.ajax({
-      url: path_string,
-      type: 'GET',
-			data: selector_string
-    })
-		var number_of_parlay = $('.parlay_bet').length + 1
-		var display_string = number_of_parlay + ' Way Parlay'
-		$('#parlay_display').empty()
-		$('#parlay_display').append(display_string)	
+		else
+		{
+			$.ajax({
+				url: '/add_parlay',
+				data: 'game_id=' + game_id + '&league_id=' + league_id 
+							+ '&bet_type=' + bet_type
+			}).done( function()
+				{	
+					updateForParlay()
+				})
+		}
 	})
 
 	// Lock Button
@@ -118,24 +95,8 @@ jQuery(function(){
         $(this).parent().siblings('#risk_container').children('#bet_risk').attr('readonly', 'readonly');
         $(this).parent().siblings('#risk_container').children('#bet_risk').val('LOCK');
         $(this).parent().siblings('#win_container').children('#to_win').text('--');
-    }
-		var total_risk = 0
-		var total_win = 0			
-		$("input[name='bet_risk']").each(function(){
-			var risk = parseFloat($(this).val())
-			if (isNaN(risk)){
-				risk = 0
-			}
-			total_risk += risk			
-		})
-		$("span[id='to_win']").each(function(){
-			var win = parseFloat($(this).text())
-			if (isNaN(win)){
-				win = 0
-			}
-			total_win += win						
-		})					
-		updateBetSlipTally( total_risk, total_win )
+    }				
+		updateBetSlipTally()
    })
     
 // ************** Bet Slip Buttons *******************//
@@ -155,35 +116,56 @@ jQuery(function(){
         // not a parlay
         if ( $(this).attr('class').indexOf('parlay_bet') == -1 )
         {
-          bet_risk = $(this).children(".bet_bottom").children(".left").children("#bet_risk").val();         
-          game_id = $(this).data("game");
-          bet_type = $(this).data("bet_type");
-          league_id = $("#league_info_container").data("league_id");
-          if ( bet_risk == "LOCK" )
-          {
-             bet_type = bet_type + ".lock";
-          }
+          var bet_risk = $(this).children(".bet_bottom").children(".left").children("#bet_risk").val();         
+          var game_id = $(this).data("game");
+          var bet_type = $(this).data("bet_type");
+          var league_id = $("#league_info_container").data("league_id");
           if ( bet_risk > 0 || bet_risk == "LOCK" )
           {
             if ( bet_risk == "LOCK" )
             {
                 bet_risk = 0
+								bet_type = bet_type + ".lock";
             }
             $.post("/bets", {game: game_id, risk: bet_risk, league: league_id, bet: bet_type});
-            $("#bet_slip_container").children(".content").empty();
+						$(this).parents('container').remove()
           }
           else
           {
             alert('You have to risk something to place a bet!');
           }
-          clearBetSlipTally()
-        }
-        else //parlay
-        {
-        }
-      })
-    })
-  })
+        } // if not a parlay
+      }) // each new bet
+			if ( $('#parlay_header').length == 1 )
+			{
+				// create bet for parlay
+				var bet_risk = $('#parlay_header #bet_risk').val()
+				var bet_win = $('#parlay_header #to_win').text()
+        var league_id = $("#league_info_container").data("league_id");
+    		var selector_string = 'bet_risk=' + bet_risk + '&bet_win=' + bet_win + '&league_id=' + league_id 
+				$.ajax({
+				    url: '/create_parlay',
+						data: selector_string
+				}).done(function(parlay_id)
+					{
+					// create sub bets
+						$('.parlay_bet').each(function(index, parlay)
+							{
+								var game_id = $(this).data("game")
+								var bet_type = $(this).data("bet_type")
+								$.ajax({
+									url: '/add_to_parlay', 
+									data: 'game_id=' + game_id + '&league_id=' + league_id +
+												'&bet_type=' + bet_type + '&parlay_id=' + parlay_id,
+									type: 'POST'
+								})
+							})
+						$('#parlay_container').remove()
+					})
+			}
+			updateBetSlipTally()
+    }) // click handler
+  }) // each button function
 
 // ************** Buttons for sorting the bet listing *******************// 
   // Sort by Users (default)
@@ -298,7 +280,6 @@ jQuery(function(){
       selector_string = 'user_id=' + user_id;
       $.ajax({
         url: path_string,
-        type: 'GET',
         data: selector_string
       })
     })
@@ -324,7 +305,6 @@ jQuery(function(){
       selector_string = 'user_id=' + user_id;
       $.ajax({
         url: path_string,
-        type: 'GET',
         data: selector_string
       })
     })
@@ -376,8 +356,7 @@ jQuery(function(){
       membership_id = $(this).parents('#league_info_container').attr("data-membership_id");
       path_string = '/memberships/' + membership_id + '/deploy_credits';
       $.ajax({
-        url: path_string,
-        type: 'GET'
+        url: path_string
       });
     });
   });
@@ -400,11 +379,10 @@ jQuery(function(){
 			});
 			$.ajax({
 				url: path_string,
-				type: 'GET',
         data: selector_string
 			})
-		});
-	});
+		})
+	})
  	
 	jQuery('.matchup').each(function(index,button){
 		jQuery(button).click(function(){
@@ -417,23 +395,72 @@ jQuery(function(){
       selector_string = 'week_number=' + week_number + '&user_id=' + user_id
 			$.ajax({
 				url: path_string,
-				type: 'GET',
 		    data: selector_string
 			})
 		})
 	})   
-});
+})
 
-function clearBetSlipTally() {
+function clearBetSlipTally()
+{
 	$('#total_risk').empty()
 	$('#total_risk').append("0")
 	$('#total_win').empty()
 	$('#total_win').append("0")
 }
 
-function updateBetSlipTally( risk, win ) {
+function updateBetSlipTally()
+{
+	var total_risk = 0
+	var total_win = 0			
+	$("input[name='bet_risk']").each(function(){
+		var risk = parseFloat($(this).val())
+		if (isNaN(risk)){
+			risk = 0
+		}
+		total_risk += risk			
+	})
+	$("span[id='to_win']").each(function(){
+		var win = parseFloat($(this).text())
+		if (isNaN(win)){
+			win = 0
+		}
+		total_win += win						
+	})
 	$('#total_risk').empty()
-	$('#total_risk').append( risk )
+	$('#total_risk').append( total_risk )
 	$('#total_win').empty()
-	$('#total_win').append( win )
+	$('#total_win').append( total_win )
+}
+
+function updateParlayTally()
+{
+	var bet_risk = $('#parlay_risk').children('#bet_risk').val()
+	var number_of_parlay = $('.parlay_bet').length
+	var win = Math.pow( 2, number_of_parlay-1 ) * (bet_risk * .95)
+	if (isNaN(win)) {
+		win = 0
+	}
+	var win_string = sprintf("%.0f", win );
+	$('#parlay_win').children('#to_win').empty()
+	$('#parlay_win').children('#to_win').append(win_string)
+}
+
+function getWin( risk )
+{
+	var win = risk*0.95		
+	if (isNaN(win)) {
+		win = 0
+	}
+	return win
+}
+
+function updateForParlay() 
+{
+	var number_of_parlay = $('.parlay_bet').length
+	var display_string = number_of_parlay + ' Way Parlay'
+	$('#parlay_display').empty()
+	$('#parlay_display').append(display_string)	
+	updateParlayTally()
+	updateBetSlipTally()
 }

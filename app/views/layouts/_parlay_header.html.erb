@@ -4,10 +4,12 @@
 			1 Way Parlay
 		</div>
 		<div class='right' id='parlay_win'>
-			To Win
+	    <%= label_tag :to_win, "To Win:" %>
+	    <span id="to_win">0</span>
 		</div>
 		<div class='right' id='parlay_risk'>
-			Risk
+			<%= label_tag :bet_risk, "Risk" %>
+	    <%= text_field_tag :bet_risk, nil, :size => 5 %>
 		</div>
 	</div>
 	<div class='parlay_bets'>

@@ -3,8 +3,8 @@ class Bet < ActiveRecord::Base
   belongs_to :user
   belongs_to :league
   
-  has_many   :sub_bets, :class_name => "Bet"
-  belongs_to :parlay,   :class_name => "Bet", :foreign_key => "parlay_id"
+  has_many   :sub_bets, :class_name => "Bet", :foreign_key => "parlay_id"
+  belongs_to :parlay,   :class_name => "Bet"
 
   def winner?
     game = Game.find(game_id)
@@ -60,10 +60,13 @@ class Bet < ActiveRecord::Base
   def self.open_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND
                                              user_id   = ? AND
-                                             lock      != ?",
+                                             lock      != ? AND
+																						 game_id > ? AND
+																						 risk > ?",
                                              league.id,
                                              user.id,
-                                             true).all
+                                             true,
+																						 0,0).all
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
       bet_game = Game.find(b.game_id)
@@ -77,10 +80,13 @@ class Bet < ActiveRecord::Base
   def self.all_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND
                                              user_id   = ? AND
-                                             lock      != ?",
+                                             lock      != ? AND
+																						 game_id > ? AND
+																						 risk > ?",
                                              league.id,
                                              user.id,
-                                             true).all
+                                             true,
+																						 0,0).all
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
       bet_game = Game.find(b.game_id)
