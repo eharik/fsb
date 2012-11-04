@@ -1180,3 +1180,7 @@ div.site_banner h1 {
 	color: white;
 	font-size: 11pt;
 }
+
+.parlay_bets container p {
+	margin: 0px;
+}

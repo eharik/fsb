@@ -47,6 +47,12 @@ class Bet < ActiveRecord::Base
 			return "pending"
 		end
 	end
+
+	def not_in_future?
+		game = Game.find(game_id)
+		game_time = DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)")
+		return game_time.past?
+	end
   
   def update_bet_status
     if self.winner?
@@ -97,6 +103,16 @@ class Bet < ActiveRecord::Base
     return bets_for_return
   end
  
+	def self.parlays(league, user)
+		parlays = Bet.where('league_id =  ? AND
+                         user_id   =  ? AND
+												 game_id = ?',
+                         league.id,
+                         user.id,
+                         -1).all
+		return parlays
+	end
+
   # ----- Updates Credits or Lock once Games Status Goes to Final -----#
   # ----- Checks that games status (won/loss) isn't already set -------#
   def self.update_bet_for_game( g )
