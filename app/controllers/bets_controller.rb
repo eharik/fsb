@@ -27,7 +27,6 @@ class BetsController < ApplicationController
     @current_user_membership = Membership.where(:user_id   => current_user.id,
                                                :league_id => params[:league]).first
 
-
 		if (@bet.bet_type.include? 'lock' )
       @bet.bet_type.slice! '.lock'
 			@bet.set_team( Game.find(params[:game]) )
@@ -52,7 +51,6 @@ class BetsController < ApplicationController
       @bet.lock = false
       if @current_user_membership.sufficient_funds?( params[:risk] )
         @bet.save
-        @current_user_membership.save
         @flash_message = "Your bet has been submitted!"
         flash.now[:notice] = @flash_message
       else
@@ -119,12 +117,10 @@ class BetsController < ApplicationController
 		@bet.win = params[:bet_win]
     @bet.lock = false
 		@bet.game_id = -1
-		@bet.save
     @current_user_membership = Membership.where(:user_id   => current_user.id,
                                                :league_id => params[:league_id]).first
 		if @current_user_membership.sufficient_funds?( params[:bet_risk] )
       @bet.save
-      @current_user_membership.save
       @flash_message = "Your bet has been submitted!"
       flash.now[:notice] = @flash_message
     else
@@ -149,9 +145,15 @@ class BetsController < ApplicationController
     @bet.set_bet_value
     @bet.lock = false
 		@bet.save
+
+		@user = current_user
+		@league = League.find(params[:league_id])
+		@current_user_membership = Membership.where(:user_id   => current_user.id,
+                                                :league_id => params[:league_id]).first
+    @locks = current_user.this_weeks_locks( @league, @user.id, @league.what_week )
 		
 		respond_to do |format|
-			format.js {render :nothing => true}
+			format.js { render :action => 'create' }
 		end
 	end
     

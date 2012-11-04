@@ -154,6 +154,17 @@ class Bet < ActiveRecord::Base
 		return parlays
 	end
 
+	def self.open_parlays( league, user)
+		parlays = self.parlays( league, user )
+		open_parlays = []
+		parlays.each do |parlay|
+			unless parlay.parlay_complete?
+				open_parlays << parlay			
+			end
+		end
+		return open_parlays
+	end
+
   # ----- Updates Credits or Lock once Games Status Goes to Final -----#
   # ----- Checks that games status (won/loss) isn't already set -------#
   def self.update_bet_for_game( g )
