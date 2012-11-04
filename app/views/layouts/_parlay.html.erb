@@ -1,0 +1,25 @@
+<container id='parlay_container' >
+	<div id='parlay_header' class='parlay_header'>
+		<div class='left' id='parlay_display'>
+			<%= parlay.sub_bets.length %> Way Parlay
+		</div>
+		<div class='right' id='parlay_win'>
+	    <span id="to_win">To Win: <%= parlay.win %></span>
+		</div>
+		<div class='right' id='parlay_risk'>
+	    <span id="risk">Risk: <%= parlay.risk %></span>
+		</div>
+	</div>
+	<div class='parlay_bets'>
+		<% parlay.sub_bets.each do |bet| %>
+			<% if (bet.not_in_future?) or (user == current_user) %>
+				<%= render 'layouts/sub_bet', :bet => bet %>
+			<% end %>
+		<% end %>
+	</div>
+	<div class='parlay_header'>
+		<div>
+			---------------------- End of Parlay ----------------------
+		</div>	
+	</div>
+</container>

@@ -29,7 +29,7 @@ class Membership < ActiveRecord::Base
   
   def update_credits_for_bet ( b )
     if b.lock
-      if b.winner?
+      if b.won
         # get matchup
         league = League.find(self.league_id)
         week = league.what_week
@@ -47,7 +47,7 @@ class Membership < ActiveRecord::Base
     else
       win_credit_amount =  credits.current.to_f + b.win
       loss_credit_amount = credits.current.to_f - b.risk
-      if b.winner?
+      if b.won
         credits.send("#{Time.now.to_s}=", win_credit_amount) 
         credits.send("current=", win_credit_amount)
       else

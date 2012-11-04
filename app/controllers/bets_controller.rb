@@ -1,6 +1,5 @@
 class BetsController < ApplicationController
   
-  
   def new
     @bet = Bet.new()
     @bet.game_id = params[:game]

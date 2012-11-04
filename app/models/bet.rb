@@ -37,7 +37,6 @@ class Bet < ActiveRecord::Base
     end
   end
 
-
 	def get_css_color
 		game = Game.find(game_id)
 		game_time = DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)")
@@ -53,6 +52,10 @@ class Bet < ActiveRecord::Base
 		game_time = DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)")
 		return game_time.past?
 	end
+
+	def in_future?
+		return !self.not_in_future?
+	end
   
   def update_bet_status
     if self.winner?
@@ -61,7 +64,47 @@ class Bet < ActiveRecord::Base
       self.won = false;
     end
     self.save
+		if self.parlay_sub_bet?
+			parlay = Bet.find(parlay_id)
+			if parlay.parlay_complete?
+				parlay.update_parlay_bet_status
+			end
+		end
   end
+
+	def parlay_sub_bet?
+		return parlay_id > 0
+	end
+
+	def update_parlay_bet_status
+		winner = true
+		self.sub_bets.each do |bet|
+			unless bet.winner?
+				winner = false
+			end
+		end
+		self.won = winner
+		self.save
+    m = Membership.where("league_id = ? AND
+                          user_id   = ?",
+                          self.league_id,
+                          self.user_id).first
+    m.update_credits_for_bet( self )
+	end
+
+	def parlay_complete?
+		complete = true
+		self.sub_bets.each do |bet|
+			unless bet.complete?
+				complete = false
+			end
+		end
+		return complete
+	end
+
+	def complete?
+		return (won == true || won == false)
+	end
   
   def self.open_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND
@@ -75,8 +118,7 @@ class Bet < ActiveRecord::Base
 																						 0,0).all
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
-      bet_game = Game.find(b.game_id)
-      if DateTime.strptime(bet_game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)") > DateTime.now.utc.in_time_zone("Eastern Time (US & Canada)")
+      if b.in_future?
         bets_for_return << b
       end
     end
@@ -95,8 +137,7 @@ class Bet < ActiveRecord::Base
 																						 0,0).all
     bets_for_return = []
     all_bets_for_user_in_league.each do |b|
-      bet_game = Game.find(b.game_id)
-      if DateTime.strptime(bet_game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)") < DateTime.now.utc.in_time_zone("Eastern Time (US & Canada)")
+      if b.not_in_future?
         bets_for_return << b
       end
     end
@@ -119,16 +160,17 @@ class Bet < ActiveRecord::Base
     bets_to_update = Bet.where( "game_id = ? ", g.id ).all
     
     bets_to_update.each do |b|
-      unless (b.won == true || b.won == false)
+      unless b.complete?
         b.update_bet_status
-        m = Membership.where("league_id = ? AND
-                              user_id   = ?",
-                              b.league_id,
-                              b.user_id).first
-        m.update_credits_for_bet( b )
+				unless b.parlay_sub_bet?
+		      m = Membership.where("league_id = ? AND
+		                            user_id   = ?",
+		                            b.league_id,
+		                            b.user_id).first
+		      m.update_credits_for_bet( b )
+				end
       end
     end
-    
   end
   
   # ----- Returns the team names formatted for bet type ---- #

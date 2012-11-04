@@ -1,0 +1,13 @@
+<% game = Game.find(bet.game_id) %>
+<% team = bet.team_name( game ) %>
+<% number = bet.number( game ) %>
+<% winner = bet.get_css_color %>
+
+<container>
+	<p>
+		<%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
+	</p> 
+	<div class="bet parlay_bet new_bet <%= winner %>" >
+		<%= render 'layouts/bet_top', :team => team, :number => number, :bet=> bet %>
+	</div>
+</container>
