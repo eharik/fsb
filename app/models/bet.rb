@@ -73,7 +73,7 @@ class Bet < ActiveRecord::Base
   end
 
 	def parlay_sub_bet?
-		return parlay_id > 0
+		return !parlay_id.nil?
 	end
 
 	def update_parlay_bet_status
