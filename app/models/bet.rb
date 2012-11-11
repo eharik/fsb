@@ -291,6 +291,16 @@ class Bet < ActiveRecord::Base
 		end
 	end  
   
+	#----- Is this a MNF game?                 ------------------#
+	#----- Used when updating results to       ------------------#
+	#-----    reduce the week number by one    ------------------#
+	def mnf?
+		game = Game.find(game_id)
+		(game.game_time.to_datetime.utc - 4.hours).monday? ? true : false
+		# removing four hours so that SNF games don't show up as MNF games
+		#   which they would in utc time
+	end
+
   private
   
   def over_under?

@@ -33,6 +33,7 @@ class Membership < ActiveRecord::Base
         # get matchup
         league = League.find(self.league_id)
         week = league.what_week
+				b.mnf? ? week -= 1 : week
         matchup = Matchup.user_matchup( self.league_id, self.user_id, week )
         # if home team, increment home team score
         if matchup.home_team?( b.user_id )
