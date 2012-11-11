@@ -7,7 +7,7 @@
       <%= image_tag l.photo.url(:thumb), :class => "round" %>
     </div>
   <% end %>
-  <h1><%= league.name %></h1>
+  <h1><%= league.name %> -- Week <%= league.what_week%></h1>
   <nav class="round">
     <ul>
       <% if manager?(league.id, user.id) %>
