@@ -827,17 +827,17 @@ div.site_banner h1 {
     border-color: #00008B;
  }
  
- #list .Progress {
+ .Progress {
     background-color: #FFDF00 !important;  /*Golden Yellow*/
     color: #111;
     border-width: 4px !important; 
  }
  
- #list .true.Progress {
+ .true.Progress {
     border-color: rgb(0, 127, 0);
  }
  
- #list .false.Progress {
+ .false.Progress {
     border-color: rgb( 255, 0, 0 );
  }
  
