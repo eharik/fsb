@@ -40,8 +40,12 @@ class Bet < ActiveRecord::Base
 	def get_css_color
 		game = Game.find(game_id)
 		game_time = DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)")
+		return_string = self.winner?.to_s
+		if !game.game_status.nil?
+			return_string += " " + game.game_status
+		end
 		if game_time.past?
-			return self.winner?
+			return return_string
 		else
 			return "pending"
 		end

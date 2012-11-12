@@ -59,7 +59,6 @@ div.sign_in_container {
     max-width: 1280px;
     min-width: 1280px;
     width: auto;
-    mragin: 50px;
     padding: 50px;
 }
 
@@ -829,11 +828,9 @@ div.site_banner h1 {
  }
  
  #list .Progress {
-    
     background-color: #FFDF00 !important;  /*Golden Yellow*/
     color: #111;
-    border-width: 4px !important;
-    
+    border-width: 4px !important; 
  }
  
  #list .true.Progress {
@@ -1183,4 +1180,29 @@ div.site_banner h1 {
 
 .parlay_bets container p {
 	margin: 0px;
+}
+
+.fsb_container {
+	background-color: #DEF;
+  font-family: cursive;
+  font: Arial;
+  font-variant: small-caps;
+}
+
+.fsb_container p {
+	font-size: 12pt;
+	padding: 5px 10px;
+	margin: 0px;
+}
+
+.fsb_container h1 {
+	font-size: 22pt;
+	font-style: bold;
+	padding: 10px;
+	margin: 0px;
+}
+
+.large_container {
+	width: 1280px;
+	margin: 10px 20px;
 }
