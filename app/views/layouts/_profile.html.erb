@@ -2,7 +2,7 @@
 <div class="profile_sub_container round">
   <%= image_tag user.photo.url(:small) %>
 </div>
-<%= render 'layouts/profile_right', :user => @user, :membership => @membership, :league => @league %>
+<%= render 'layouts/profile_right', :user => user, :membership => membership, :league => league %>
 
 <div class="profile_sub_container bottom">
   <% if membership.activate_buy_in == true %>

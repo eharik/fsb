@@ -74,7 +74,8 @@ class MembershipsController < ApplicationController
     @m.activate_buy_back = false
     @m.activate_buy_in = false
     @m.save
-    
+    flash.now[:notice] = "Credits Deployed."
+
     respond_to do |format|
       format.js
     end

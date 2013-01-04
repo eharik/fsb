@@ -351,6 +351,7 @@ jQuery(function(){
 // **************** Button on League Home to Deploy Credits ********************** //
   jQuery("input[class='credit_button']").each(function(index, button){
     jQuery(button).click(function(){
+			$(this).attr('disabled', 'disabled');
       league_id = $(this).parents('#league_info_container').attr("data-league_id");
       user_id = $(this).parents('#league_info_container').attr('data-user_id');
       membership_id = $(this).parents('#league_info_container').attr("data-membership_id");
