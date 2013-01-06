@@ -135,7 +135,7 @@ class Bet < ActiveRecord::Base
   end
 
 	def self.active_bets (league, user)
-    all_bets_for_user_in_league = Bet.where("league_id = ? AND
+    active_bets_for_user_in_league = Bet.where("league_id = ? AND
                                              user_id   = ? AND
                                              lock      != ? AND
 																						 game_id > ? AND
@@ -144,11 +144,12 @@ class Bet < ActiveRecord::Base
                                              user.id,
                                              true,
 																						 0,0).all
-		all_bets_for_user_in_league.each do |b|
+		active_bets_for_user_in_league.each do |b|
       if b.in_progress?
         bets_for_return << b
       end
     end
+    return bets_for_return
 	end
   
   def self.all_bets (league, user)
