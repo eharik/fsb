@@ -2,7 +2,8 @@
 <% number = bet.bet_value %>
 
 <p class="bet_time">
-	<%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
+	<%=User.find(bet.user_id).name%> placed this bet. </br>
+	Kickoff: <%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
 </p> 
 <div data-user_name=<%=User.find(bet.user_id).name%> class="bet open_bet <%= "#{winner}" %> <%= "#{game.game_status}" %> ">
 	<%= render 'layouts/bet_top', :team => team, :number => number, :bet=> bet %>

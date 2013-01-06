@@ -402,7 +402,7 @@ jQuery(function(){
 	})   
 
 	// Tooltips with qTip plugin //
-	$('#list .open_bet').each( function() {
+/*	$('#list .open_bet').each( function() {
 			$(this).qtip({
 				content: {
 				    text: $(this).attr('data-user_name') + " placed this bet."
@@ -433,7 +433,7 @@ jQuery(function(){
 				}
 		});
 	});
-
+*/
 })
 
 

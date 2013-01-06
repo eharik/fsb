@@ -11,6 +11,7 @@
 		</div>
 	</div>
 	<div class='parlay_bets'>
+		<%=User.find(parlay.user_id).name%> placed this bet.
 		<% parlay.sub_bets.each do |bet| %>
 			<% if (bet.not_in_future?) or (user.id == bet.user_id) %>
 				<%= render 'layouts/sub_bet', :bet => bet %>

@@ -71,7 +71,7 @@ $('#list').children('.content').empty();
 $('#list').children('.content')
 .append('<%= escape_javascript( render "layouts/bets_list_for_user",\
 	:user => @user, :open_bets => @open_bets, :past_bets => @past_bets, :parlays => @parlays ) %> ');
-
+/*
 $('#list .open_bet').each( function() {
 		$(this).qtip({
 		  content: {
@@ -102,4 +102,4 @@ $('#parlay_header').each( function() {
 		    }
 		  }
 	});
-});
+});*/
