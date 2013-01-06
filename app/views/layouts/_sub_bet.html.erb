@@ -1,6 +1,6 @@
 <% game = Game.find(bet.game_id) %>
 <% team = bet.team_name( game ) %>
-<% number = bet.number( game ) %>
+<% number = bet.bet_value %>
 <% winner = bet.get_css_color %>
 
 <container>

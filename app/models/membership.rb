@@ -87,11 +87,11 @@ class Membership < ActiveRecord::Base
   end
   
   def number_of_bets
-    return Bet.open_bets( League.find(league_id), User.find(user_id) ).length + Bet.all_bets( League.find(league_id), User.find(user_id) ).length 
+    return Bet.open_bets( League.find(league_id), User.find(user_id) ).length + Bet.past_bets( League.find(league_id), User.find(user_id) ).length 
   end
   
   def win_percentage
-    bets = Bet.all_bets( League.find(league_id), User.find(user_id) )
+    bets = Bet.past_bets( League.find(league_id), User.find(user_id) )
     total = bets.length.to_f
     won = 0;
     bets.each do |b|
@@ -107,7 +107,7 @@ class Membership < ActiveRecord::Base
   end
   
   def biggest_win
-    bets = Bet.all_bets( League.find(league_id), User.find(user_id) )
+    bets = Bet.past_bets( League.find(league_id), User.find(user_id) )
     biggest = 0
     bets.each do |b|
       if b.won
@@ -121,7 +121,7 @@ class Membership < ActiveRecord::Base
   end
   
   def biggest_loss
-    bets = Bet.all_bets( League.find(league_id), User.find(user_id) )
+    bets = Bet.past_bets( League.find(league_id), User.find(user_id) )
     biggest = 0
     bets.each do |b|
       if !b.won
@@ -142,7 +142,7 @@ class Membership < ActiveRecord::Base
     total = 0;
     
     m.each do |member|
-      bets = Bet.all_bets( League.find(member.league_id), User.find(member.user_id) )
+      bets = Bet.past_bets( League.find(member.league_id), User.find(member.user_id) )
       total += bets.length.to_f
       bets.each do |b|
         if b.won
@@ -159,7 +159,7 @@ class Membership < ActiveRecord::Base
   end
   
   def average_return
-    bets = Bet.all_bets( League.find(league_id), User.find(user_id) )
+    bets = Bet.past_bets( League.find(league_id), User.find(user_id) )
     number_of_bets = bets.length
     total_won = 0
     total_lost = 0

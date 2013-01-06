@@ -15,7 +15,57 @@ class Game < ActiveRecord::Base
 	def in_progress?
 		return game_status.eql?("In Progress")
 	end
+
+  def self.past_bets (league, game)
+    all_bets_for_game_in_league = Bet.where("league_id = ? AND
+                                             lock      != ? AND
+																						 game_id = ? AND
+																						 risk > ?",
+                                             league.id,
+                                             true,
+																						 game.id,
+																						 0).all
+    bets_for_return = []
+    all_bets_for_game_in_league.each do |b|
+      if b.not_in_future?
+        bets_for_return << b
+      end
+    end
+    return bets_for_return
+  end
+
+  def self.open_bets (league, game)
+    all_bets_for_game_in_league = Bet.where("league_id = ? AND
+                                             lock      != ? AND
+																						 game_id = ? AND
+																						 risk > ?",
+                                             league.id,
+                                             true,
+																						 game.id,
+																						 0).all
+    bets_for_return = []
+    all_bets_for_game_in_league.each do |b|
+      if b.in_future?
+        bets_for_return << b
+      end
+    end
+    return bets_for_return
+  end
   
+	def self.parlays(league, game)
+		all_parlays = Bet.where('league_id =  ? AND
+												 game_id = ?',
+                         league.id,
+                         -1).all
+    parlays_for_return = []
+    all_parlays.each do |p|
+      if p.has_sub_bet_with_game? ( game )
+        parlays_for_return << p
+      end
+    end
+    return parlays_for_return
+	end
+
   def self.update_scores
     puts "**********updating_game_scores --> #{Time.now} **************"
     url = "http://espn.go.com/nfl/scoreboard"

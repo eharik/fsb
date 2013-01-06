@@ -22,25 +22,13 @@ $('#league_standings_list').children().each( function() {
     }
 });
 
-$('#list').children('.content').empty();
-
-<% if @user == current_user %>
-    $('#list').children('.content')
-    .append('<% @open_bets.each do |bet| %>\
-                <%= escape_javascript(render "layouts/open_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
-             <% end %> ' );
-<% end %>
-
-
-
-
 <% if params[:sort_param] == 'amount' %>
-<% @all_bets.sort! { |a, b| a.risk <=> b.risk  } %>
-<% if (params[:direction] == 'down') %>
-    <% @all_bets.reverse! %>
-<% end %>
-if ( $('#order_by').attr('data-order_by') == 'amount' )
-    {
+	<% @past_bets.sort! { |a, b| a.risk <=> b.risk  } %>
+	<% if (params[:direction] == 'down') %>
+		  <% @past_bets.reverse! %>
+	<% end %>
+	if ( $('#order_by').attr('data-order_by') == 'amount' )
+  {
     if ( $('#order_by').attr('data-order_direction') == 'down' )
         {
         $('#order_by').attr('data-order_direction', 'up');
@@ -49,15 +37,15 @@ if ( $('#order_by').attr('data-order_by') == 'amount' )
         {
         $('#order_by').attr('data-order_direction', 'down');
         }
-    }
-$('#order_by').attr('data-order_by', 'amount');
+  }
+	$('#order_by').attr('data-order_by', 'amount');
 <% else %>
-<% @all_bets.sort! { |a, b| a.id <=> b.id } %>
-<% if (params[:direction] == 'down') %>
-    <% @all_bets.reverse! %>
-<% end %>
-if ( $('#order_by').attr('data-order_by') == 'date' )
-    {
+	<% @past_bets.sort! { |a, b| a.id <=> b.id } %>
+	<% if (params[:direction] == 'down') %>
+		  <% @past_bets.reverse! %>
+	<% end %>
+	if ( $('#order_by').attr('data-order_by') == 'date' )
+  {
     if ( $('#order_by').attr('data-order_direction') == 'down' )
         {
         $('#order_by').attr('data-order_direction', 'up');
@@ -66,21 +54,25 @@ if ( $('#order_by').attr('data-order_by') == 'date' )
         {
         $('#order_by').attr('data-order_direction', 'down');
         }
-    }
-$('#order_by').attr('data-order_by', 'date');
+  }
+	$('#order_by').attr('data-order_by', 'date');
 <% end %>
 
+$('#list').children('.content').empty();
 $('#list').children('.content')
-.append('<% @all_bets.each do |bet| %>\
-            <%= escape_javascript(render "layouts/placed_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
-         <% end %> ' );
+.append('<%= escape_javascript( render "layouts/bets_list_for_user",\
+	:user => @user, :open_bets => @open_bets, :past_bets => @past_bets, :parlays => @parlays ) %> ');
 
+$('#stats').children('.content').empty();
+$('#stats').children('.content')
+.append('<%= escape_javascript( render "layouts/stats_content", :membership => @membership ) %> ');
+/*
 $('#average_return').replaceWith('<p id="average_return">Average Return: <%= @membership.average_return %></p>');
 $('#biggest_win').replaceWith('<p id="biggest_win">Biggest Win: <%= @membership.biggest_win %></p>');
 $('#biggest_loss').replaceWith('<p id="biggest_loss">Biggest Loss: <%= @membership.biggest_loss %></p>');
 $('#number_of_bets').replaceWith('<p id="number_of_bets"># of Bets Placed: <%= @membership.number_of_bets %></p>');
 $('#win_percentage').replaceWith('<p id="win_percentage">% of Bets Won: <%= @membership.win_percentage %></p>');
-
+*/
 $('#graph_container').empty();
 $(function() {
     new Highcharts.Chart({

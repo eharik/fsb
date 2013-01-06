@@ -13,13 +13,11 @@ class GamesController < ApplicationController
     else
       @selected_game = Game.last
     end
-    
-    if DateTime.strptime(@selected_game.game_time, "%Y-%m-%d %H:%M:%S").past?
-      @all_bets =  Bet.where(:game_id => @selected_game.id,
-                             :league_id => params[:league_id])
-    else
-      @all_bets = []
-    end
+    @league = League.find(params[:league_id])
+
+    @open_bets = Game.open_bets(@league, @selected_game)
+    @past_bets =  Game.past_bets(@league, @selected_game).reverse
+		@parlays = Game.parlays(@league, @selected_game)
     
     @all_games = Game.all.sort! { |a, b| a.game_time <=> b.game_time }
     @all_games.reverse!

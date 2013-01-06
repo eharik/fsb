@@ -4,9 +4,6 @@ if ( previous_sort == 'users' )
     $('#index').children(".header").children("h2").children(".right").attr('data-sort_by', 'games' );
     
     $('#league_standings_list').empty();
-    
-    $('#list').children('.content').empty();
-    
     $('#league_standings_list')
     .append('<% @all_games.each do |g| %>\
                     <%= escape_javascript(render "layouts/game", :game => g )%>\
@@ -20,11 +17,6 @@ if ( previous_sort == 'users' )
             $.get(get_string, {game_id: g_id, sort_param: "date", direction: 'down'} );
         });
     });
-    
-    $('#list').children('.content')
-    .append('<% @all_bets.each do |bet| %>\
-                <%= escape_javascript(render "layouts/placed_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
-             <% end %> ' );
 }
 else
 {
@@ -37,12 +29,10 @@ else
         }
     });
     
-    $('#list').children('.content').empty();
-    
     <% if params[:sort_param] == 'amount' %>
-        <% @all_bets.sort! { |a, b| a.risk <=> b.risk  } %>
+        <% @past_bets.sort! { |a, b| a.risk <=> b.risk  } %>
         <% if (params[:direction] == 'down') %>
-            <% @all_bets.reverse! %>
+            <% @past_bets.reverse! %>
         <% end %>
         if ( $('#order_by').attr('data-order_by') == 'amount' )
             {
@@ -57,9 +47,9 @@ else
             }
         $('#order_by').attr('data-order_by', 'amount');
     <% else %>
-        <% @all_bets.sort! { |a, b| a.id <=> b.id } %>
+        <% @past_bets.sort! { |a, b| a.id <=> b.id } %>
         <% if (params[:direction] == 'down') %>
-            <% @all_bets.reverse! %>
+            <% @past_bets.reverse! %>
         <% end %>
         if ( $('#order_by').attr('data-order_by') == 'date' )
             {
@@ -73,14 +63,14 @@ else
                 }
             }
         $('#order_by').attr('data-order_by', 'date');
-    <% end %>
-    
-    $('#list').children('.content')
-    .append('<% @all_bets.each do |bet| %>\
-                <%= escape_javascript(render "layouts/placed_bet", :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner?)%>\
-             <% end %> ' );
-         
+    <% end %>         
 }
+
+
+$('#list').children('.content').empty();
+$('#list').children('.content')
+.append('<%= escape_javascript( render "layouts/bets_list_for_user",\
+	:user => @user, :open_bets => @open_bets, :past_bets => @past_bets, :parlays => @parlays ) %> ');
 
 $('#list .bet').qtip({
     content: {

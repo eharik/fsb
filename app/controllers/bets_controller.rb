@@ -78,7 +78,7 @@ class BetsController < ApplicationController
     
     @membership = Membership.where(:league_id => @league.id, :user_id => @user.id).first  
     @open_bets = Bet.open_bets(@league, @user)
-    @all_bets =  Bet.all_bets(@league, @user).reverse
+    @past_bets =  Bet.past_bets(@league, @user).reverse
 		@parlays = Bet.parlays(@league, @user)
     @all_games = Game.all
     

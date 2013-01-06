@@ -70,17 +70,7 @@
             </h2>
         </div>
         <div class="content">
-            <% if @user == current_user %>
-              <% @open_bets.each do |bet| %>
-                <%= render 'layouts/open_bet', :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner? %> 
-              <% end %>
-            <% end %>
-            <% @all_bets.each do |bet| %>
-            	<%= render 'layouts/placed_bet', :bet => bet, :game => Game.find_by_id(bet.game_id), :winner => bet.winner? %> 
-            <% end %>
-						<% @parlays.each do |bet| %>
-            	<%= render 'layouts/parlay', :parlay => bet, :user => @user %> 
-            <% end %>
+					<%=render 'layouts/bets_list_for_user', :user => @user, :open_bets => @open_bets, :past_bets => @past_bets, :parlays => @parlays %>
         </div>
     </div>
     
@@ -89,16 +79,7 @@
             <h2>Stats</h2>
         </div>
         <div class="content">
-            <div class="left">
-                <p id="average_return">Average Return: <%= @membership.average_return %></p>
-                <p id="biggest_win">Biggest Win: <%= @membership.biggest_win %></p>
-                <p id="biggest_loss">Biggest Loss: <%= @membership.biggest_loss %></p>
-            </div>
-            <div class="right">
-                <p id="number_of_bets"># of Bets Placed: <%= @membership.number_of_bets %></p>
-                <p id="win_percentage">% of Bets Won: <%= @membership.win_percentage %></p>
-                <p id="league_average">League Average: <%= @membership.league_average %></p>
-            </div>
+					<%=render 'layouts/stats_content', :membership => @membership %>
         </div>
     </div>
     

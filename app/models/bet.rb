@@ -85,6 +85,15 @@ class Bet < ActiveRecord::Base
 		return !parlay_id.nil?
 	end
 
+	def has_sub_bet_with_game? (game)
+		self.sub_bets.each do |sub_bet|
+			if sub_bet.game_id == game.id
+				return true
+			end		
+		end
+		return false		
+	end
+
 	def update_parlay_bet_status
 		winner = true
 		self.sub_bets.each do |bet|
@@ -153,7 +162,7 @@ class Bet < ActiveRecord::Base
     return bets_for_return
 	end
   
-  def self.all_bets (league, user)
+  def self.past_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND
                                              user_id   = ? AND
                                              lock      != ? AND
