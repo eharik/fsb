@@ -144,6 +144,7 @@ class Bet < ActiveRecord::Base
                                              user.id,
                                              true,
 																						 0,0).all
+    bets_for_return = []
 		active_bets_for_user_in_league.each do |b|
       if b.in_progress?
         bets_for_return << b
