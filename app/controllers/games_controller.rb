@@ -2,11 +2,7 @@ class GamesController < ApplicationController
   
   def index
     
-    if params[:user_id]
-      @user = User.find(params[:user_id])
-    else
-      @user = current_user
-    end
+    @user = current_user
      
     if params[:game_id]
       @selected_game = Game.find(params[:game_id])
@@ -15,7 +11,7 @@ class GamesController < ApplicationController
     end
     @league = League.find(params[:league_id])
 
-    @open_bets = Game.open_bets(@league, @selected_game)
+    @open_bets = Game.open_bets(@league, @selected_game, @user)
     @past_bets =  Game.past_bets(@league, @selected_game).reverse
 		@parlays = Game.parlays(@league, @selected_game)
     

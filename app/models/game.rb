@@ -34,12 +34,14 @@ class Game < ActiveRecord::Base
     return bets_for_return
   end
 
-  def self.open_bets (league, game)
+  def self.open_bets (league, game, user)
     all_bets_for_game_in_league = Bet.where("league_id = ? AND
+																						 user_id = ? AND
                                              lock      != ? AND
 																						 game_id = ? AND
 																						 risk > ?",
                                              league.id,
+																						 user.id,
                                              true,
 																						 game.id,
 																						 0).all
