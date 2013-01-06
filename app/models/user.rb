@@ -70,11 +70,15 @@ class User < ActiveRecord::Base
   def open_bets_risk (league)
     bets_to_sum = Bet.open_bets( league, self )
 		parlays_to_sum = Bet.open_parlays( league, self )
+		active_bets_to_sum = Bet.active_bets( league, self )
     total_risk = 0
     bets_to_sum.each do |b|
       total_risk += b.risk
     end
 		parlays_to_sum.each do |b|
+			total_risk += b.risk
+		end
+		active_bets_to_sum.each do |b|
 			total_risk += b.risk
 		end
     return total_risk

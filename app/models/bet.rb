@@ -60,6 +60,11 @@ class Bet < ActiveRecord::Base
 	def in_future?
 		return !self.not_in_future?
 	end
+
+	def in_progress?
+		game = Game.find(game_id)
+		return game.in_progress?
+	end
   
   def update_bet_status
     if self.winner?
@@ -128,6 +133,23 @@ class Bet < ActiveRecord::Base
     end
     return bets_for_return
   end
+
+	def self.active_bets (league, user)
+    all_bets_for_user_in_league = Bet.where("league_id = ? AND
+                                             user_id   = ? AND
+                                             lock      != ? AND
+																						 game_id > ? AND
+																						 risk > ?",
+                                             league.id,
+                                             user.id,
+                                             true,
+																						 0,0).all
+		all_bets_for_user_in_league.each do |b|
+      if b.in_progress?
+        bets_for_return << b
+      end
+    end
+	end
   
   def self.all_bets (league, user)
     all_bets_for_user_in_league = Bet.where("league_id = ? AND

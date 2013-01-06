@@ -11,6 +11,10 @@ class Game < ActiveRecord::Base
   def self.open_games
     Game.where("game_time > ?", DateTime.now)
   end
+
+	def in_progress?
+		return game_status.eql?("In Progress")
+	end
   
   def self.update_scores
     puts "**********updating_game_scores --> #{Time.now} **************"
