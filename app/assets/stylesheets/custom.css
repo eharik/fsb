@@ -829,7 +829,7 @@ div.site_banner h1 {
  
  .Progress {
     background-color: #FFDF00 !important;  /*Golden Yellow*/
-    color: #111;
+    color: #111 !important;
     border-width: 4px !important; 
  }
  
