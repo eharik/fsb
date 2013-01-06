@@ -12,7 +12,7 @@
 	</div>
 	<div class='parlay_bets'>
 		<% parlay.sub_bets.each do |bet| %>
-			<% if (bet.not_in_future?) or (user == bet.user_id) %>
+			<% if (bet.not_in_future?) or (user.id == bet.user_id) %>
 				<%= render 'layouts/sub_bet', :bet => bet %>
 			<% end %>
 		<% end %>
