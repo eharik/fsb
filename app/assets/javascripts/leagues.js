@@ -400,7 +400,42 @@ jQuery(function(){
 			})
 		})
 	})   
+
+	// Tooltips with qTip plugin //
+	$('#list .open_bet').each( function() {
+			$(this).qtip({
+				content: {
+				    text: $(this).attr('data-user_name') + " placed this bet."
+				},
+				show: 'mouseover',
+				hide: 'mouseout',
+				position: {
+				  corner: {
+				     target: 'center',
+				     tooltip: 'topLeft'
+				  }
+			 	}
+		});
+	});
+
+	$('#parlay_header').each( function() {
+			$(this).qtip({
+				content: {
+				    text: $(this).attr('data-user_name') + " placed this bet."
+				},
+				show: 'mouseover',
+				hide: 'mouseout',
+				position: {
+				  corner: {
+				     target: 'center',
+				     tooltip: 'topLeft'
+				  }
+				}
+		});
+	});
+
 })
+
 
 function clearBetSlipTally()
 {

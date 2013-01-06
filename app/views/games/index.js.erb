@@ -72,16 +72,34 @@ $('#list').children('.content')
 .append('<%= escape_javascript( render "layouts/bets_list_for_user",\
 	:user => @user, :open_bets => @open_bets, :past_bets => @past_bets, :parlays => @parlays ) %> ');
 
-$('#list .bet').qtip({
-    content: {
-        text: 'Blah Blah Blah'
-    },
-    show: 'mouseover',
-    hide: 'mouseout',
-    position: {
-      corner: {
-         target: 'topRight',
-         tooltip: 'bottomLeft'
-      }
-   }
+$('#list .open_bet').each( function() {
+		$(this).qtip({
+		  content: {
+		      text: $(this).attr('data-user_name') + " placed this bet."
+		  },
+		  show: 'mouseover',
+		  hide: 'mouseout',
+		  position: {
+		    corner: {
+		       target: 'center',
+		       tooltip: 'topLeft'
+		    }
+		 	}
+	});
+});
+
+$('#parlay_header').each( function() {
+		$(this).qtip({
+		  content: {
+		      text: $(this).attr('data-user_name') + " placed this bet."
+		  },
+		  show: 'mouseover',
+		  hide: 'mouseout',
+		  position: {
+		    corner: {
+		       target: 'center',
+		       tooltip: 'topLeft'
+		    }
+		  }
+	});
 });

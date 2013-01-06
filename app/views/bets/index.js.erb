@@ -66,13 +66,7 @@ $('#list').children('.content')
 $('#stats').children('.content').empty();
 $('#stats').children('.content')
 .append('<%= escape_javascript( render "layouts/stats_content", :membership => @membership ) %> ');
-/*
-$('#average_return').replaceWith('<p id="average_return">Average Return: <%= @membership.average_return %></p>');
-$('#biggest_win').replaceWith('<p id="biggest_win">Biggest Win: <%= @membership.biggest_win %></p>');
-$('#biggest_loss').replaceWith('<p id="biggest_loss">Biggest Loss: <%= @membership.biggest_loss %></p>');
-$('#number_of_bets').replaceWith('<p id="number_of_bets"># of Bets Placed: <%= @membership.number_of_bets %></p>');
-$('#win_percentage').replaceWith('<p id="win_percentage">% of Bets Won: <%= @membership.win_percentage %></p>');
-*/
+
 $('#graph_container').empty();
 $(function() {
     new Highcharts.Chart({
@@ -112,4 +106,35 @@ $(function() {
         <% end %>
         ]
     });
+});
+$('#list .open_bet').each( function() {
+		$(this).qtip({
+		  content: {
+		      text: $(this).attr('data-user_name') + " placed this bet."
+		  },
+		  show: 'mouseover',
+		  hide: 'mouseout',
+		  position: {
+		    corner: {
+		       target: 'center',
+		       tooltip: 'topLeft'
+		    }
+		 	}
+	});
+});
+
+$('#parlay_header').each( function() {
+		$(this).qtip({
+		  content: {
+		      text: $(this).attr('data-user_name') + " placed this bet."
+		  },
+		  show: 'mouseover',
+		  hide: 'mouseout',
+		  position: {
+		    corner: {
+		       target: 'center',
+		       tooltip: 'topLeft'
+		    }
+		  }
+	});
 });

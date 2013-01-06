@@ -4,7 +4,7 @@
 <p class="bet_time">
 	<%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %>
 </p> 
-<div class="bet open_bet">
+<div class="bet open_bet" data-user_name=<%=user.name%>>
 	<%= render 'layouts/bet_top', :team => team, :number => number, :bet=> bet %>
   <div class="bet_divider"></div>
   <div class="bet_bottom">
