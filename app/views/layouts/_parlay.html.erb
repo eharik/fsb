@@ -1,5 +1,5 @@
 <container id='parlay_container' >
-	<div id='parlay_header' class='parlay_header' data-user_name=<%=user.name%>>
+	<div id='parlay_header' class='parlay_header' data-user_name=<%=User.find(parlay.user_id).name%>>
 		<div class='left' id='parlay_display'>
 			<%= parlay.sub_bets.length %> Way Parlay
 		</div>
