@@ -5,8 +5,8 @@
 
 <container>
 	<p>
-		Kickoff: <%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %> </br>
-		Away Score: <%=Game.find(bet.game_id).away_score.to_i%> -- Home Score: <%=Game.find(bet.game_id).home_score.to_i%>
+	Kickoff: <%= DateTime.strptime(game.game_time, "%Y-%m-%d %H:%M:%S").utc.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %I:%M %p") %> </br>
+	<%=game.away_team%>: <%=game.away_score.to_i%> -- <%=game.home_team%>: <%=game.home_score.to_i%>
 	</p> 
 	<div class="bet parlay_bet new_bet <%= winner %>" >
 		<%= render 'layouts/bet_top', :team => team, :number => number, :bet=> bet %>
